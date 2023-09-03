@@ -30,16 +30,12 @@
 </style>
 </head>
 <body>
-
+<jsp:include page="header.jsp"></jsp:include>
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-6">
       <div class="profile-card text-center">
-       <% 
-        UserService userService = new UserService();
-        UserEntity user = userService.findByUserId(Integer.parseInt(request.getParameter("userid")));
-        
-        %>
+      <%UserEntity user = (UserEntity)request.getAttribute("user"); %>
         <form action="update?userid=<%=user.getId()%>" method = "post">
        
           <img src="https://picsum.photos/200/300" alt="Profile Image" class="profile-image">

@@ -11,8 +11,7 @@
   body {
     font-family: Arial, sans-serif;
     background-color: #f7f7f7;
-    margin: 0;
-    display: flex;
+    margin: 0;   
     justify-content: center;
     align-items: center;
     min-height: 100vh;
@@ -95,6 +94,7 @@
 </style>
 </head>
 <body>
+<jsp:include page="header.jsp"></jsp:include>
 <div class="container">
 <% Set<TrackEntity> tracks = (Set<TrackEntity>) request.getAttribute("tracks"); %>
 <%
@@ -112,7 +112,7 @@
     <div class="info"><strong>DAW:</strong> <%= track.getDaw() %></div>
     <div class="info"><strong>BPM:</strong> <%= track.getBpm() %></div>
     <div class="button-container">
-      <a href="track/detail?trackid=<%=track.getId()%>>"><button class="view-button" type="button">View</button></a>
+      <a href="track/detail?trackid=<%=track.getId()%>"><button class="view-button" type="button">View</button></a>
     </div>
   </div>
 </div>

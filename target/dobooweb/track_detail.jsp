@@ -1,0 +1,118 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Track Details</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  .container {
+    width: 600px;
+    background-color: #fff;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+
+  .image {
+    width: 100%;
+    height: 300px;
+    background-color: #f1f1f1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+  }
+
+  .image img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+  }
+
+  .details {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 1rem;
+  }
+
+  .info {
+    font-size: 1.25rem;
+    color: #555;
+    margin-bottom: 1rem;
+  }
+
+  .description {
+    font-size: 1.25rem;
+    color: #777;
+    margin-bottom: 1.5rem;
+  }
+
+  .button-container {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .back-button, .add-to-cart-button {
+    border: none;
+    background-color: #007c5a;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    font-size: 1.25rem;
+  }
+
+  .back-button:hover, .add-to-cart-button:hover {
+    background-color: #00563f;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="image">
+    <img alt="trackPoster" src="https://picsum.photos/600/300">
+  </div>
+  <div class="details">
+    <div class="title">Track Title</div>
+    <div class="info"><strong>Scale:</strong> Major</div>
+    <div class="info"><strong>Genre:</strong> Electronic</div>
+    <div class="info"><strong>DAW:</strong> Ableton Live</div>
+    <div class="info"><strong>BPM:</strong> 128</div>
+    <div class="description">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget urna vel libero malesuada fringilla.
+    </div>
+    <div class="button-container">
+      <button class="back-button" type="button">Back to List</button>
+      <button class="add-to-cart-button" type="button">Add to Cart</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+
+
+
+
+    

@@ -36,7 +36,7 @@ public class GetTrackByTrackIdServlet extends HttpServlet {
 			PrintWriter consoleOutput = new PrintWriter(System.out);
 			consoleOutput.println(e.getMessage());
 		}
-		request.setAttribute("tracks", tracks);
+		request.setAttribute("track", tracks);
 		RequestDispatcher rd = request.getRequestDispatcher("/track_detail.jsp");
 		rd.forward(request, response);
 	}

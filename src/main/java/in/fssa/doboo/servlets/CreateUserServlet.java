@@ -22,6 +22,12 @@ import in.fssa.doboo.service.UserService;
 public class CreateUserServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
+	
+	
+		protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			RequestDispatcher rd = request.getRequestDispatcher("/create_user.jsp");
+			rd.forward(request, response);
+		}
 		
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		UserService user = new UserService();
@@ -36,7 +42,7 @@ public class CreateUserServlet extends HttpServlet {
 		try {
 			user.createUser(newUser);
 		out.println("user successfully created");
-		response.sendRedirect(request.getContextPath() + "/get_all_user.jsp");
+		response.sendRedirect("/dobooweb/user/login");
 		} catch (ServiceException | ValidationException e) {
 			e.printStackTrace();
 			out.println(e.getMessage());

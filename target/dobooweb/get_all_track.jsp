@@ -112,7 +112,7 @@
     <div class="info"><strong>DAW:</strong> <%= track.getDaw() %></div>
     <div class="info"><strong>BPM:</strong> <%= track.getBpm() %></div>
     <div class="button-container">
-      <a href=""><button class="view-button" type="button">View</button></a>
+      <a href="track/detail?trackid=<%=track.getId()%>>"><button class="view-button" type="button">View</button></a>
     </div>
   </div>
 </div>
