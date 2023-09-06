@@ -38,6 +38,11 @@ public class CreateTrackServlet extends HttpServlet {
 		track.setGenre(request.getParameter("trackGenre"));
 		track.setPrice(Integer.parseInt(request.getParameter("trackPrice")));
 		track.setDaw(request.getParameter("trackDaw"));
+		track.setImageUrl(request.getParameter("imageUrl"));
+		track.setAudioUrl(request.getParameter("audioUrl"));
+		
+		
+		
     TrackService trackservice = new TrackService();
     Cookie[] ck = request.getCookies();
     String userId = null;

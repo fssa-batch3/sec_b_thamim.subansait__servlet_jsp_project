@@ -1,6 +1,7 @@
 <%@page import="in.fssa.doboo.model.TrackEntity"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ page isELIgnored = "false" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -93,15 +94,15 @@
 <div class="container">
 	<% TrackEntity track = (TrackEntity)request.getAttribute("track");%>
   <div class="image">
-    <img alt="trackPoster" src="https://picsum.photos/600/300">
+    <img alt="trackPoster" src="${requestScope.track.getImageUrl()}">
   </div>
   <div class="details">
-    <div class="title"><%= track.getTrackName() %></div>
-    <div class="info"><strong>Scale:</strong> <%= track.getScale() %></div>
-    <div class="info"><strong>Genre:</strong> <%= track.getGenre()%></div>
-    <div class="info"><strong>DAW:</strong><%= track.getDaw()%></div>
-    <div class="info"><strong>BPM:</strong> <%= track.getBpm()%></div>
-    <div class="info"><strong>Price:$</strong> <%= track.getPrice()%></div>
+    <div class="title">${requestScope.track.getTrackName() }</div>
+    <div class="info"><strong>Scale:</strong> ${ requestScope.track.getScale() }</div>
+    <div class="info"><strong>Genre:</strong> ${ requestScope.track.getGenre() }</div>
+    <div class="info"><strong>DAW:</strong>${requestScope.track.getDaw()}</div>
+    <div class="info"><strong>BPM:</strong> ${requestScope.track.getBpm()}</div>
+    <div class="info"><strong>Price:$</strong> ${requestScope.track.getPrice()}</div>
     <div class="description">
       <%= track.getTrackDetail() %>
     </div>
@@ -112,6 +113,7 @@
   </div>
 </div>
 </div>
+<jsp:include page="music_player.jsp"></jsp:include>
 </body>
 </html>
 

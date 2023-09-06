@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import in.fssa.doboo.exception.NoTrackFoundException;
 import in.fssa.doboo.model.TrackEntity;
 import in.fssa.doboo.service.TrackService;
 
@@ -40,11 +41,20 @@ public class UserDashBoardServlet extends HttpServlet {
              response.sendRedirect("login"); // Redirect to login page or appropriate error page.
              return;
          }
+         try {
  		Set<TrackEntity> tracks = trackService.findTracksByUserId(Integer.parseInt(userId));
+ 		
  		request.setAttribute("tracks", tracks);
- 		  RequestDispatcher rd = request.getRequestDispatcher("/user_dashboard.jsp");
+ 		 RequestDispatcher rd = request.getRequestDispatcher("/user_dashboard.jsp");
 	  		rd.forward(request, response);
 				
+ 		}catch (RuntimeException e) {
+ 			 RequestDispatcher rd = request.getRequestDispatcher("/user_dashboard.jsp");
+ 	  		rd.forward(request, response);
+ 				
+		}
+ 		
+ 		 
 	}
 
 

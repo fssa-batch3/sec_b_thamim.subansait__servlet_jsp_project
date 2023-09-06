@@ -1,8 +1,11 @@
+<%@page import="java.awt.geom.Path2D"%>
+<%@page import="javax.swing.plaf.metal.MetalBorders.Flush3DBorder"%>
 <%@page import="in.fssa.doboo.model.TrackEntity"%>
 <%@page import="java.util.Set"%>
 <%@page import="in.fssa.doboo.service.TrackService"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ page isELIgnored = "false" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -172,21 +175,28 @@
     <h2>Your Uploaded Tracks</h2>
     <div class="track-cards">
         <!-- Card for Track 1 -->
-       <% Set<TrackEntity> tracks = (Set<TrackEntity>) request.getAttribute("tracks"); %>
+       <% Set<TrackEntity> tracks = (Set<TrackEntity>) request.getAttribute("tracks");
+        	if(tracks == null){	
+        		%>
+        		<h4>No Track Found For the artist Please upload below</h4>
+        		<%} else{ %>
 <%
   for (TrackEntity track : tracks) {
 %>
         <div class="track-card">
             <h3><%=track.getTrackName() %></h3>
-            <p><strong>BPM:</strong> <%=track.getBpm() %></p>
+            <p><strong>BPM:</strong> <%= track.getBpm()%></p>
             <p><strong>Genre:</strong> <%=track.getGenre() %></p>
             <p><strong>Scale:</strong> <%=track.getScale() %> </p>
             <p><strong>DAW:</strong> <%=track.getDaw() %></p>
             <a href="/dobooweb/user/track?trackid=<%=track.getId() %>">Edit</a>
             <a href="/dobooweb/track/delete?trackid=<%=track.getId() %>">Delete</a>
+            <a href="">Change Media</a>
+            
         </div>
       <%
   }
+        		}
 %>
     </div>
 </div>

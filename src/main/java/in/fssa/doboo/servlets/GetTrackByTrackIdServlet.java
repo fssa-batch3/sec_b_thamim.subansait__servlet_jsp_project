@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import in.fssa.doboo.exception.PersistanceException;
 import in.fssa.doboo.exception.ValidationException;
 import in.fssa.doboo.model.TrackEntity;
+import in.fssa.doboo.model.UserEntity;
 import in.fssa.doboo.service.TrackService;
 
 /**
@@ -29,14 +30,20 @@ public class GetTrackByTrackIdServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		TrackService track = new TrackService();
 		TrackEntity tracks = null;
+		String artistName = null;
 		try {
 			tracks = track.findByTrackId(Integer.parseInt(request.getParameter("trackid")));
+			artistName = track.findAtirstNameByTrackId(Integer.parseInt(request.getParameter("trackid")));
+			
+			
 		} catch (NumberFormatException | ValidationException | PersistanceException e) {
 			e.printStackTrace();
 			PrintWriter consoleOutput = new PrintWriter(System.out);
 			consoleOutput.println(e.getMessage());
 		}
 		request.setAttribute("track", tracks);
+		request.setAttribute("user", artistName);
+		
 		RequestDispatcher rd = request.getRequestDispatcher("/track_detail.jsp");
 		rd.forward(request, response);
 	}

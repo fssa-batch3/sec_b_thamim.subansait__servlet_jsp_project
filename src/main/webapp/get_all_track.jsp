@@ -102,7 +102,7 @@
 %>
 <div class="card">
   <div class="image">
-    <img alt="trackPoster" src="https://picsum.photos/250/150">
+    <img alt="trackPoster" src="<%=track.getImageUrl() %>">
   </div>
   <div class="details">
     <div class="title"><%= track.getTrackName() %></div>
