@@ -32,25 +32,25 @@ public class GetAllUsersServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		UserService userService = new UserService();
-//		Set<UserEntity> users = null;
-//		try {
-//			users = userService.getAllUsers();
-//			ResponseEntity res = new ResponseEntity();
-//			res.setStatus(200);
-//			res.setData(users);
-//			res.setMessage("user details fetched successfully");
-////		
-//			Gson gson = new Gson();
-//			String responseJson = gson.toJson(res);
-//			response.setContentType("application/json");
-//			response.setCharacterEncoding("UTF-8");
-//			response.getWriter().write(responseJson);
-//		} catch (ServiceException e) {
-//			e.printStackTrace();
-//		}
-		RequestDispatcher rd = request.getRequestDispatcher("get_all_user.jsp");
-		rd.forward(request, response);
+		UserService userService = new UserService();
+		Set<UserEntity> users = null;
+		try {
+			users = userService.getAllUsers();
+			ResponseEntity res = new ResponseEntity();
+			res.setStatus(200);
+			res.setData(users);
+			res.setMessage("user details fetched successfully");
+//		
+			Gson gson = new Gson();
+			String responseJson = gson.toJson(res);
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			response.getWriter().write(responseJson);
+		} catch (ServiceException e) {
+			e.printStackTrace();
+		}
+//		RequestDispatcher rd = request.getRequestDispatcher("get_all_user.jsp");
+//		rd.forward(request, response);
 	}
 //
 //	/**

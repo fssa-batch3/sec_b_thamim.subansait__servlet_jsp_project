@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>subscription</title>
+        <link rel="stylesheet" href="../assets/css/subscrpition style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+        <link rel="stylesheet" 
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">  
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <link rel="stylesheet" href="../assets/css/header.css">
+        <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
+        </script>
+        <script type="text/javascript">
+        (function(){
+            emailjs.init("MJkH21yxw1kq8USCP");
+        })();
+        </script>
+    </head>
+    <body>
+        
+        <h1>PRICING</h1>
+        <div class="sub">
+            <div class="free">
+                <h2>Bass</h2>
+                <p> Perfect for beginners for to just use it and enjoy</p>
+                <div class="features">
+                    <ul>
+                
+                        <li>
+                            <i class="fa-solid fa-check"></i> medium Sound Quality
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check"></i>90M+ songs and 450K+ tracks for sale
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check"></i>No Ad-free
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check"></i>Buy 3 Track Per Day
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check"></i>Listen in HiFi on your supported devices.
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-check"></i>Like and Save later
+                        </li>
+                
+                    </ul>
+
+                </div>
+                <span class="price">$7.00/mo</span>
+                <div class="btn">
+                    <button class="btn1" id="base" type="button" onclick="showPaymentPopUp()">Pay Now</button>
+                    </div>
+                    </a>
+                </div>
+                <div class="pro"> 
+                    <h2>Pro Package</h2>
+                    <p>Perfect for those who wants to enjoy the music completely</p>
+                    <div class="features">
+                        <ul>
+                
+                            <li>
+                                <i class="fa-solid fa-check"></i> HiFi Sound Quality
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-check"></i>900M+ songs and 850K+ tracks for sale
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-check"></i>Ad-free
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-check"></i>Buy unlimited Track Per Day
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-check"></i>Listen in HiFi on your supported devices.
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-check"></i>Like and Save later
+                            </li>
+                
+                        </ul>
+            
+                    </div>
+                    <span class="price">$14.99/mo</span>
+                    <div class="btn">
+                        <button class="btn1" id="pro" type="button" onclick="showPaymentPopUp()">Pay Now</button>
+                    </div> 
+                </div> 
+                <div id="payment-popup">
+                    <div class="payment-content">
+                      <!-- Payment details go here -->
+                      <h2 style="font-size: 35px; margin-bottom: 20px;">Payment Details</h2>
+                      
+                    <div class = "inputContainer">  
+                      <div class ="labelContainer"><label for="name">Name on Card</label></div>
+                      <div class="fieldContainer"><input type="text" id="name" name="name"><br></div>
+                    </div>
+                  
+                      <div class = "inputContainer">
+                        <div class = "labelContainer"><label for="cardNumber">Card Number</label></div>
+                        <div class = "fieldContainer"><input type="text" id="cardNumber" name="cardNumber"><br></div>
+                      </div>
+                
+                    <div class = "inputContainer">
+                      <div class = "labelContainer"><label for="expMonth">Expiration Month</label></div>
+                      <div class = "fieldContainer"><input type="text" id="expMonth" name="expMonth"><br></div>
+                    </div>
+                    
+                    <div class = "inputContainer">
+                      <div class = "labelContainer"><label for="expYear">Expiration Year</label></div>
+                      <div class = "fieldContainer"><input type="text" id="expYear" name="expYear" ><br></div>
+                  </div>
+  
+                    <div class = "inputContainer">
+                      <div class = "labelContainer"><label for="cvv">CVV</label></div>
+                      <div class = "fieldContainer"><input type="text" id="cvv" name="cvv" min="0" max="5"><br></div>
+                  </div>
+  
+                  <div class = "inputContainer">
+                    <div class = "labelContainer"><label for="price" id="TotalPrice"></label></div>
+                    
+                </div>
+  
+  
+                      <div class="buttons">
+                        <button class="btn2" id="sumbitSuccess" type="button" onclick="SendMail()">Submit Payment</button>
+                      <button class="btn3" type="button" onclick="hidePaymentPopUp()">Cancel</button>
+  
+                      </div>  
+  
+                      
+            
+                    </div>
+  
+                    <div id="paymentSuccess" class="container" style="display:none;">
+                      <img src="https://pixlok.com/wp-content/uploads/2022/01/Tick-Icon-SVG-psokcd.png" style="height: 100px;width: 100px;" alt="">
+                      <h1>Payment Successful!</h1>
+                      <p>Your payment has been processed successfully.</p>
+                      <p>Thank you for your purchase.</p>
+                      <a href="../pages/activation.html" class="btn2">Good to start</a>
+                    </div>
+  
+                    
+  
+                    
+                  </div>
+                <script src="../assets/js/header.js"></script>
+                <script>
+
+// Function to show the payment pop-up when the "Pay Now" button is clicked
+function showPaymentPopUp() {
+  document.getElementById("payment-popup").style.display = "block";
+}
+
+let typeOfSub
+function findId(){
+     const type = event.target.closest('[id]').id;
+     typeOfSub=type
+}
+
+
+
+document.querySelector(".btn1").addEventListener("click", findId)
+
+
+document.querySelector("#sumbitSuccess").addEventListener("click", hidePaymentPopUp);
+
+function submitPayment() {
+  setTimeout(function(){
+    document.querySelector(".payment-content").style.display = "none";
+    document.getElementById("paymentSuccess").style.display = "block";
+  }, 1000); // 5 seconds
+}
+
+function hidePaymentPopUp() {
+  document.querySelector(".payment-content").style.display = "none";
+}
+
+document.getElementById("sumbitSuccess").addEventListener("click", submitPayment);
+
+const userEmail = JSON.parse(localStorage.getItem("userEmail"));
+
+let num = Math.floor(Math.random() * 900000) + 100000;
+
+function SendMail() {
+    
+var params = {
+    to_name : userEmail,
+    OTP: num
+}
+emailjs.send("service_myq1w7c", "template_zew00y8", params).then(function (res) {
+alert("Successfull The otp has been sent to your email ! " + res.status);
+})
+}
+
+
+
+document.getElementById("sumbitSuccess").addEventListener("click",()=>{
+    
+    
+
+    const sub=JSON.parse(localStorage.getItem("subUser"))||[]
+    const subUser ={
+        "email":userEmail,
+        "OTP": num,
+        "type":typeOfSub
+    }
+   
+    sub.push(subUser)
+
+
+    localStorage.setItem("subUser", JSON.stringify(sub))
+    
+} )
+
+
+                </script>
+          
+    </body>
+</html>

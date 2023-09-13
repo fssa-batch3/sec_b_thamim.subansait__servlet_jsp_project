@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>become Artist</title>
+    <link rel="stylesheet" href="../assets/css/becameArtist.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+                    
+                    <div class="container">
+                        <div class="left">
+                          <div class="header">
+                            <h2 class="animation a1">Welcome to Artist World</h2>
+                            <h4 class="animation a2">Please fill the details</h4>
+                          </div>
+                          
+                          <div class="form">
+                            
+                            <input type="text" class="form-field animation a3" required pattern="[A-Za-z\s]+" id="artistName" placeholder="Artist Name" aria-required="true">
+                            <span class="animation a2" style="position: relative; top: 10px;">Who Are You</span>
+                    <select class="form-field animation a3" name="typeofartist" id="typeofartist" aria-required="true">
+                        <option value="Music produce">Music produce</option>
+                        <option value="beat makers">Beat makers</option>
+                        <option value="Mix and Master Eng">Mix and Master Eng</option>
+                        <option value="Singer/vocalist">Singer/vocalist</option>
+                        <option value="Song writers">Song writers</option>
+
+                    </select>
+                    <span class="animation a2" style="position: relative; top: 10px;">Bio</span>
+                    <textarea class="animation a2" id="bio" cols="10" rows="5" style="resize: none;position: relative; top: 15px;" required ></textarea>
+                    <span class="animation a2" style="position: relative; top: 20px;">Please paste your Links here (optional)</span>
+                    <div class="social-icons">
+                        <i class="fab fa-instagram fa-lg"></i>
+                        <input type="text" id="instaLink">
+                        <i class="fab fa-facebook fa-lg"></i>
+                        <input type="text" id="faceBook">
+    
+                      </div>
+
+                      <div class="social-icons">
+                      <i class="fab fa-linkedin fa-lg"></i>
+                        <input type="text" id="Linkedin">
+                        <i class="fab fa-spotify fa-lg"></i>
+                        <input type="text" id="spotify">
+                    </div>
+
+                           <button class="animation a6" id="submitForm" type="button" style="position: relative;top: 15px; cursor: pointer;" onclick="sellerDetails()">Sumbit</button>
+                        
+                          </div>
+                        
+                        </div>
+                        <div class="right"></div>
+                      </div>
+                    
+                    
+
+
+
+                      <script>
+
+                        // Get the textarea element
+                let textarea = document.getElementById('bio');
+
+                // Add a validation function to check for spaces and numbers
+                textarea.addEventListener('input', function() {
+                // Get the value of the textarea
+                var text = this.value;
+
+                // Check if the string contains only spaces or numbers
+                if (/^\s+$/.test(text) || /^[0-9]+$/.test(text)) {
+                    // If the string contains only spaces or numbers, show an error message
+                    this.setCustomValidity('Please enter text that is not just spaces or numbers.');
+                } else {
+                    // If the string is valid, clear the error message
+                    this.setCustomValidity('');
+                }
+                });
+
+                
+
+                
+
+                function sellerDetails(){
+                
+                const User = JSON.parse(localStorage.getItem("userEmail"))
+                const UserList =JSON.parse(localStorage.getItem("user_list"))
+                let foundUser = UserList.find(user => user.user_email === User);
+                foundUser["userRole"] ="seller";
+                foundUser["artistName"] = document.getElementById("artistName").value;
+                foundUser["bio"] = document.getElementById("bio").value;
+                foundUser["typeofartistName"] = document.getElementById("typeofartist").value;
+                foundUser["insta"] = document.getElementById("instaLink").value;
+                foundUser["facebook"] = document.getElementById("faceBook").value;
+                foundUser["linkedin"] = document.getElementById("Linkedin").value;
+                foundUser["spotify"] = document.getElementById("spotify").value;
+
+                
+            
+                localStorage.setItem("user_list", JSON.stringify(UserList));
+                localStorage.setItem("userRoleC",JSON.stringify("seller"))
+
+                window.location.href="../pages/homepage/buyer homepage.html";
+                
+
+                
+            }
+
+           
+                
+
+               
+
+
+
+
+
+
+                      </script>
+
+                
+
+                
+    
+</body>
+</html>

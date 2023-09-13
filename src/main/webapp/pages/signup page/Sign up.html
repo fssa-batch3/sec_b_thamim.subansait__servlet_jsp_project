@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+        <title> Sign Up</title> 
+    </head>
+    <link rel="stylesheet" href="../../assets/css/signup style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+    <body>
+        
+        <form class="form" action="http://localhost:8080/dobooweb/user/create" method="post" onsubmit="signUp(event)">
+
+            <div class="container">
+        
+                <h1>Create Account</h1>
+                
+                <div class="emial-name">
+
+                    <label for="Email" id="emailCon">Email Id
+                        <input type= "email" required="true" id="email" class="input" placeholder="Email">
+                    </label>
+            
+                    <label>Full Name
+                        <input type="text" name="name"  id="name"pattern="[a-zA-z0-9]+" class="input" placeholder="Don't use space" autocomplete="username">
+                    </label>
+            
+                </div>
+
+                <div class="dob-pass"> 
+        
+                    <label style="position: relative; left:17px ;">DOB
+                        <input type="date"  min="16" max="70" id="age" class="input" style="width:163px;" onchange="validateAge()">
+                    </label>
+
+                    <label for="password" style="position: relative; left: 10px;">Password
+                        <input type="password" id="password" maxlength="16" minlength="8" placeholder="Create a strong password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+\-]).{8,24}$" class="input" required autocomplete="current-password">
+                    </label>
+                    
+                </div>
+
+                <p style="text-align: end; position: relative; right: 100px;" id="featUp">Min 8 characters</p>
+
+                <!-- <div class="emial-name" id="hide" style="display: none; position: relative;left: 70px;">
+
+                    <label for="Email" id="emailCon" style="position: relative;right: 30px;">Artist Name
+                        <input type= "text" id="artistName" class="input" maxlength="30" placeholder="In spotify">
+                    </label>
+                
+                    <label style="position: relative;left: 90px;">Bio
+                        <input type="text" id="bio" class="input" placeholder="Don't leave it blank" style="padding: 20px; width: 26%;">
+                    </label>
+                
+                    <select class="input" name="typeofartist" id="typeofartist" style="position: relative;right: 250px;width: 60px ;">
+                        <option value="Music produce">Music produce</option>
+                        <option value="beat makers">Beat makers</option>
+                        <option value="Mix and Master Eng">Mix and Master Eng</option>
+                        <option value="Singer/vocalist">Singer/vocalist</option>
+                        <option value="Song writers">Song writers</option>
+
+                    </select>
+
+                </div> -->
+
+                <p style="text-align: center;">One UpperCase, One LowerCase, One number</p>
+
+                <div class="tc-notify">
+                    <label class="container1">
+                        <input type="checkbox" id="T&C" checked required>Agree with T&C
+                    </label>
+
+                    <label class="container1">            
+                        <input type="checkbox" id="notice">notify me offer in mail
+                    </label>
+                </div>
+                <!-- <div class="tc-notify" style="margin-top: 30px;"> 
+                    <label class="container1" style="position: relative; ">
+                        <i class="fa-regular fa-user fa-xl" style="color: #70247a;"></i>
+                        <input type="checkbox" id="buyer" class="type">Buyer
+                    </label>
+                    <label class="container1">
+                        <i class="fa-solid fa-music fa-xl"></i>
+                        <input type="checkbox" id="seller" class="type">For to sell
+                    </label>
+                </div> -->
+                <p style="text-align: center;">
+                    By creating an account you agree to our <a href="https://www.termsandconditionsgenerator.com/live.php?token=ohac4wiw8cQzy4q4oCyVSM4ETswMmJk8" style="color:dodgerblue">Terms & Privacy</a>.
+                </p>
+                <div class="select2">
+                    <button type="reset" data-label="Register" class="rainbow-hover">
+                        <span class="sp">Reset</span>
+                    </button> 
+                    <button type="submit" data-label="Register" class="rainbow-hover">
+                        <span class="sp">Sign Up</span>
+                    </button>
+                </div>
+              
+            </div>
+            
+
+        </form>
+
+        <script src="https://cdn.jsdelivr.net/npm/uuid@8.3.2/dist/umd/uuidv4.min.js"></script>    
+
+        <script>
+
+// const buyerRadio = document.getElementById("buyer");
+// const sellerRadio = document.getElementById("seller");
+
+// buyerRadio.addEventListener("change", () => {
+//   if (buyerRadio.checked) {
+//     sellerRadio.checked = false;
+//     document.querySelector("#hide").style.display = "none";
+//     document.getElementById("artistName").removeAttribute("required");
+//     document.getElementById("bio").removeAttribute("required");
+//     document.getElementById("typeofartist").removeAttribute("required");
+//     localStorage.setItem("userRole", "buyer");
+//   }
+// });
+
+// sellerRadio.addEventListener("change", () => {
+//   if (sellerRadio.checked) {
+//     buyerRadio.checked = false;
+//     document.querySelector("#hide").style.display = "inline-block";
+//     document.getElementById("artistName").setAttribute("required", "true");
+//     document.getElementById("bio").setAttribute("required", "true");
+//     document.getElementById("typeofartist").setAttribute("required", "true");
+//     localStorage.setItem("userRole", "seller");
+//   }
+// });
+
+// When the page loads, check if the user's role is already stored in local storage
+// const savedUserRole = localStorage.getItem("userRole");
+// if (savedUserRole === "buyer") {
+//   buyerRadio.checked = true;
+// } else if (savedUserRole === "seller") {
+//   sellerRadio.checked = true;
+// }
+
+function formatDate(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+function signUp(e) {
+  e.preventDefault();
+  const user_email = document.getElementById("email").value;
+  const user_password = document.getElementById("password").value;
+  const user_name = document.getElementById("name").value;
+  const userRole = "buyer";
+  user_unique_id = uuidv4();
+  const dobInput = document.getElementById("age");
+  const dobString = dobInput.value;
+  const dob = new Date(dobString);
+  const age = Math.floor(
+    (Date.now() - dob.getTime()) / (1000 * 60 * 60 * 24 * 365.25)
+  );
+
+  const formattedDob = formatDate(dob);
+
+  const  formData = new FormData();
+formData.append("name", user_name);
+formData.append("email", user_email);
+formData.append("password", user_password);
+formData.append("role", userRole);
+formData.append("dob", dobString);
+localStorage.setItem("userVerifyEmail",JSON.stringify(user_email))
+const url = "http://localhost:8080/dobooweb/user/create";
+fetch(url, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/x-www-form-urlencoded", // Set the content type
+  },
+  body: new URLSearchParams(formData).toString(), // Convert FormData to a URL-encoded string
+})
+  .then((response) => response.json())
+  .then((data) => {
+    console.log(data);
+    if(data.status == 200){
+    // Handle the response from the servlet
+      alert("Account created Successfully");
+      document.querySelector("form").reset();
+      // Redirect to the email verification page if needed
+      location.href = `../emailVerify.html`;
+  } else{ 
+    throw new Error(data.message);
+  }})
+  .catch((error) => {
+    alert("An error occurred while creating the account the problem is " + error.message);
+    console.error("Error:", error);
+  });
+}
+
+//   if (!exist && validateAge) {
+//     user_list.push({
+//       user_name,
+//       user_email,
+//       user_password,
+//       age,
+//       user_unique_id,
+//       userRole,
+//       "artistName":"",
+//       "bio":"",
+//       "typeofartistName":"",
+//     });
+//     localStorage.setItem("user_list", JSON.stringify(user_list));
+//     
+//     console.log(localStorage.getItem("user_list"));
+//     document.querySelector("form").reset();
+//     document.getElementById("password").focus();
+//     document.getElementById("email").focus();
+//     document.getElementById("age").focus();
+//     document.getElementById("name").focus();
+//     alert("Account created Successfully");
+//     location.href = `../emailVerify.html?userId=${user_unique_id}`;
+//   } else {
+//     alert(
+//       "Sorry the User already Exist!! \n Try with different email or try login"
+//     );
+//     document.querySelector("form").reset();
+//   }
+// }
+
+function validateAge() {
+  const dobInput = document.getElementById("age").value;
+  // Calculate the age of the person based on the input date of birth
+  const dob = new Date(dobInput);
+  const age = Math.floor(
+    (Date.now() - dob.getTime()) / (1000 * 60 * 60 * 24 * 365.25)
+  );
+
+  // Check if the age is within the allowed range
+  if (age < 16 || age > 90) {
+    alert("You must be between 16 and 90 years old to use this service.");
+    dobInput.value = "";
+  }
+}
+    
+    // document.querySelector(".sp").addEventListener("click",()=>{
+        
+        
+    
+    //     const EmailVerify=JSON.parse(localStorage.getItem("EmailVerify"))||[]
+    //     const varifyUser ={
+    //         "email":userEmail,
+    //         "OTP": num,
+    //         "date":new Date(),
+    //         "time":new Date().toLocaleTimeString(),
+    //     }
+       
+    //     EmailVerify.push(varifyUser)
+    
+    
+    //     localStorage.setItem("EmailVerify", JSON.stringify(EmailVerify))
+        
+    // } )
+        </script>
+
+    </body>
+</html>

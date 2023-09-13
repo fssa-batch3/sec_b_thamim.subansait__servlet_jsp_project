@@ -3,6 +3,7 @@ package in.fssa.doboo.servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,6 +26,10 @@ public class UpdateUserServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setHeader("Access-Control-Allow-Origin", "*"); // Replace '*' with your allowed origin(s)
+	     response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+	     response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	     
 		UserEntity user = new UserEntity();
 		
 		try {
@@ -66,11 +71,17 @@ public class UpdateUserServlet extends HttpServlet {
 		
 		} catch (ValidationException e) {
 			e.printStackTrace();
+			 request.setAttribute("errorMessage", "An error occurred: " + e.getMessage());
+			 RequestDispatcher dispatcher = request.getRequestDispatcher("/error");
+			 dispatcher.forward(request, response);
 			PrintWriter consoleOutput = new PrintWriter(System.out);
 			consoleOutput.println(e.getMessage());
 			
 		} catch (ServiceException e) {
 			e.printStackTrace();
+			request.setAttribute("errorMessage", "An error occurred: " + e.getMessage());
+			 RequestDispatcher dispatcher = request.getRequestDispatcher("//error");
+			 dispatcher.forward(request, response);
 			PrintWriter consoleOutput = new PrintWriter(System.out);
 			consoleOutput.println(e.getMessage());
 		}

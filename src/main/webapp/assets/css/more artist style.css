@@ -1,0 +1,147 @@
+
+  body{
+      background-color: #000000;
+
+  }
+  .content{
+    color: white;
+    text-align: center;
+    margin-top: 15px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-left: 60px;
+
+
+  }
+
+/* .card img{
+     width: 80px;
+     border-radius: 5px;
+     padding-top: 5px;    
+}
+.card img:hover{
+    transform: scale(1.1);
+    transition: 0.3s;
+}
+.card{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;   
+    margin-top: 20px;
+    
+}
+.card:hover{
+    background-color: #2c2c2c;
+    border-radius: 20px;
+}
+.card button{
+    width: 100%;
+    background-color: rgb(216, 0, 209);
+    border-radius: 10px;
+    color: black;
+    font-weight:600;   
+    padding: 3px;
+}
+.card button:hover{
+    transform: scale(1.1);
+}
+.card p:hover{
+    color: rgb(172, 77, 4);
+    font-size: 16px;
+    transform:scale(1.1)
+}
+.heart i{
+      font-size: 25px;
+      padding: 10px;
+}
+.heart i:hover{
+    color: rgb(216, 0, 209);
+}
+.price{
+    font-weight: 900;
+    font-size: 20px;
+} */
+
+.card {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+  }
+
+  .card:hover{
+    transform: scale(1.04);
+    background-color: #1a1a1a;
+  }
+  
+  .card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px 5px 0 0;
+  }
+  
+  .card p {
+    margin: 5px;
+  }
+  
+  .heart,
+  .price,
+  button {
+    display: flex;
+    justify-content: space-around;
+    margin-left: 30px;
+    margin-right: 30px;
+  }
+  
+  .fa-heart {
+    color: red;
+    font-size: 20px;
+    margin-right: 5px;
+  }
+  
+  .fa-bookmark {
+    color: #aaa;
+    font-size: 20px;
+  }
+  
+  .price {
+    font-weight: bold;
+    font-size: 18px;
+    color: #ffffff;
+    background-color: #1e1e1e;
+    width: 20%;
+    padding: 10px;
+    border-radius: 10px;
+    position: relative;
+    left:70px;
+    top: 20px;
+    bottom: 20px;
+  }
+  
+  .Cart {
+    padding: 10px;
+    border: none;
+    background-color: rgba(52, 52, 52, 0.986);
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: auto;
+  }
+  
+  button:hover {
+    background-color: #474747;
+  }
+  
+  .fa-cart-shopping {
+    margin-right: 5px;
+  }
+  
+

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>activation</title>
+        <link rel="stylesheet" href="../assets/css/activation style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <h1> We sent a mail to you !</h1>
+        
+        <div>
+            <span> Please activate</span>
+        </div>
+        <div>
+            <span>Enter your Activate ID</span>
+        </div>
+        <div class="btn">
+            <input type="text"  id="otp" maxlength="6" placeholder="6 digit code">
+        </div>
+        
+            <div class="btn1">
+                <button type="submit" id="go">Go</button>
+            </div>
+            
+
+        <script>
+
+            function validate(){
+            const otp = parseInt(document.getElementById("otp").value) 
+
+            const currentUser =JSON.parse(localStorage.getItem("userEmail"));
+            const subscription =JSON.parse(localStorage.getItem("subUser"));
+            const findSub = subscription.find(sub => sub.email === currentUser);
+        
+            if(findSub["OTP"] === otp){
+                alert("Verification successful")
+                window.location.href = "../pages/homepage/buyer homepage.html"
+            }
+            else if(otp === 0){
+                alert("Enter verification code")
+            }
+            else{
+                alert("Verification failed")
+            }
+        }
+
+        document.getElementById("go").addEventListener("click",validate)
+
+
+
+
+        </script>
+    </body>
+
+
+</html>

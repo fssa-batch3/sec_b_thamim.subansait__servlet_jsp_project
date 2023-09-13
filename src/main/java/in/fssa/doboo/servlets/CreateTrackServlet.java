@@ -69,6 +69,9 @@ public class CreateTrackServlet extends HttpServlet {
         response.sendRedirect("/dobooweb/user/dashboard");
 	} catch (ValidationException | RuntimeException e) {
 		e.printStackTrace();
+		 request.setAttribute("errorMessage", "An error occurred: " + e.getMessage());
+		 RequestDispatcher dispatcher = request.getRequestDispatcher("/error");
+	     dispatcher.forward(request, response);
 		 PrintWriter out = response.getWriter();
          out.println(e.getMessage());
 	}

@@ -1,0 +1,152 @@
+{
+    "basics": {
+      "name": "Thamim S",
+      "label": "Software Engineer",
+      "picture": "https://freeimage.host/i/J9icrEG",
+      "email": "thamim.subansait@fssa.freshworks.com",
+      "phone": "+91 7418822895",
+      "website": "",
+      "summary": "My name is Thamim S from coimbatore  and I completed my 12th grade last year.  Upon joining FSSA,I experienced substantial personal development, improved my communication skills, gained insights into workplace ethics, and acquired valuable experience in working collaboratively as a team. As I look ahead to the next year, my primary goal remains focused on continuous learning and enhancing my skills, with the intention of making a meaningful contribution to the organization.I am committed to striving for personal growth and becoming a better version of myself with each passing day",
+      "location": {
+        "address": "vadamadurai,thudiyalur",
+        "postalCode": "641022",
+        "city": "coimbatore",
+        "countryCode": "IN",
+        "region": "South Asia"
+      },
+      "profiles": [
+        {
+          "network": "LinkedIn",
+          "username": "Thamim S",
+          "url": "https://www.linkedin.com/in/thamim-s-704357225/"
+        },
+        {
+          "network": "GitHub",
+          "username": "Thamimtommy",
+          "url": "https://github.com/Thamimtommy"
+        }
+        ,{
+            "network": "hackerrank",
+            "username": "thamim_subansait",
+            "url": "https://www.hackerrank.com/thamim_subansait"
+          }
+      ]
+    },
+    "projects": [
+      {
+        "name": "Project 1 (WEB PROJECT)",
+        "about": "My project name is doboo. Which is a platform for selling your art and showcase them to millions of music lovers.",
+        "documents": [
+          {
+            "name": "Market search",
+            "url": "https://drive.google.com/file/d/1wTFwfcKlg7Wp1ohHFakFN4yjdchMNp3z/view?usp=drive_link"
+          },
+          {
+            "name": "Problem statement",
+            "url": "https://docs.google.com/document/d/1Gax5PDfvwHLqL2k1i0wxSzHYZ9NRHAcC/edit?usp=sharing&ouid=106763180585117115536&rtpof=true&sd=true"
+          },{
+            "name": "Lowfidelity",
+            "url": "https://drive.google.com/drive/u/0/folders/1M9XzBWcegeVVPd__Gf5XfsqUJx_GLbGS"
+          }
+
+        ],
+        "github": "https://github.com/fssa-batch3/thamim.subansait__web_project",
+        "sonarcloud": "https://sonarcloud.io/summary/new_code?id=fssa-batch3_thamim.subansait__web_project&branch=main",
+        "liveUrl": "https://deploy-preview-1--doboo.netlify.app/",
+        "technologies": [
+          "HTML",
+          "CSS",
+          "JAVASCRIPT"
+        ],
+        "Screenshots": ["https://freeimage.host/i/J9iwuQR","https://freeimage.host/i/J9iN39n","https://freeimage.host/i/J9iNIS9"]
+      },
+      {
+        "name": "Project 2(Java and servlet)",
+        "about": "My project name is doboo. Platform where you buy music arts, Stream any song and sell your art to millions of music lovers and get paid.",
+        "documents": [
+            {
+              "name": "Market search",
+              "url": "https://drive.google.com/file/d/1wTFwfcKlg7Wp1ohHFakFN4yjdchMNp3z/view?usp=drive_link"
+            },
+            {
+              "name": "Problem statement",
+              "url": "https://docs.google.com/document/d/1Gax5PDfvwHLqL2k1i0wxSzHYZ9NRHAcC/edit?usp=sharing&ouid=106763180585117115536&rtpof=true&sd=true"
+            },{
+              "name": "Lowfidelity",
+              "url": "https://drive.google.com/drive/u/0/folders/1M9XzBWcegeVVPd__Gf5XfsqUJx_GLbGS"
+            }
+  
+          ],
+        "github": "https://github.com/fssa-batch3/sec_b_thamim.subansait__corejava_project_2",
+        "sonarcloud": "https://sonarcloud.io/project/overview?id=fssa-batch3_sec_b_thamim.subansait__corejava_project_2",
+        "technologies": [
+          "CORE JAVA",
+          "SERVLET",
+          "JSP",
+          "MySQL"
+        ],
+        "Screenshots": ["https://freeimage.host/i/J9iNWNa","https://freeimage.host/i/J9iNVAg","https://freeimage.host/i/J9iNXDJ"]
+      }
+    ],
+    "certificates": [
+      {
+        "name": "Hackerrank Certifications of Basic in SQL",
+        "url": "https://drive.google.com/file/d/12_aXZ8YrmjB2Ofp9I-YgdxOcuayT3qP4/view?usp=drive_link"
+      },
+      {
+        "name": "Hackerrank Certifications of Basic in Problem-Solving",
+        "url": "https://drive.google.com/file/d/1fKZ2rSNMScnxUyVwgfmQ7yUeLQ3gdAqb/view?usp=drive_link"
+      },
+      {
+        "name": "Hackerrank Certifications of Basic in JavaScript",
+        "url": "https://drive.google.com/file/d/1UrH7P5up5G3N677GpCeXBA4n_zrK-D31/view?usp=drive_link"
+      },
+      {
+        "name": "Great Learning Certifications of Basic of java ",
+        "url": "https://drive.google.com/file/d/1_Y2v97cusaKrODgNvIuSinFh1bzrWvuK/view?usp=drive_link"
+      }
+    ],
+    "education": [
+      {
+        "institution": "Government higher secondary school asokapuram (GHSS)",
+        "area": "Computer Science",
+        "studyType": "HSC second year",
+        "startDate": "",
+        "endDate": "2022-05-28",
+        "gpa": "69.333",
+        "courses": [
+          "",
+          ""
+        ]
+      }
+    ],
+    "skills": [
+      {
+        "name": "Front-end",
+        "level": "intermediate",
+        "keywords": [
+          "HTML",
+          "CSS",
+          "JavaScript"
+        ]
+      },
+      {
+        "name": "Back-end",
+        "level": "intermediate",
+        "keywords": [
+          "Java",
+          "MYSQL"
+        ]
+      }
+    ],
+    "languages": [
+      {
+        "language": "English",
+        "fluency": "Professional working proficiency"
+      },
+      {
+        "language": "Tamil",
+        "fluency": "Native speaker"
+      }
+    ]
+  }

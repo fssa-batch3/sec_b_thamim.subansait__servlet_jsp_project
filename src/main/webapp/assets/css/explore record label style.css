@@ -1,0 +1,50 @@
+  body{
+      background-color: #000000;
+       
+  }
+.content{
+    text-align: center;
+}
+.card img{
+    width: 150px;
+}
+.card1 img{
+    width: 410px;
+}
+.list{
+    display: flex;
+    margin-top: 50px;
+    padding-bottom: 30px
+}
+.list1{
+  display: flex;
+
+}
+.card p, .card1 p{
+    color: white;
+    width: 80%;
+    margin-left: 80px;
+    margin-top: 20px;
+   
+}
+.card i, .card1 i{
+    color: white;
+    margin-top: 20px;
+    font-size: 40px;
+    padding: 5px;   
+}
+.card i:hover, .card1 i:hover{
+      color: rgb(255, 0, 255);
+      transform: scale(1.3);
+}
+.card:hover{
+  transform: scale(1.06);
+  transition: 0.5s;
+}
+.card1:hover{
+  transform: scale(1.06);
+  transition: 0.5s;
+}
+::-webkit-scrollbar{
+  width: 0px;
+}

@@ -24,21 +24,21 @@ public class TrackSearchServlet extends HttpServlet {
         String searchQuery = request.getParameter("query"); // Get the search query from the request
 
         try {
+        	try {
             Set<TrackEntity> matchedTracks = trackService.findMatchTrackByName(searchQuery);
-            Set<TrackEntity> artistTracks = trackService.findTracksByAtirstName(searchQuery);
-
-//             Set<TrackEntity> allMatchingTracks = new HashSet<>();
-//             allMatchingTracks.addAll(matchedTracks);
-//             allMatchingTracks.addAll(artistTracks);
-
-        
             request.setAttribute("matchedTracks", matchedTracks);
+            }catch (RuntimeException e) {
+            	e.printStackTrace();
+            }
+            Set<TrackEntity> artistTracks = trackService.findTracksByAtirstName(searchQuery);
+           
             request.setAttribute("artistTracks", artistTracks);
             request.getRequestDispatcher("search_results.jsp").forward(request, response);
         } catch (RuntimeException e) {
             e.printStackTrace();
             PrintWriter out = response.getWriter();
             out.println(e.getMessage());
+            request.getRequestDispatcher("search_results.jsp").forward(request, response);
             
         }
     }

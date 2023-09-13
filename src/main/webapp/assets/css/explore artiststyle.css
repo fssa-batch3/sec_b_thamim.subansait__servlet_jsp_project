@@ -1,0 +1,123 @@
+.header{
+ position: sticky;
+ top: 0px;
+ z-index: 2;
+}
+body {
+  background-color: #121212;
+}
+.sidebar {
+  position: fixed;
+  left: 0;
+  top:0px;
+  width: 270px;
+  padding: 24px;
+  border-radius: 10px;
+  height: 100%;
+  background-color: #111111;
+
+
+}
+
+.sidebar .navigation ul {
+  list-style: none;
+  margin-top: 130px;
+  
+}
+.sidebar .navigation ul li {
+  padding: 20px 0px;
+}
+.sidebar .navigation ul li a {
+  color: #B3B3B3;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 18px;
+}
+.sidebar .navigation ul li a:hover,
+.sidebar .navigation ul li a:active,
+.sidebar .navigation ul li a:focus {
+  color: #FFFFFF;
+}
+
+.sidebar .navigation ul li .fa {
+  font-size: 20px;
+  margin-right: 10px;
+}
+.sidebar .navigation ul li a:hover .fa:hover,
+.sidebar .navigation ul li a:hover .fa:active,
+.sidebar .navigation ul li a:hover .fa:focus {
+  color: #FFFFFF;
+}
+.sidebar .policies {
+  position: absolute;
+  bottom: 100px;
+}
+.sidebar .policies ul {
+  list-style: none;
+}
+.sidebar .policies ul li {
+  padding-bottom: 5px;
+}
+.sidebar .policies ul li a {
+  color: #B3B3B3;
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 10px;
+}
+.sidebar .policies ul li a:hover,
+.sidebar .policies ul li a:active,
+.sidebar .policies ul li a:focus {
+  text-decoration: underline;
+}
+
+
+.right h1{
+  color: white;
+  text-align: center;
+  margin-left: 90px;
+  margin-top: 20px;
+}
+.content{
+  overflow: hidden;
+}
+.card{
+  position: relative;
+  left:400px;
+  width: 45%;
+  display: flex;
+  margin-top: 40px;
+  background-color: rgb(28, 28, 28);
+  border-radius: 30px;
+}
+.card img{
+  width: 160px;
+  border-radius: 30px;
+}
+.text h2{
+     color: rgb(220, 0, 103);
+     position: relative;
+     top: 5px;
+     left: 70px;
+}
+.text p{
+    color: white;
+    width: 160%;
+    margin-left: 20px;
+    margin-top: 30px;
+    
+}
+.socail-logo img{
+     width:40px;
+     margin-top: 55px;
+    
+     
+}
+.socail-logo{
+  width: 100%;
+  position: relative;
+  left: 300px;
+}
+
+::-webkit-scrollbar{
+  display: none;
+}

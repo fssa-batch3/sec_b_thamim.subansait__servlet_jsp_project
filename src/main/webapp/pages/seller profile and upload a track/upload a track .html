@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>upload your track</title>
+        <link rel="stylesheet" href="../../assets/css/upolad a track style.css">
+        <link rel="stylesheet" href="../../assets/css/header.css">
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        >
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        >
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap"
+            rel="stylesheet"
+        >
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Nerko+One&display=swap"
+            rel="stylesheet"
+        >
+    </head>
+    <body>
+        <h1>Track Details</h1>
+
+        <div class="content">
+            <div class="below">
+                <div class="left">
+                    <div class="inputfield">
+                        <input
+                            type="text"
+                            class="input"
+                            id="trackname"
+                            pattern="[a-zA-z0-9]+"
+                            placeholder="Enter the Track Name"
+                            maxlength="16"
+                            required
+                        >
+                        <input
+                            type="text"
+                            class="input"
+                            id="daw"
+                            placeholder="Example: FL, Logic"
+                            min="1"
+                            maxlength="16"
+                            pattern="[a-zA-z0-9' ']+"
+                            required
+                        >
+
+                        <input
+                            type="number"
+                            class="input"
+                            id="bpm"
+                            min="0"
+                            max="300"
+                            placeholder="BPM"
+                            required
+                        >
+                        <select id="key" class="input" required>
+                            <option>C min</option>
+                            <option>B</option>
+                            <option>E min</option>
+                            <option>G min</option>
+                            <option>C maj</option>
+                            <option>E</option>
+                            <option>A #</option>
+                            <option>E Flat</option>
+                        </select>
+
+                        <select id="genre" class="input" required>
+                            <option>HIP HOP</option>
+                            <option>TRAP</option>
+                            <option>LO-FI</option>
+                            <option>RAP</option>
+                            <option>Rnb</option>
+                            <option>Electronic</option>
+                            <option>Pop</option>
+                            <option>Reggae</option>
+                            <option>Drill</option>
+                            <option>Afro beat</option>
+                            <option>Club</option>
+                            <option>House</option>
+                            <option>Hyperpop</option>
+                            <option>Boom Bap</option>
+                            <option>Country</option>
+                            <option>Drum and bass</option>
+                            <option>Classical</option>
+                            <option>Folk</option>
+                            <option>Blue</option>
+                        </select>
+
+                        <input
+                            type="number"
+                            min="0"
+                            max="100"
+                            placeholder="$ Set Price"
+                            id="Price"
+                            class="input"
+                        >
+                    </div>
+                    <textarea
+                        id="text1"
+                        cols="130"
+                        rows="10"
+                        placeholder="Enter Track details"
+                    ></textarea>
+                </div>
+            </div>
+
+            <!-- <div class="upload">
+                <img id="imgBox2" alt="" style="padding: 1rem;" />
+                <div class="round">
+                <input type="file" accept="image/*" name="image" id="profile-upload" style="display: none">
+                <label for="profile-upload"><i class="fa fa-camera" style="color: #000;"></i></label>
+                </div> -->
+
+            <div class="upload">
+                <div id="dragger_wrapper">
+                    <div id="dragger">
+                        <div class="icon">
+                            <i class="fa-solid fa-images"></i>
+                        </div>
+                        <h2 id="drag-text">Drag and Drop image</h2>
+                        <h3>Or</h3>
+                        <button class="browseFile" id="browseFile">Browse File</button>
+                        <input type="file" id="fileInputField" class="image_source" onchange={handleImageUpload}/>
+                    </div>
+                </div>
+
+                <!-- <div id="dragger_wrapper1">
+                    <div id="dragger1">
+                    <img id="track_image" src="" alt=""> 
+                    <div class="icon1"><i class="fa-sharp fa-solid fa-plus"></i></div>
+                    <h2 id="drag-text">upload audio File</h2>
+                    <h3>Or</h3> 
+                    <button class="browseFile" id="browseFile">Browse File</button><input type="file" id="fileInputField" class="audio_source" />
+          
+                    </div> 
+        
+                    </div> -->
+            </div>
+        </div>
+
+        <div class="lyricsUpload">
+            <div id="dragger_wrapper" style="position: relative; right: 50px">
+                <div id="dragger" style="height: 300px">
+                    <div class="icon">
+                        <i class="fa-sharp fa-solid fa-plus"></i>
+                    </div>
+                    <h2 id="drag-text">Drag and Drop Audio File</h2>
+                    <h3>Or</h3>
+                    <button class="browseFile" id="browseFile">Browse File</button>
+                    <input type="file" id="fileInputField" class="audioSource">
+                </div>
+            </div>
+
+            <textarea
+                class="input"
+                id="lyric"
+                style="position: relative; top: 25px; left: 100px"
+                cols="50"
+                rows="5"
+                placeholder="Type your Lyrics"
+            ></textarea>
+
+            <div
+                style="
+          color: white;
+          text-align: start;
+          font-size: 14px;
+          position: relative;
+          left: 180px;
+          top: 30px;
+        "
+            >
+                <p>
+                    Please make sure you filled all the details right before clicking List
+                </p>
+                <p>Please Upload Non copyright Image or you have the rights</p>
+                <p>
+                    If you Song or Track doesn't have lyrics in the sense don't fill it
+                </p>
+                <div style="position: relative; top: 50px">
+                    <button
+                        type="button"
+                        style="
+              padding: 15px;
+              position: relative;
+              top: 00px;
+              background-color: rgb(2, 107, 2);
+            "
+                        class="input"
+                        id="list"
+                    >
+                        LIST
+                    </button>
+                    <button
+                        type="button"
+                        style="
+              padding: 15px;
+              background-color: rgb(72, 86, 10);
+              color: rgb(209, 175, 175);
+              display: none;
+            "
+                        class="input"
+                        id="list2"
+                    >
+                        Update
+                    </button>
+                    <button
+                        type="button"
+                        style="background-color: rgb(236, 48, 48); display: none"
+                        class="input"
+                        id="list1"
+                    >
+                        DELETE
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="../../assets/js/upload file js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/uuid@8.3.2/dist/umd/uuidv4.min.js"></script>
+        <script src="../../assets/js/header.js"></script>g
+    </body>
+</html>

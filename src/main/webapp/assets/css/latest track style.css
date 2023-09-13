@@ -1,0 +1,351 @@
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    font-family:'Poppins', sans-serif;
+  }
+  ::-webkit-scrollbar{
+    width:0px;
+  }
+    form {
+      background-color: rgb(255, 255, 255);
+      width: 500px;
+      height: 44px;
+      border-radius: 30px;
+      display:flex;
+      flex-direction:row;
+      align-items:center;
+      margin-top: 50px;
+      margin-left: 300px;
+    }
+  
+    input {
+      all: unset;
+      font: 16px system-ui;
+      color: rgb(0, 0, 0);
+      height: 100%;
+      width: 100%;
+      padding: 6px 10px;
+    }
+  
+    ::placeholder {
+      color: rgb(0, 0, 0);
+      opacity: 0.7; 
+    }
+  
+    svg {
+      color: rgb(0, 0, 0);
+      fill: currentColor;
+      width: 24px;
+      height: 24px;
+      padding: 10px;
+    }
+  
+    button {
+      all: unset;
+      cursor: pointer;
+      width: 44px;
+      height: 44px;
+    }
+  .header{
+      display: flex;
+      flex-direction: row;
+      background-color: #000000;
+      border-bottom: 1px solid #BFBFBF; 
+      height: 14%;
+  }
+  .header h2{
+    margin-top: 60px;
+    position: relative;
+    left: 100px;
+    cursor: pointer;   
+  }
+  .logo{
+      width: 150px;
+      
+  }
+  .dropdown {
+    position: relative;
+    display: inline-block;
+    top:65px;
+    left:60px;
+
+
+}
+  
+.dropdown-content a{
+    text-decoration: none;
+    color: black;
+    padding-bottom: 20px;
+}
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.952);
+    padding: 18px 26px;
+    z-index: 1;
+    width: 200px;
+
+  }
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  .dropdown:hover .dropdown-content:hover{
+    background-color: rgb(177, 177, 0);
+    border-radius: 5%;
+
+  }
+  .carticon{
+    width: 40px;
+    height: 40px;
+    margin-top: 50px;
+    margin-left: 40px;
+    cursor: pointer;
+}
+.profile{
+    width:40px;
+    height: 40px;
+    margin-top: 50px;
+    margin-left: 240px;
+    cursor: pointer;
+    
+}
+  body{
+      background-color: black;    
+  }
+  .spotify-playlists {
+    padding: 20px 40px;
+    overflow: hidden;
+    
+  }
+  .spotify-playlists h2 {
+    color: #FFFFFF;
+    font-size: 30px;
+    margin-bottom: 20px;
+    margin-left: 38%;
+    letter-spacing: 10px;
+    
+  }
+  .spotify-playlists .list {
+    display: flex;
+    gap: 100px;
+    overflow: hidden;
+  }
+  .spotify-playlists .list .item {
+    min-width: 140px;
+    width: 300px;
+    border-radius: 21px;
+    cursor: pointer;
+    transition: all ease 0.4s;
+  }
+  .spotify-playlists .list .item:hover{
+     background-color: #343333;
+     transform: scale(1.02);
+     transition: 0.5s;
+
+
+  }
+  .spotify-playlists .list .item img {
+    width: 100%;
+    border-radius: 30px;
+    margin-bottom: 10px;
+  }
+  .spotify-playlists .list .item .play {
+    position: relative;
+  }
+  .spotify-playlists .list .item .play .fa {
+    position: absolute;
+    right: 10px;
+    top: -60px;
+    padding: 18px;
+    background-color: #1DB954;
+    border-radius: 100%;
+    opacity: 0;
+    transition: all ease 0.4s;
+  }
+  .spotify-playlists .list .item:hover .play .fa {
+    opacity: 1;
+    transform: translateY(-20px);
+  }
+  .spotify-playlists .list .item h4 {
+    color: #FFFFFF;
+    font-size: 14px;
+    margin-bottom: 10px;
+    text-align: center;
+    overflow: hidden;
+    
+  }
+  .spotify-playlists .list .item p {
+    color: #ffffff;
+    font-size: 12px;
+    line-height: 20px;
+    font-weight: 600;
+    text-align: center;
+  }
+  .spotify-playlists hr {
+    margin: 70px 0px 0px;
+    border-color: #636363;
+  }
+  @import url(//db.onlinewebfonts.com/c/860c3ec7bbc5da3e97233ccecafe512e?family=Circular+Std+Book);
+  
+  
+  
+body {
+    margin: 0;
+    padding: 0; 
+    font-size: 14px;
+  
+}
+
+.music-player {
+    --primary-color: #ddd;
+    --secondary-color: #999;
+    --green-color: #2d5;
+    --padding: 1em;
+  
+    background-image: linear-gradient(to right, rgb(141, 104, 104),rgb(59, 1, 73),rgb(43, 45, 37));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: sticky;
+    bottom: 0px;
+    height: 7rem;
+    padding: var(--padding);
+    color: var(--primary-color);
+    margin-top: 10px;
+
+}
+i{
+    color: var(--secondary-color);
+}
+i:hover{
+    color: var(--primary-color);
+}
+.song-bar {
+    position: absolute;
+    left: var(--padding);
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1.5rem;
+    width: 25%;
+}
+
+.song-infos {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+}
+.image-container {
+    --size: 4.5em;
+    flex-shrink: 0;
+    width: var(--size);
+    height: var(--size);
+}
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.song-description p {
+    margin: 0.2em;
+}
+.title1,
+.artist {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+}
+.title1:hover,
+.artist:hover {
+    text-decoration: underline;
+}
+.artist{
+    color: var(--secondary-color);
+}
+.icons{
+    display: flex;
+    gap: 1em;
+}
+.progress-controller{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5em;
+    color: var(--secondary-color);
+}
+.control-buttons{
+    display: flex;
+    align-items: center;
+    gap: 2em;
+}
+.play-pause{
+    display: inline-block;
+    padding: 1em;
+    background-color: var(--primary-color);
+    color: #111;
+    border-radius: 50%;
+}
+.play-pause:hover{
+    transform: scale(1.1);
+    color: #111;
+}
+.progress-container{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+}
+.progress-bar{
+    height: 4px;
+    border-radius: 10px;
+    width: 30%;
+    background-color: #ccc4;
+}
+.progress{
+    position: relative;
+    height: 100%;
+    width: 30%;
+    border-radius: 10px;
+    background-color: var(--secondary-color);
+}
+.progress-bar:hover .progress{
+    background-color: var(--green-color);
+}
+.progress-bar:hover .progress::after{
+    content: "";
+    position: absolute;
+    --size: 1em;
+    width: var(--size);
+    height: var(--size);
+    right: 0;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    transform: translate(50%, calc(2px - 50%));
+}
+.other-features{
+    position: absolute;
+    right: var(--padding);
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+}
+.volume-bar{
+    display: flex;
+    align-items: center;
+    gap: .7em;
+}
+.volume-bar .progress-bar{
+    width: 6em;
+}
+.volume-bar .progress-bar:hover .progress::after{
+    --size: .8em;
+}

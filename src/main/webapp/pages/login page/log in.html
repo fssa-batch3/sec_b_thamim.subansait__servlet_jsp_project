@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>log in</title>
+    <link rel="stylesheet" href="../../assets/css/css/bootstrap.min.css" />
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../../assets/css/log in style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="log">
+      <h1>Login</h1>
+      <div class="btn">
+        <div class="box">
+          <input
+            class="op1"
+            type="text"
+            name="username"
+            placeholder="User Email"
+            id="email"
+            required
+          />
+          <div>
+            <input
+              class="op1"
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Password"
+              required
+            />
+          </div>
+          <input type="submit" class="op" value="Login" />
+          <div>
+            <a href="#" style="color: white; text-decoration: none" class="btn1"
+              >Forgot password?</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      //  function sub(){
+      //     const username = document.getElementById("username").value
+      //     const password = document.getElementById("password").value
+
+      //     console.log(username)
+      //     console.log(password)
+      //     window.location.href ="../homepage/buyer homepage.html"
+      //  }
+      localStorage.removeItem("userRole");
+
+      function setCookie(name, value, days) {
+  const expires = new Date();
+  expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
+  document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+}
+
+      function signIn(e) {
+        e.preventDefault();
+        const user_email = document.getElementById("email").value;
+        user_password = document.getElementById("password").value;
+
+        const formData = new FormData();
+        formData.append("email", user_email);
+        formData.append("password", user_password);
+
+        fetch("http://localhost:8080/dobooweb/user/log", {
+    method: "POST",
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    // Convert the FormData to a query string
+    body: new URLSearchParams(formData).toString(),
+  })
+  .then(response => {
+  if(!response.ok){ 
+    throw new Error(response.message);
+  }
+  return response.json();}  
+  )
+  .then(data => {
+    if (data.error) { 
+      alert("Login failed: " + data.error);
+    } else {
+      console.log(data);
+      const userId = data.data.id;
+      // setCookie("userId", userId, 30);
+      const role = data.data.role;
+      sessionStorage.setItem('userId', userId);
+      console.log(role);
+      // Login successful, handle redirection or other actions
+      localStorage.setItem("userEmail", JSON.stringify(user_email));
+      localStorage.setItem("userRoleC", JSON.stringify(role));
+      
+      alert("login successful");
+      window.location.href = "../profile.html";
+    }
+  })
+  .catch(error => {
+    console.error("Error:", error);
+    alert("An error occurred while logging in. "+error.message);
+  });
+}
+          // //   alert("Your login in successful");
+          //   if (JSON.parse(localStorage.getItem("userRoleC")) == "buyer") {
+          //   window.location.href = "../profile.html";
+          // } else if (JSON.parse(localStorage.getItem("userRoleC")) == "seller") {
+          //   location.href ="../seller profile and upload a track/seller profile.html"
+          // }
+          
+        
+      
+      document.querySelector(".op").addEventListener("click", signIn);
+      // document.querySelector(".op").addEventListener("click",pathUsers)
+    </script>
+  </body>
+</html>

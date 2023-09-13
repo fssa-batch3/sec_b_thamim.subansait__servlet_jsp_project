@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Email Verification</title>
+   <style>
+      body {
+         font-family: Arial, sans-serif;
+         text-align: center;
+         background-color: #f7f7f7;
+         padding: 50px 0;
+      }
+      .container {
+         max-width: 600px;
+         margin: 0 auto;
+         background-color: #fff;
+         padding: 30px;
+         border-radius: 10px;
+      }
+      h1 {
+         font-size: 30px;
+         color: #454545;
+      }
+      p {
+         font-size: 16px;
+         color: #707070;
+         line-height: 1.5;
+         margin: 20px 0;
+      }
+      .button {
+         background-color: #008CBA;
+         color: #fff;
+         text-decoration: none;
+         padding: 10px 20px;
+         border-radius: 5px;
+         display: inline-block;
+         font-size: 16px;
+         margin-top: 20px;
+      }
+      .button:hover {
+         background-color: #005f78;
+      }
+      #otp{
+        padding: 10px;
+      }
+   </style>
+   <script type="text/javascript"
+   src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
+   </script>
+   <script type="text/javascript">
+   (function(){
+       emailjs.init("MJkH21yxw1kq8USCP");
+   })();
+   </script>
+</head>
+<body>
+   <div class="container">
+      <h1>Email Verification</h1>
+      <p>Thank you for signing up with us! To complete the registration process, please Enter the OTP and click the button below to verify your email address.</p>
+      <input type="text" id="otp" maxlength="8">
+      <a href="#" class="button" id="Verify">Verify Email</a>
+   </div>
+
+   <script>
+    const UserId = JSON.parse(localStorage.getItem("userVerifyEmail"))
+    console.log(UserId)
+    let num = Math.floor(Math.random() * 900000) + 100000;
+
+    function SendMail() {
+    
+    var params = {
+        to_name : UserId,
+        OTP: num
+    }
+
+    const EmailVerify=JSON.parse(localStorage.getItem("EmailVerify"))||[]
+        const varifyUser ={
+            "email":UserId,
+            "OTP": num,
+            "date":new Date(),
+            "time":new Date().toLocaleTimeString(),
+        }
+       
+        EmailVerify.push(varifyUser)
+    
+    
+        localStorage.setItem("EmailVerify", JSON.stringify(EmailVerify))
+
+    emailjs.send("service_myq1w7c", "template_zew00y8", params).then(function (res) {
+    alert("Successfull The otp has been sent to your email ! " + res.status);
+    })
+    }
+
+    SendMail()
+
+    document.querySelector(".button").addEventListener("click",()=>{
+        const emailVerify=JSON.parse(localStorage.getItem("EmailVerify"))
+        const findingUser = emailVerify.find((Email) => {
+  return Email.email === UserId;
+})
+    
+const otpInput = document.getElementById('otp'); // get the element by ID
+const otpValue = otpInput.value; // retrieve the value entered by the user
+console.log(otpValue); // output the value to the console
+
+
+        if(otpValue==findingUser["OTP"]){
+            alert("Email verification successful")
+            localStorage.removeItem("userVerifyEmail")
+            window.location.href="../pages/login page/log in.html"
+        }
+        else{
+            alert("Email verification failed")
+        }
+    })
+    
+ 
+   </script>
+</body>
+</html>

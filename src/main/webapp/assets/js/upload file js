@@ -1,0 +1,286 @@
+
+    
+    const userEmail=JSON.parse(localStorage.getItem("userEmail"));
+    let user_list=JSON.parse(localStorage.getItem("user_list"));
+    function findArtist(e){
+        return e.user_email==userEmail;
+
+    }
+
+    let artist_data = user_list.find(findArtist);
+
+    console.log(userEmail)
+
+    document.getElementById("list1").removeAttribute("style","display:none")
+    document.getElementById("list1").setAttribute("style","background-color:rgb(236, 48, 48)")
+
+
+function getData(){  
+    let name = document.getElementById("trackname").value
+        bpm = document.getElementById("bpm").value
+        key = document.getElementById("key").value
+        genre = document.querySelector("#genre").value 
+        daw =document.getElementById("daw").value
+        // audio = document.querySelector(".audio_source").value
+        image = document.querySelector(".image_source").value
+        detail = document.getElementById("text1").value
+        price = document.getElementById("Price").value;
+        lyrics = document.querySelector("#lyric").value;
+        product_unique_id = uuidv4();
+
+
+        let trackData =JSON.parse(localStorage.getItem('trackName')) || [];
+   
+        trackData.push({"trackname":name, "bpm": bpm,"key":key,"genre": genre, "detail": detail, "price":price,"songId":product_unique_id,"daw":daw,"lyrics":lyrics,"UserEmail":userEmail,"artistName":artist_data["artistName"]});
+        localStorage.setItem("trackName",JSON.stringify(trackData));
+
+        alert("successFully Uploaded")
+    
+        location.href="../homepage/buyer homepage.html"
+        
+       
+      }
+
+      document.getElementById("list").addEventListener("click",getData)
+
+
+
+//       const fileInput = document.getElementById('fileInputField');
+
+// fileInput.addEventListener('change', (event) => {
+//   const file = event.target.files[0];
+  
+//   const objectURL = URL.createObjectURL(file);
+//   localStorage.setItem('image', objectURL);
+// });
+
+    //   Profile image Upload API
+
+    
+
+// // Assuming you have a file input field with the id "file-upload"
+
+// import axios from "axios";
+
+// const CLOUDINARY_URL = 'https://api.cloudinary.com/v1_1/dxxo3kzz2/image/upload';
+// const CLOUDINARY_UPLOAD_PRESET  = 'thamimtommy';
+
+// const uploadImage = (file) => {
+//   const formData = new FormData();
+//   formData.append('file', file);
+//   formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+
+//   return axios.post(CLOUDINARY_URL, formData, {
+//     headers: {'Content-Type': 'multipart/form-data'}
+//   })
+//   .then(response => {
+//     console.log('Image uploaded:', response.data.secure_url);
+//     return response.data.secure_url;
+//   })
+//   .catch(error => {
+//     console.error('Error during image upload:', error);
+//     return null;
+//   });
+// }
+
+// function handleImageUpload(event) {
+//     const file = event.target.files[0];
+//     if (file) {
+//       uploadImage(file)
+//         .then(uploadedImageUrl => {
+//           // Do something with the uploaded image URL
+//         })
+//         .catch(error => {
+//           console.error(error);
+//         });
+//     }
+//   }
+
+// // get the audio file input element
+// const audioFileInput = document.querySelector('.audioSource');
+
+// // add an event listener to the input element
+// audioFileInput.addEventListener('change', function(e) {
+//   // get the file object
+//   const file = e.target.files[0];
+  
+//   // create a new FileReader object
+//   const reader = new FileReader();
+
+//   // add an event listener to the FileReader object
+//   reader.addEventListener('load', function() {
+//     // create a new AudioContext
+//     const audioContext = new AudioContext();
+
+//     // decode the audio data
+//     audioContext.decodeAudioData(reader.result, function(decodedData) {
+//       // create an OfflineAudioContext with the same sample rate as the decoded data
+//       const offlineContext = new OfflineAudioContext(decodedData.numberOfChannels, decodedData.length, decodedData.sampleRate);
+
+//       // create a buffer source node and connect it to the offline context
+//       const source = offlineContext.createBufferSource();
+//       source.buffer = decodedData;
+//       source.connect(offlineContext.destination);
+
+//       // start the buffer source node and render the audio to the offline context
+//       source.start();
+//       offlineContext.startRendering().then(function(renderedBuffer) {
+//         // create a new Blob with the rendered audio data
+//         const blob = new Blob([renderedBuffer.getChannelData(0)], { type: 'audio/wav' });
+
+//         // create a new FileReader object
+//         const blobReader = new FileReader();
+
+//         // add an event listener to the blob FileReader object
+//         blobReader.addEventListener('load', function() {
+//           // get the compressed audio data URL
+//           const compressedDataUrl = blobReader.result;
+
+//           // save the compressed audio data URL in local storage
+//           localStorage.setItem('compressedDataUrl', compressedDataUrl);
+//         });
+
+//         // read the blob as a data URL
+//         blobReader.readAsDataURL(blob);
+//       });
+//     });
+//   });
+
+//   // read the file as an array buffer
+//   reader.readAsArrayBuffer(file);
+// });
+
+
+      
+      
+
+      let ProductID = JSON.parse(localStorage.getItem("songId"));
+      let trackList = JSON.parse(localStorage.getItem("trackName"));
+
+      if(localStorage.getItem("songId")){
+
+      function findTrack(e){
+        return e.songId==ProductID
+      }
+       NewTrack= trackList.find(findTrack);
+       console.log(NewTrack)
+    
+       function check(e){
+        
+        NewTrack= trackList.find(findTrack);
+       document.getElementById("trackname").value=NewTrack["trackname"];
+       document.getElementById("bpm").value=NewTrack["bpm"];
+       document.getElementById("key").value=NewTrack["key"];
+       document.querySelector("#genre").value=NewTrack["genre"];
+       document.getElementById("text1").value=NewTrack["detail"];
+       document.getElementById("Price").value=NewTrack["price"];
+       document.getElementById("daw").value=NewTrack["daw"];
+       document.getElementById("lyric").value=NewTrack["lyrics"];
+       document.getElementById('list2').style.display = "inline"
+       document.getElementById('list').style.display = "none"
+
+    
+    }
+
+        
+        window.addEventListener("load",check)
+}
+
+       
+       
+       
+      if(localStorage.getItem("songId")){
+
+        
+
+      function update(e){
+
+        // getting the updated data from the input field
+        updatename = document.getElementById("trackname").value;
+        updatebpm = document.getElementById("bpm").value
+        updatekey = document.getElementById("key").value
+        updategenre = document.querySelector("#genre").value 
+        updatedetail = document.getElementById("text1").value
+        updateprice = document.getElementById("Price").value
+        updatedaw = document.getElementById("daw").value
+        updatelyric = document.getElementById("lyric").value
+
+        
+
+       // paste the updated data to the correct object
+       NewTrack["trackname"] = updatename;
+       NewTrack["bpm"] = updatebpm;
+       NewTrack["key"] = updatekey;
+       NewTrack["genre"] = updategenre;
+       NewTrack["detail"]=updatedetail;
+       NewTrack["price"]=updateprice;
+       NewTrack["daw"]=updatedaw;
+       NewTrack["lyrics"]=updatelyric;
+       // again paste it to the
+       localStorage.setItem("trackName", JSON.stringify(trackList)); 
+
+       location.href="../profile.html"
+                   
+   }
+}
+
+        document.getElementById("list2").addEventListener("click",update)
+
+   let del_product = document.querySelector("#list1");
+        
+        function delData() {
+            if(localStorage.getItem("songId")){
+            if (confirm("Are you sure?")) {
+                let ProductID = JSON.parse(localStorage.getItem("songId"));
+                let trackList = JSON.parse(localStorage.getItem("trackName"));
+                function find_data(e) {
+                    return e.songId==ProductID;
+                }
+                product_data = trackList.find(find_data);
+                const indexOfproduct = trackList.indexOf(product_data);
+                trackList.splice(indexOfproduct, 1);
+                localStorage.setItem('trackName', JSON.stringify(trackList));
+                location.href="../profile.html"
+                
+            }
+        };
+        }
+      
+        del_product.addEventListener("click", delData);
+      
+
+    // document.querySelector (".image_source").addEventListener("change", function () {
+    
+    //   const reader = new FileReader();
+    
+    //   let trackImages=JSON.parse(localStorage.getItem("track-image")) || []
+    
+    // reader.addEventListener("load", () => {
+
+    //   trackImages.push({"track image":reader.result})
+
+    //   localStorage.setItem("track-image", JSON.stringify(trackImages));
+
+    //     });
+    //   reader.readAsDataURL (this.files[0]);
+    //   });
+
+
+    //   document.querySelector (".audio_source").addEventListener("change", function () {
+    // const reader = new FileReader();
+
+    // reader.addEventListener("load", () => {
+
+    //   localStorage.setItem("audio_file", JSON.stringify(reader.result));
+
+    //     });
+    //   reader.readAsDataURL (this.files[0]);
+    //   });
+
+
+  
+      
+    //   document.addEventListener("DOMContentLoaded",() => {
+    //   const trackImg = localStorage.getItem("track-image")
+    //   document.querySelector("#track_image").setAttribute("src",trackImg)
+    // })

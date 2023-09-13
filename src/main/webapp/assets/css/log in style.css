@@ -1,0 +1,58 @@
+.log{
+    margin-top: 290px;
+    text-align: center;
+    
+
+    
+}
+.log h1{
+  color: rgb(201, 74, 255);
+   font-size: 60px;
+   font-weight: 900;
+
+}
+.op:hover {
+    background-color: #008407;
+    color: black;
+    transform: scale(1.05);
+  transition: 0.5s;
+  }
+  input,
+  .btn {
+    width: 40%;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    margin: 5px 0;
+    opacity: 0.85;
+    font-size: 17px;
+    line-height: 20px;
+    text-decoration: none;
+  }
+.op1:hover{
+    transform: scale(1.05);
+    transition: 0.5s;
+  }
+.op{
+    background-color:rgb(201, 74, 255);
+    cursor: pointer;
+    width: 20%;
+    font-size: 22px;
+    font-weight: 600;
+
+}
+
+
+body{
+  background-color: black;
+  font-family:'Poppins', sans-serif;
+  
+
+}
+.btn1{
+  font-weight: 600;
+  font-size: 20px;
+}
+.op1::placeholder{
+  color: black;
+} 

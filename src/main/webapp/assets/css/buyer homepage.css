@@ -1,0 +1,548 @@
+::-webkit-scrollbar{
+  display: none;
+}
+
+body {
+  background-color: #000000;
+
+
+}
+
+.btn {
+  background-color: #ffffff;
+  color: #000000;
+  margin-top: 80px;
+}
+
+.leftside h2 {
+  text-align: center;
+  width: 150%;
+
+
+}
+
+.leftside {
+  background-color: #1c1c1c;
+  border-radius: 20px;
+  width: 22%;
+  margin-left: -25px;
+  margin-top: 25px;
+  padding: 10px;
+
+
+
+}
+
+.leftside:hover {
+  color: #000000;
+
+}
+
+.content {
+  display: flex;
+  margin-left: 50px;
+  flex-direction: row;
+  margin-top: 20px;
+
+}
+
+.rightside {
+  margin-right: 160px;
+  text-align: center;
+  position: relative;
+  left: 60px;
+}
+
+.rightside h3 {
+  color: rgb(52, 155, 0);
+
+}
+
+.rightside p {
+  color: white;
+}
+
+.secondright {
+  color: white;
+    /* position: sticky; */
+    position: fixed;
+    right: 10px;
+    margin: auto;
+    top: 58%;
+    /* bottom: 100px; */
+    margin-right: 20px;
+    /* margin-bottom: 65px; */
+    z-index: 1;
+    /* right: 35px; */
+    height: 250px;
+    overflow-y: scroll;
+    /* margin-top: 13px; */
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    border-radius: 20px;
+    background-color: #1c1c1c;
+    text-align: start;
+    width: max-content;
+    padding: 30px;
+    /* padding-left: 80px; */
+    /* padding-right: 80px; */
+}
+
+.hidden {
+  display: none;
+}
+
+.animation {
+  animation-name: move;
+  animation-duration: .4s;
+  animation-fill-mode: both;
+  animation-delay: 1s;
+}
+
+.a1 {
+  animation-delay: 20ms;
+}
+
+/* .ad{
+  background-color:#2d5;
+  width: 100%;
+  height: 100px;
+} */
+
+@keyframes move {
+  0% {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-40px);
+  }
+
+  100% {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+}
+
+@keyframes left {
+  0% {
+    opacity: 0;
+    width: 0;
+  }
+
+  100% {
+    opacity: 1;
+    padding: 20px 40px;
+    width: 440px;
+  }
+}
+
+.secondright h2 {
+  font-weight: 600;
+    font-size: x-large;
+    color: #bbbbbb;
+}
+
+.border {
+  width: 200px;
+    height: 100px;
+    margin-top: 5px;
+}
+
+.border p {
+  font-size: 18px;
+    width: 150px;
+    font-weight: 900;
+
+}
+
+.border p:hover {
+  color: rgb(207, 207, 207);
+}
+
+.productlist img {
+  width: 190px;
+    padding: 20px;
+    border-radius: 40px;
+    height: 190px;
+}
+
+.productlist img:hover {
+  transform: scale(1.1);
+ 
+}
+
+.productlist {
+  display: flex;
+  flex-direction: row;
+  padding-top: 20px;
+  border-radius: 30px;
+  flex-wrap: wrap;
+}
+
+.productlist p {
+  position: relative;
+    left: 50px;
+}
+
+.card1 img {
+  width: 60px;
+  border-radius: 50%;
+}
+
+.card1 img:hover {
+  transform: scale(1.06);
+  
+}
+
+.card2 img {
+  width: 40px;
+  border-radius: 50%;
+  padding-top: 15px;
+}
+
+.card2 img:hover {
+  transform: scale(1.5);
+  transition: 0.5s;
+}
+
+.card1 p {
+  color: #ffffff;
+  position: relative;
+}
+
+.card1 {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  left: 20px;
+  justify-content: space-evenly;
+  padding: 10px;
+}
+
+.text {
+  margin-left: 15px;
+  margin-top: 10px;
+}
+
+.text:hover {
+  text-decoration: underline;
+  color: #ffffff;
+
+}
+
+.text h3,
+p {
+  width: 100px;
+}
+
+.box1 {
+  padding-right: 80px;
+  background-color: #101010;
+  border-radius: 20px;
+  margin-top: 10px;
+
+
+}
+
+.card1 a:hover {
+  background-color: #ffffff;
+}
+
+.title {
+  text-align: center;
+
+}
+
+.title1 {
+  font-size: 15px;
+  width: 100%;
+
+}
+
+.productlist p {
+  color: #ffffff;
+  position: relative;
+  text-align: center;
+  align-content: center
+}
+
+@import url(//db.onlinewebfonts.com/c/860c3ec7bbc5da3e97233ccecafe512e?family=Circular+Std+Book);
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: rgb(0, 0, 0);
+  font-size: 14px;
+
+}
+
+.music-player {
+  --primary-color: #ddd;
+  --secondary-color: white;
+  --green-color: #2d5;
+  --padding: 1em;
+  background-color: rgb(36, 36, 36);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 7rem;
+  padding: var(--padding);
+  color: var(--primary-color);
+  margin-top: 65px;
+  position: sticky;
+  bottom: 0px;
+
+}
+
+i {
+  color: var(--secondary-color);
+}
+
+i:hover {
+  color: var(--primary-color);
+}
+
+.song-bar {
+  position: absolute;
+  left: var(--padding);
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1.5rem;
+  width: 25%;
+}
+
+.song-infos {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.image-container {
+  --size: 4.5em;
+  flex-shrink: 0;
+  width: var(--size);
+  height: var(--size);
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.song-description p {
+  margin: 0.2em;
+}
+
+.title1,
+.artist {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+}
+
+.title1:hover,
+.artist:hover {
+  text-decoration: underline;
+}
+
+.artist {
+  color: var(--secondary-color);
+}
+
+.icons {
+  display: flex;
+  gap: 1em;
+}
+
+.progress-controller {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5em;
+  color: var(--secondary-color);
+}
+
+.control-buttons {
+  display: flex;
+  align-items: center;
+  gap: 2em;
+}
+
+.play-pause {
+  display: inline-block;
+  padding: 1em;
+  background-color: var(--primary-color);
+  color: #111;
+  border-radius: 50%;
+}
+
+
+.play-pause:hover {
+  transform: scale(1.1);
+  color: #111;
+}
+
+.progress-container {
+  width:100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+}
+
+.progress-bar,.volume-bar-1{
+  height: 4px;
+  border-radius: 10px;
+  width: 30%;
+  background-color: #ccc4;
+}
+
+.progress {
+  position: relative;
+  height: 100%;
+  width: 0%;
+  border-radius: 10px;
+  background-color: var(--secondary-color);
+}
+
+.progress-bar:hover .progress,.volume-bar-1:hover .volumeProgress{
+  background-color: var(--green-color);
+}
+
+.progress-bar:hover .progress::after {
+  content:"";
+  position: absolute;
+  --size: 1em;
+  width: var(--size);
+  height: var(--size);
+  right: 0;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  transform: translate(50%, calc(2px - 50%));
+}
+
+.volume-bar-1:hover .volumeProgress::after {
+  content:"";
+  position: absolute;
+  --size: 1em;
+  width: var(--size);
+  height: var(--size);
+  right: 0;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  transform: translate(50%, calc(2px - 50%));
+}
+
+.other-features {
+  position: absolute;
+  right: var(--padding);
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+}
+
+.volume-bar {
+  display: flex;
+  align-items: center;
+  gap: .7em;
+}
+
+.volumeProgress{
+  position: relative;
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+  background-color: var(--secondary-color)
+}
+
+
+
+
+
+.volume-bar .volume-bar-1 {
+  width: 6em;
+
+}
+
+.volume-bar .volume-bar-1:hover .volumeProgress::after {
+  --size: .8em;
+  background-color: var(--green-color)
+}
+
+.welcome-message {
+  font-size: 20px;
+  font-weight: bold;
+  color: green;
+}
+
+
+@media(max-width: 399px) {
+  .content {
+    display: flex;
+    flex-direction: column;
+    margin-left: 0px;
+  }
+
+  .secondright {
+    display: none;
+  }
+
+  .leftside {
+    display: none;
+
+  }
+
+  .header {
+    display: none;
+  }
+
+  .rightside {
+    margin-right: 0px;
+    position: relative;
+    left: 0px;
+  }
+
+  .productlist img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .productlist {
+    position: relative;
+    left: 0px;
+  }
+
+  .productlist p {
+    position: relative;
+    left: 0px;
+  }
+
+  .other-features {
+    display: none;
+  }
+
+  .image-container {
+
+    display: none;
+  }
+
+  .icons {
+    display: none;
+  }
+
+  .title1 {
+    width: 150%;
+    display: none;
+  }
+
+  #hide {
+    display: none;
+  }
+}
