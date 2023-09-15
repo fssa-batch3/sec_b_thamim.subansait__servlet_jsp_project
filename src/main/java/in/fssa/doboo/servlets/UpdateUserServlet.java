@@ -9,9 +9,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.google.gson.Gson;
 
 import in.fssa.doboo.exception.ServiceException;
 import in.fssa.doboo.exception.ValidationException;
+import in.fssa.doboo.model.ResponseEntity;
 import in.fssa.doboo.model.UserEntity;
 import in.fssa.doboo.service.UserService;
 
@@ -21,7 +25,11 @@ import in.fssa.doboo.service.UserService;
 @WebServlet("/user/update")
 public class UpdateUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPost(request,response);
+	}
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -41,12 +49,12 @@ public class UpdateUserServlet extends HttpServlet {
 			user.setName(request.getParameter("name"));
 		}
 		
-		if(request.getParameter("artistName") == null || request.getParameter("artistName").isEmpty()) {
-			PrintWriter consoleOutput = new PrintWriter(System.out);
-			consoleOutput.println("artistName cannot be null or empty");
-		} else {
-			user.setArtistName(request.getParameter("artistName"));
-		}
+//		if(request.getParameter("artistName") == null || request.getParameter("artistName").isEmpty()) {
+//			PrintWriter consoleOutput = new PrintWriter(System.out);
+//			consoleOutput.println("artistName cannot be null or empty");
+//		} else {
+//			user.setArtistName(request.getParameter("artistName"));
+//		}
 		
 		if(request.getParameter("password") == null || request.getParameter("password").isEmpty()) {
 			PrintWriter consoleOutput = new PrintWriter(System.out);
@@ -55,33 +63,55 @@ public class UpdateUserServlet extends HttpServlet {
 			user.setPassword(request.getParameter("password"));
 		}
 		
-			
+		HttpSession session = request.getSession();
+		
 		user.setEmail(request.getParameter("email"));
-		user.setDob(request.getParameter("dob"));
+		
+		user.setDob((String)session.getAttribute("userDob"));
 		
 		UserService userService = new UserService();
 		
-		String idParams = request.getParameter("userid");
+		String userId =  String.valueOf(session.getAttribute("userId"));
+		System.out.println(userId+"user id");
+//		String idParams = request.getParameter("userid");
 		
-		int id = Integer.parseInt(idParams);
+		int id = Integer.parseInt(userId);
 		
 		userService.updateUser(id, user);
 		
-		response.sendRedirect("profile");
+		ResponseEntity res = new ResponseEntity();
+		res.setStatus(200);
+		res.setData("success");
+		res.setMessage("user details is updated successfully");
+//	
+		Gson gson = new Gson();
+		String responseJson = gson.toJson(res);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write(responseJson);
+		
+//		response.sendRedirect("profile");
 		
 		} catch (ValidationException e) {
 			e.printStackTrace();
-			 request.setAttribute("errorMessage", "An error occurred: " + e.getMessage());
-			 RequestDispatcher dispatcher = request.getRequestDispatcher("/error");
-			 dispatcher.forward(request, response);
+			
+//			 request.setAttribute("errorMessage", "An error occurred: " + e.getMessage());
+//			 RequestDispatcher dispatcher = request.getRequestDispatcher("/error");
+//			 dispatcher.forward(request, response);
+			
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // this is for the status code 400 for bad request.
+	        response.getWriter().write(e.getMessage());
+			
 			PrintWriter consoleOutput = new PrintWriter(System.out);
 			consoleOutput.println(e.getMessage());
 			
 		} catch (ServiceException e) {
 			e.printStackTrace();
-			request.setAttribute("errorMessage", "An error occurred: " + e.getMessage());
-			 RequestDispatcher dispatcher = request.getRequestDispatcher("//error");
-			 dispatcher.forward(request, response);
+//			request.setAttribute("errorMessage", "An error occurred: " + e.getMessage());
+//			 RequestDispatcher dispatcher = request.getRequestDispatcher("//error");
+//			 dispatcher.forward(request, response);
+			 response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); // this is for the status code 500 internal error.
+		     response.getWriter().write(e.getMessage());
 			PrintWriter consoleOutput = new PrintWriter(System.out);
 			consoleOutput.println(e.getMessage());
 		}

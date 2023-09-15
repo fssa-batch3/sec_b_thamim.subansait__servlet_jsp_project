@@ -9,9 +9,13 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.google.gson.Gson;
 
 import in.fssa.doboo.exception.ServiceException;
 import in.fssa.doboo.exception.ValidationException;
+import in.fssa.doboo.model.ResponseEntity;
 import in.fssa.doboo.model.UserEntity;
 import in.fssa.doboo.service.UserService;
 
@@ -23,39 +27,26 @@ public class DeleteUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 Cookie[] ck = request.getCookies();
-	        String userId = null;
-
-	        if (ck != null) {
-	            for (Cookie cookie : ck) {
-	                if ("userid".equals(cookie.getName())) {
-	                    userId = cookie.getValue();
-	                    break;
-	                }
-	            }
-	        }
-
-	        if (userId == null) {
-	            // Handle the case where the userId cookie is not found.
-	            response.sendRedirect("login"); // Redirect to login page or appropriate error page.
-	            return;
-	        }
-		UserEntity user = new UserEntity();
-
+	        HttpSession session = request.getSession();
+	        String userId =  String.valueOf(session.getAttribute("userId"));
 		try {
 			UserService userService = new UserService();
 			
 
 			int id = Integer.parseInt(userId);
 			userService.deleteUser(id);
+			response.setStatus(HttpServletResponse.SC_ACCEPTED); // this is for the status code 200 for bad request.
 
-			response.sendRedirect("/dobooweb/index.jsp");
 		} catch (ValidationException e) {
 			e.printStackTrace();
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			response.getWriter().write("Validation error: " + e.getMessage());
 			PrintWriter consoleOutput = new PrintWriter(System.out);
 			consoleOutput.println(e.getMessage());
 		} catch (ServiceException e) {
 			e.printStackTrace();
+			response.setStatus(HttpServletResponse.SC_BAD_GATEWAY);
+			response.getWriter().write("Validation error: " + e.getMessage());
 			PrintWriter consoleOutput = new PrintWriter(System.out);
 			consoleOutput.println(e.getMessage());
 		}

@@ -81,20 +81,24 @@
     body: new URLSearchParams(formData).toString(),
   })
   .then(response => {
-  if(!response.ok){ 
-    throw new Error(response.message);
-  }
-  return response.json();}  
+	   console.log(response);
+   if(!response.ok){ 
+	   console.log(response);
+	   return response.text();
+   }
+   return response.json();
+   }  
   )
   .then(data => {
-    if (data.error) { 
-      alert("Login failed: " + data.error);
+	  console.log(data);
+	  if(typeof data === 'string') { 
+      alert("Login failed: " + data);
     } else {
       console.log(data);
       const userId = data.data.id;
       // setCookie("userId", userId, 30);
       const role = data.data.role;
-      sessionStorage.setItem('userId', userId);
+      
       console.log(role);
       // Login successful, handle redirection or other actions
       localStorage.setItem("userEmail", JSON.stringify(user_email));
@@ -109,12 +113,6 @@
     alert("An error occurred while logging in. "+error.message);
   });
 }
-          // //   alert("Your login in successful");
-          //   if (JSON.parse(localStorage.getItem("userRoleC")) == "buyer") {
-          //   window.location.href = "../profile.html";
-          // } else if (JSON.parse(localStorage.getItem("userRoleC")) == "seller") {
-          //   location.href ="../seller profile and upload a track/seller profile.html"
-          // }
           
         
       

@@ -1,4 +1,4 @@
-const root = window.location.origin;
+const root = window.location.origin + "/dobooweb";
 
 const buyerHeader = `<div class="header">
 <a
@@ -194,18 +194,23 @@ const sellerHeader = `<div class="header">
       /></a>
       </div>
 
-      
-      
-
-
       <div>
       </div>`;
+      
+    let userRole ;
+		async function role() {
+  try{
+    		const response = await fetch("http://localhost:8080/dobooweb/user/role", {
+      	method: "GET",
+    	});
 
-const userRole = JSON.parse(localStorage.getItem("userRoleC"));
-
-
-
-if (userRole === "buyer") {
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+    const data = await response.json();
+    console.log(data);
+    userRole = data.data;
+    if (userRole === "buyer") {
   document.body.insertAdjacentHTML("afterbegin", buyerHeader);
 } else if (userRole === "seller") {
   document.body.insertAdjacentHTML("afterbegin", sellerHeader);
@@ -218,6 +223,12 @@ document.getElementById("uploadtrack").addEventListener("click", () => {
     localStorage.removeItem("songId");
   }
 })};
+    
+  } catch (error) {
+    console.error("Error:", error);
+  }
+}
+role();
 
 function toggleDropdown() {
   const dropdown = document.getElementById("dropdown");
@@ -227,3 +238,6 @@ function toggleDropdown() {
     dropdown.style.display = "none";
   }
 }
+
+
+

@@ -45,23 +45,18 @@ public class LogUserServlet extends HttpServlet {
 	        	user = userService.Login(email);
 	        	String pwsd = user.getPassword();
 				if(!pwsd.equals(password)) {
-					throw new ValidationException("password deosn't match sorry");
+					throw new ValidationException("Incorrect Password");
 				}
 				
-//				HttpSession session = request.getSession();
-//				session.setAttribute("userId", user.getId());
-				
-//			Cookie ck = new Cookie("userid",String.valueOf(user.getId()));  
-//			ck.setPath("/");
-//			System.out.println(ck.getName()+" "+ck.getValue());
-//	        response.addCookie(ck);
-	     // response.sendRedirect("dashboard");
-	          
+				HttpSession session = request.getSession();
+				session.setAttribute("userId", user.getId());
+				session.setAttribute("role", user.getRole());
+					          
 	          ResponseEntity res = new ResponseEntity();
 				res.setStatus(200);
 				res.setData(user);
 				res.setMessage("user is successfully logged in");
-//			
+		
 				Gson gson = new Gson();
 				String responseJson = gson.toJson(res);
 				response.setContentType("application/json");
@@ -69,21 +64,27 @@ public class LogUserServlet extends HttpServlet {
 				response.getWriter().write(responseJson);
 				
 			} catch (PersistanceException | ValidationException | RuntimeException e) {
-				ResponseEntity res = new ResponseEntity();
-				res.setStatus(500);
-				res.setData("failed");
-				res.setMessage(e.getMessage());
-//			
-				Gson gson = new Gson();
-				String responseJson = gson.toJson(res);
+//				ResponseEntity res = new ResponseEntity();
+//				res.setStatus(500);
+//				res.setData("failed");
+//				res.setMessage(e.getMessage());
+//		
+//				Gson gson = new Gson();
+//				String responseJson = gson.toJson(res);
+               
+				// response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
+			    // response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage());
+				String errorMessage = e.getMessage();
+				response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 				response.setContentType("application/json");
 				response.setCharacterEncoding("UTF-8");
-				response.getWriter().write(responseJson);
+				response.getWriter().write(errorMessage);
 //				 request.setAttribute("errorMessage", "An error occurred: " + e.getMessage());
 //				 RequestDispatcher dispatcher = request.getRequestDispatcher("/error");
 //			     dispatcher.forward(request, response);
 				e.printStackTrace();
-				out.println(e.getMessage());
+//				out.println(e.getMessage());
 			}
+	        out.flush();
 	    }
 }

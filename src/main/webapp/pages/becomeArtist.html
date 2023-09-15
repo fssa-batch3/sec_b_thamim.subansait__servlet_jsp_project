@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/gh/suryaumapathy2812/notify__js/notify.css">
+	<script
+	src="https://cdn.jsdelivr.net/gh/suryaumapathy2812/notify__js/notify.js"> </script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -25,12 +29,12 @@
                             
                             <input type="text" class="form-field animation a3" required pattern="[A-Za-z\s]+" id="artistName" placeholder="Artist Name" aria-required="true">
                             <span class="animation a2" style="position: relative; top: 10px;">Who Are You</span>
-                    <select class="form-field animation a3" name="typeofartist" id="typeofartist" aria-required="true">
-                        <option value="Music produce">Music produce</option>
-                        <option value="beat makers">Beat makers</option>
-                        <option value="Mix and Master Eng">Mix and Master Eng</option>
-                        <option value="Singer/vocalist">Singer/vocalist</option>
-                        <option value="Song writers">Song writers</option>
+                    <select class="form-field animation a3" name="typeofartist" id="typeofartist" aria-required="true" required>
+                        <option value="musicproducer">Music produce</option>
+                        <option value="beatmakers">Beat makers</option>
+                        <option value="mixmastereng">Mix and Master Eng</option>
+                        <option value="singer">Singer/vocalist</option>
+                        <option value="songwriter">Song writers</option>
 
                     </select>
                     <span class="animation a2" style="position: relative; top: 10px;">Bio</span>
@@ -83,43 +87,56 @@
                 }
                 });
 
-                
+                const root = window.location.origin + "/dobooweb";
+                async function sellerDetails() {
+                    const artistName = document.getElementById("artistName").value;
+                    const bio = document.getElementById("bio").value;
+                    const typeOfArtist = document.getElementById("typeofartist").value;
+                    const instaLink = document.getElementById("instaLink").value;
+                    const faceBook = document.getElementById("faceBook").value;
+                    const linkedin = document.getElementById("Linkedin").value;
+                    const spotify = document.getElementById("spotify").value;
 
-                
+                    const  formData = new FormData();
+                    formData.append("artistName", artistName);
+                    formData.append("bio", bio);
+                    formData.append("type", typeOfArtist);
+                    formData.append("facebook", faceBook);
+                    formData.append("instagram", instaLink);
+                    formData.append("linkedln", linkedin);
+                    formData.append("spotify", spotify);
 
-                function sellerDetails(){
-                
-                const User = JSON.parse(localStorage.getItem("userEmail"))
-                const UserList =JSON.parse(localStorage.getItem("user_list"))
-                let foundUser = UserList.find(user => user.user_email === User);
-                foundUser["userRole"] ="seller";
-                foundUser["artistName"] = document.getElementById("artistName").value;
-                foundUser["bio"] = document.getElementById("bio").value;
-                foundUser["typeofartistName"] = document.getElementById("typeofartist").value;
-                foundUser["insta"] = document.getElementById("instaLink").value;
-                foundUser["facebook"] = document.getElementById("faceBook").value;
-                foundUser["linkedin"] = document.getElementById("Linkedin").value;
-                foundUser["spotify"] = document.getElementById("spotify").value;
+                    try {
+                        const response = await fetch(root+'/artist/new', {
+                            method: 'POST',
+                            headers: {
+                                "Content-Type": "application/x-www-form-urlencoded", // Set the content type
+                              },
+                              body: new URLSearchParams(formData).toString(),
+                        });
 
-                
-            
-                localStorage.setItem("user_list", JSON.stringify(UserList));
-                localStorage.setItem("userRoleC",JSON.stringify("seller"))
-
-                window.location.href="../pages/homepage/buyer homepage.html";
-                
-
-                
-            }
-
-           
-                
-
-               
-
-
-
-
+                        if (response.ok) {
+                            const result = await response.json();
+                            console.log(result);
+                            if (result.status === 200) {
+                                // Success, redirect to the buyer homepage
+                                 Notify.success("you are successfully became a artist");
+                                window.location.href = "../pages/homepage/buyer homepage.html";
+                            } else {
+                                // Handle error if needed
+                                console.error("Failed to become an artist:", result.message);
+                                Notify.error(result.message);
+                            }
+                        } else {
+                            // Handle HTTP error
+                            console.error("HTTP Error:", response.statusText);
+                        }
+                    } catch (error) {
+                        // Handle network or other errors
+                        console.error("Error:", error);
+                        Notify.error(error.message);
+                    }
+                }
 
 
                       </script>
