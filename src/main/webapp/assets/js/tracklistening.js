@@ -1,117 +1,157 @@
-const trackId = new URLSearchParams(window.location.search).get("tracks");
-      const track_details = JSON.parse(localStorage.getItem("trackName"));
-      
-      const userEmail = JSON.parse(localStorage.getItem("userEmail")); 
-      
-      function findTrack(track) {
-        return track.songId === trackId;
-      }
-
-      const loadtrack = track_details.find(findTrack);
+	const trackId = new URLSearchParams(window.location.search).get("tracks");
+    const rootUrl = window.location.origin + "/dobooweb";
+    const realId = trackId/25678;
+    const trackDetailsGlobal = [];
     
-      // create the HTML image element
-      const imagCon=document.createElement("a");
-      imagCon.className="imageContainer"
+    /*
+    // this is for the loader in the page 
+      document.addEventListener("DOMContentLoaded", function () {
+    // Simulate data loading with setTimeout (you should replace this with your data loading logic)
+    setTimeout(function () {
+        // Remove the loader when the data is loaded
+        const loader = document.getElementById("loader");
+        const content = document.getElementById("content");
 
-      const img = document.createElement('img');
-      img.src = `https://picsum.photos/340/300`;
-      img.id ="logo1"
-      img.classList.add("play-pause.fas")
-     
-      // add the HTML image element to the document body
-      imagCon.append(img);
-      // document.querySelector(".card").prepend(icon)
-      document.querySelector(".card").append(imagCon);
-
-      
-      
-      document.querySelector('.imageContainer').addEventListener('click', function() {
-        
-        this.classList.toggle('paused'); /* toggle the 'paused' class on click */
-
+        if (loader && content) {
+            loader.style.display = "none";
+            content.style.display = "block"; // Display the content
+        }
+    }, 2000); // Simulate a 2-second data loading time (adjust as needed)
 });
+*/
 
       
+    // this is for the static feature using localstorage so It basically works around with user Email 
+    //so I setItem when the user logged in so now I'm getting it to use it in recently played songs and liked tracks 
+    
+    let userEmail = JSON.parse(localStorage.getItem("userEmail"));
 
-      const imageContainer = document.querySelector('.imageContainer');
+// to load the track detail using track id
+async function fetchTrackDetails() {
+  if (trackId) {
+    try {
+      // Send a GET request to the servlet endpoint
+      const response = await fetch(rootUrl+`/track/detail?trackid=${realId}`);
 
-      track_title = document.createElement("p");
-      track_title.innerText = `Track Name :` + ` ${loadtrack.trackname}`;
-      document.querySelector(".properdetail").append(track_title);
+      if (response.ok) {
+        // Parse the JSON response
+        const data = await response.json();
 
-      track_bpm = document.createElement("p");
-      track_bpm.innerText = `BPM :` + ` ${loadtrack.bpm}`;
-      document.querySelector(".properdetail").append(track_bpm);
+        // Check if the response contains valid data
+        if (data && data.status === 200 && data.track) {
+			console.log(data);
+          const NewTrack = data.track;
+          console.log(NewTrack);
+          
+                    // Populate HTML elements with track details
+                    trackDetailsGlobal.push({
+						 trackid: realId,
+						Trackname:NewTrack.TrackName,
+						imageUrl: NewTrack.imageUrl,
+            			artistname: data.artistName,
+            			userEmail: userEmail,
+						
+                    });
+                    
+			      // create the HTML image element
+		      const imagCon=document.createElement("a");
+		      imagCon.className="imageContainer"
+		
+		      const img = document.createElement('img');
+		      img.src = NewTrack.imageUrl;
+		      img.id ="logo1"
+		      img.classList.add("play-pause.fas")
+		      
+		      const artistNameDiv = document.createElement('div');
+		      artistNameDiv.classList.add("artistNameContainer");
+		      artistNameDiv.setAttribute("style","display: flex;flex-direction: row;justify-content: center;gap: 15px;")
+ 
+		      const artistPlaceholder = document.createElement('small');
+		      const boldartistPlaceholder =  document.createElement('strong');
+		     boldartistPlaceholder.innerText = "Artist Name : "
+		     artistPlaceholder.append(boldartistPlaceholder);
+		     artistPlaceholder.setAttribute("style","color:white;font-size: 17px;");
+		     
+		      const artistname = document.createElement('small');
+		     localStorage.setItem("artistName",JSON.stringify(data.artistName));
+		     artistname.innerText = data.artistName
+		    artistname.setAttribute("style","color:white;font-size: 17px;");
+		      // add the HTML image element to the document body
+		      imagCon.append(img);
+		      artistNameDiv.append(artistPlaceholder);
+		      artistNameDiv.append(artistname);
 
-      track_Daw = document.createElement("p");
-      track_Daw.innerText = `Used DAW :` + ` ${loadtrack.daw}`;
-      document.querySelector(".properdetail").append(track_Daw);
-
-      artist_name = document.createElement("p");
-      artist_name.innerText = loadtrack.artistName;
-      document.querySelector(".properdetail").append(artist_name);
-
-      track_Genre = document.createElement("p");
-      track_Genre.innerText = `Genre : ` + ` ${loadtrack.genre}`;
-      document.querySelector(".properdetail").append(track_Genre);
-
-      track_Key = document.createElement("p");
-      track_Key.innerText = `Key : ` + ` ${loadtrack.key}`;
-      document.querySelector(".properdetail").append(track_Key);
-
-      track_Camelot = document.createElement("p");
-      track_Camelot.innerText = "Camelot : " + " " + "1A to 13E";
-      document.querySelector(".properdetail").append(track_Camelot);
-
-      track_Detail = document.createElement("p");
-      track_Detail.innerText = `Track Details : ${loadtrack.detail}`;
-      document.querySelector(".properdetail").append(track_Detail);
-
-      track_Price = document.createElement("p");
-      track_Price.setAttribute("style", "font-size: x-large;font-weight: 600;");
-      track_Price.innerText = `Price : ` + `$${loadtrack.price}`;
-      document.querySelector(".properdetail").append(track_Price);
-
-      // cart_button=document.createElement("a");
-      // cart_button.setAttribute("href","../cart/cart.html")
-      // cart_button.setAttribute("style","text-decoration: none");
-      // document.querySelector(".tocart")
-
-      // button_button=document.createElement("button");
-      // button_button.setAttribute("type","button");
-
-      // document.querySelector("div.card").append(track_img);
-      // document.querySelector("div.card").append(track_title);
-      // document.querySelector("div.card").append(artist_name);
-
+		      // document.querySelector(".card").prepend(icon)
+		      document.querySelector(".card").append(imagCon);
+		    
+		      
+		      document.querySelector(".leftside").append(artistNameDiv);
+		      
+		      function createAndAppendElement(label, value) {
+				  const paragraph = document.createElement("p");
+				  const strong = document.createElement("strong");
+				  strong.textContent = `${label} :`;
+				  paragraph.appendChild(strong);
+				  paragraph.appendChild(document.createTextNode(` ${value}`));
+				  document.querySelector(".properdetail").append(paragraph);
+				}
+				
+				createAndAppendElement("Track Name", NewTrack.TrackName);
+				createAndAppendElement("BPM", NewTrack.bpm);
+				createAndAppendElement("Used DAW", NewTrack.daw);
+				createAndAppendElement("Genre", NewTrack.genre);
+				createAndAppendElement("Scale", NewTrack.scale);
+				createAndAppendElement("Track Details", NewTrack.TrackDetail);
+				createAndAppendElement("Price", `$${NewTrack.price}`);
+						      
       detail = document.querySelector("div.detail");
 
-      //   const likeBtn = document.querySelector('#like');
-
-      //   function likesong(){
-      //   likeBtn.classList.toggle("fa-solid")
-      // }
-      // likeBtn.addEventListener('click',likesong);
-
       const lyric = document.createElement("p");
-      document.querySelector(".lyric").append(lyric)
+      lyric.innerHTML = "Young blood thinks there's always tomorrow ♪ I miss your touch on nights when I'm hollow ♪ I know you crossed a bridge that I can't follow ♪";
+      document.querySelector(".lyric").append(lyric);
+        
+	      
+	   // this is for the play pause in the image of the track
+	    const audioPlay = document.querySelector('#audio');audio.pause()
+		const playBtn = document.querySelector('.play-pause.fas'); 
 
+      document.querySelector('.imageContainer').addEventListener('click', function() {
+        
+        this.classList.toggle('paused');
+         /* toggle the 'paused' class on click */
+        
+			playBtn.classList.toggle("playing")
 
+		      if (!playBtn.classList.contains("playing")) {
+		        playBtn.classList.add("fa-play")
+		        playBtn.classList.remove("fa-pause")
+		        audioPlay.pause()
+		      } else {
+		        playBtn.classList.add("fa-pause")
+		        playBtn.classList.remove("fa-play")
+		        audioPlay.play()
+		      }
 
-
-      const imageContainer1 = document.querySelector(".imageContainer");
+		});
+		// end of the play pause function 
+		
+		const imageContainer1 = document.querySelector(".imageContainer");
       
+      // this is for when the user clicks the play icon we nee to add that track to the recently played tracks
 
       imageContainer1.addEventListener("click", function() {
         // get the song info that needs to be stored
         const UpdateDate = new Date();
         const formattedDate = `${UpdateDate.getDate()}/${UpdateDate.getMonth() + 1}/${UpdateDate.getFullYear()}`;
-        const time =`${UpdateDate.toLocaleTimeString()}`
-
+        const time =`${UpdateDate.toLocaleTimeString()}`;
+		
         if(imageContainer1.classList.contains("paused")){
+			
+			
         const song = {
-          "trackname": loadtrack.trackname,
-          "artistname": loadtrack.artistName,
+          "trackname": NewTrack.TrackName,
+          "artistname": data.artistName,
+          "trackImage":NewTrack.imageUrl,
           "trackId":trackId,
           "date": formattedDate,
           "time": time,
@@ -150,12 +190,27 @@ const trackId = new URLSearchParams(window.location.search).get("tracks");
 
       }
       }
-
-
       });
+            
+        } else {
+          console.error("Invalid data received from the server.");
+        }
+      } else {
+        console.error("Failed to fetch data from the server.");
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
+  }
+}
+if(trackId){
+window.addEventListener("load", fetchTrackDetails);
+}
 
+	            
+//
 
-      function lyrics() {
+      /*function lyrics() {
         if (loadtrack.lyrics.length != 0) {
           return loadtrack.lyrics;
         }else{
@@ -163,7 +218,7 @@ const trackId = new URLSearchParams(window.location.search).get("tracks");
       }
 
       lyric.innerHTML = lyrics();
-      
+      */
 
       const button = document.querySelector("#like");
       const likepop = document.querySelector(".like");
@@ -171,32 +226,31 @@ const trackId = new URLSearchParams(window.location.search).get("tracks");
 
       console.log(userEmail)
 
-      button.addEventListener("click", function (e) {
-        this.classList.toggle("fa-solid");
+      button.addEventListener("click", function () {  
+		  
+       if (button.classList.contains("fa-solid")) {
+		    button.classList.remove("fa-solid");
+		  } else {
+		    button.classList.add("fa-solid");
+		  }
         this.classList.toggle("animated");
         this.classList.toggle("active");
         this.classList.toggle("true");
         const likedTracks = JSON.parse(localStorage.getItem("Liked")) || [];
-        const trackid = loadtrack.songId;
+        const trackid = realId;
         const exist =
           likedTracks.length && likedTracks.some((data) => data.trackid == trackid && data.userEmail == userEmail);
         // let trueorfalse=this.dataset.getAttribute("like").toggle("true")
 
         if (this.classList.contains("true") && !exist) {
           this.setAttribute("like", "true");
-          likedTracks.push({
-            trackid: loadtrack.songId,
-            Trackname: loadtrack.trackname,
-            artistname: loadtrack.artistName,
-            userEmail: userEmail,
-          });
+          likedTracks.push(trackDetailsGlobal[0]);
         
           localStorage.setItem("Liked", JSON.stringify(likedTracks));
           // JSON.stringify({"track-id":loadtrack["productId"],"Trackname":loadtrack["trackname"],})
         } else {
           this.setAttribute("like", "false");
           const LikedList = likedTracks.filter((data) => data.trackid != trackid || data.userEmail !== userEmail);
-
           localStorage.setItem("Liked", JSON.stringify(LikedList));
         }
       });
@@ -206,7 +260,7 @@ const trackId = new URLSearchParams(window.location.search).get("tracks");
       function findLike() {
         const likedTracks = JSON.parse(localStorage.getItem("Liked"));
         const userEmail = JSON.parse(localStorage.getItem("userEmail"));
-        const trackid = loadtrack.songId;
+        const trackid = realId;
         const exist = 
           likedTracks.length && likedTracks.some((data) => data.trackid == trackid && data.userEmail == userEmail);
         // const alreadyUser = exist.some((email) => email.userEmail == userEmail);
@@ -217,6 +271,7 @@ const trackId = new URLSearchParams(window.location.search).get("tracks");
           button.classList.toggle("true");
         }
       }
+      
       if(localStorage.getItem("Liked")){
       findLike();
     }
@@ -250,19 +305,14 @@ const trackId = new URLSearchParams(window.location.search).get("tracks");
         this.classList.toggle("fa-solid");
         this.classList.toggle("true");
         const savedTracks = JSON.parse(localStorage.getItem("saved")) || [];
-        const trackid = loadtrack.songId;
+        const trackid = realId;
         const exist =
           savedTracks.length && savedTracks.some((data) => data.trackid == trackid && data.userEmail == userEmail);
         // let trueorfalse=this.dataset.getAttribute("like").toggle("true")
 
         if (this.classList.contains("true") && !exist) {
           this.setAttribute("saved", "true");
-          savedTracks.push({
-            trackid: loadtrack.songId,
-            Trackname: loadtrack.trackname,
-            artistname: loadtrack.artistName,
-            userEmail,
-          });
+          savedTracks.push(trackDetailsGlobal[0]);
           localStorage.setItem("saved", JSON.stringify(savedTracks));
           // JSON.stringify({"track-id":loadtrack["productId"],"Trackname":loadtrack["trackname"],})
         } else {
@@ -276,7 +326,7 @@ const trackId = new URLSearchParams(window.location.search).get("tracks");
       function findLike1() {
         const savedTracks = JSON.parse(localStorage.getItem("saved"));
         const userEmail = JSON.parse(localStorage.getItem("userEmail"));
-        const trackid = loadtrack.songId;
+        const trackid = realId;;
         const exist =
           savedTracks.length && savedTracks.some((data) => data.trackid == trackid && data.userEmail == userEmail);
           // const alreadyUser = exist.some((email) => email.userEmail == userEmail) 
@@ -290,31 +340,34 @@ const trackId = new URLSearchParams(window.location.search).get("tracks");
       findLike1();
     }
       
-
+	// function for to add the track to the cart page 
+	
       const cart_button = document.querySelector(".cart");
 
-      cart_button.addEventListener("click", function (e) {
+      cart_button.addEventListener("click", function () {
         const cart = JSON.parse(localStorage.getItem("cart")) || [];
-        const trackid = loadtrack.songId;
-        const exist = cart.some((data) => data.trackid == trackid && data.userEmail == userEmail);
+        const trackId = realId;
+        const exist = cart.some((data) => data.trackid == trackId && data.userEmail == userEmail);
 
         if (!exist) {
           cart.push({
-            trackid: loadtrack.songId,
-            Trackname: loadtrack.trackname,
-            artistname: loadtrack[""],
-            detail: loadtrack.detail,
-            price: loadtrack.price,
+            trackid: realId,
             userEmail,
           });
           localStorage.setItem("cart", JSON.stringify(cart));
+          Notify.success("product successfully added to your cart");
           // JSON.stringify({"track-id":loadtrack["productId"],"Trackname":loadtrack["trackname"],})
         } else {
-          alert("Already In cart")
+          alert("Already in the cart")
 
           localStorage.setItem("cart", JSON.stringify(cart));
         }
+         
+        location.reload();
       });
+      
+      
+    
 
        
 // export function add(n){

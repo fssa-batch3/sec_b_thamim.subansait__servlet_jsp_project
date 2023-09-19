@@ -1,7 +1,6 @@
-	const trackId = new URLSearchParams(window.location.search).get("tracks");
-    const rootUrl = window.location.origin + "/dobooweb";
-    const realId = trackId/25678;
-/*
+/**
+ * 
+ */
 const musicContainer = document.querySelector('.music-player');
     const artistName= document.querySelector('.artist');
     const playBtn = document.querySelector('.play-pause.fas'); 
@@ -16,33 +15,119 @@ const musicContainer = document.querySelector('.music-player');
     const likeBtn = document.querySelector('#like'); 
     const sound = document.querySelector('#voume');
     console.log(sound)
-
- 
-  
+    
     // song names
+    
+    // to fetch all the tracks 
+    
+    
+    
+    // const rootUrl = window.location.origin + "/dobooweb";
+	const trackDetails = [];
 
-    const songNames = ['remix kingdom', 'pop', 'pop2']
+// Function to fetch and store track details
+async function fetchAndStoreTrackDetails() {
+  try {
+    const response = await fetch(rootUrl + '/tracks');
 
-    //numbers the song 
-
-    let songIndex = 2
-
-
-    // now we need to define the function 
-
-    function loadsong(song) {
-      title.innerText = song
-      audio.src = `../../assets/audio/${song}.mp3`
-      songImage.src = `../../assets/img/${song}.jpg`
-
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
     }
 
+    const data = await response.json();
+    const loadData = data["data"];
+    
+    // Assuming the response is an array of track objects with properties like 'title' and 'artist'
+    trackDetails.push(...loadData);
+
+    // You can access track details anytime by using the 'trackDetails' array
+    console.log(trackDetails);
+
+    // Now that data is loaded, find the track
+    const buyingTracks = new URLSearchParams(window.location.search).get("tracks");
+    const streamingTracks = new URLSearchParams(window.location.search).get("streams");
+    let songIndex;
+
+    if (buyingTracks) {
+      songIndex = buyingTracks / 25678;
+    } 
+    else if(streamingTracks){
+    songIndex = streamingTracks;
+    }
+    else {
+      songIndex = trackDetails[0].id;
+    }
+
+    console.log("songId");
+    console.log(songIndex);
+
+    // Find the track by calling findTrackById
+    
+    let realTrack = findTrackIndexById(songIndex);
+
+    console.log(realTrack);
+    
+    
+    
+    function loadsong(realtrack) {
+      title.innerText = realtrack.TrackName;
+      artistName.innerHTML=realtrack.artistName;
+      audio.src = `https://docs.google.com/uc?export=open&id=${realtrack.audioUrl}`;
+      songImage.src = realtrack.imageUrl;
+    }
     // now we need to load the song 
 
-    loadsong(songNames[songIndex])
+    loadsong(trackDetails[realTrack]);
+    
+    
+     // pevSong event  
+
+    function prevSong(){
+      
+     realTrack--;
+     
+      if (realTrack < 0){
+        realTrack = trackDetails.length-1
+      }     
+      loadsong(trackDetails[realTrack]);
+
+    }
+    // next song function when we click it. it will move to the next song
+     
+    function nextSong(){
+		 realTrack++;
+
+      if (realTrack > trackDetails.length-1){
+        realTrack = 0
+      }     
+     loadsong(trackDetails[realTrack]);
+
+    }
+    
+     pevBtn.addEventListener("click", prevSong);
+     nextBtn.addEventListener("click",nextSong);
+ 
+  } catch (error) {
+    console.error('Error fetching track details:', error);
+  }
+}
+
+// Call the function to fetch and store track details
+fetchAndStoreTrackDetails();
+
+// Function to locate the specific song
+function findTrackIndexById(songId) {
+  const index = trackDetails.findIndex(track => track.id == songId);
+  return index !== -1 ? index : null;
+}
+
+
+
+    
 
     // need to add progress event
     
+      
     function updateProgress(e) {
       const { duration, currentTime} = e.srcElement
       const progressPercent = (currentTime / duration) * 100
@@ -70,7 +155,7 @@ const musicContainer = document.querySelector('.music-player');
       const currentTime= audio.currentTime
       const progress= currentTime/duration * 100
 
-      const totalTime = `${Math.floor( duration/ 60)}:${(`${Math.floor(duration)}`).slice(1)}`
+      const totalTime = `${Math.floor(duration / 60)}:${(`0${Math.floor(duration % 60)}`).slice(-2)}`;
       const current_play_time= `${Math.floor(currentTime / 60)}:${(`0${Math.floor(currentTime%60)}`).slice(-2)}`;
 
       document.querySelector('.start').innerHTML = current_play_time
@@ -80,40 +165,20 @@ const musicContainer = document.querySelector('.music-player');
 
     setInterval(starttime,500)
     
-    // pevSong event  
-
-    function prevSong(){
-      
-      songIndex--
-      if (songIndex < 0){
-        songIndex = songNames.length-1
-      }     
-      loadsong(songNames[songIndex])
-      
-      
-    }
-    // next song function when we click it. it will move to the next song
-     
-    function nextSong(){
-      songIndex++
-      if (songIndex > songNames.length-1){
-        songIndex = 0
-      }     
-      loadsong(songNames[songIndex])
-
-
-    }
-
+   
     // function togglePlayPauseButton(event) and all events  {
 
 
       playBtn.addEventListener("click", (event) => {
-      
+
       const el = event.target;
       // checking if the song is playing or not 
 
-      
       el.classList.toggle("playing")
+       if(document.querySelector(".imageContainer")){
+		  const imagePlayPause = document.querySelector(".imageContainer")
+		   imagePlayPause.classList.toggle('paused'); 
+	 }
 
       if (!el.classList.contains("playing")) {
         el.classList.add("fa-play")
@@ -126,7 +191,8 @@ const musicContainer = document.querySelector('.music-player');
       }
 
     })
-
+    
+  
     // we need the like to be created 
     
     function likesong(){
@@ -138,28 +204,18 @@ const musicContainer = document.querySelector('.music-player');
     
     
     // sound.setAttribute("data-test","mute");
-    
-    
-
-
-
-
-     
-    
-
-    
+  
      audio.addEventListener('timeupdate', updateProgress);
      progressbar.addEventListener('click', setProgress);
-     pevBtn.addEventListener("click", prevSong);
-     nextBtn.addEventListener("click",nextSong);
+   
      likeBtn.addEventListener('click',likesong);
      
 
      const volumeBar = document.querySelector('.volume-bar-1');
-const volumeBarFill = document.querySelector('.volumeProgress');
-const mute=document.querySelector("#voume")
+	 const volumeBarFill = document.querySelector('.volumeProgress');
+	 const mute=document.querySelector("#voume")
 
-let isDragging = false;
+	let isDragging = false;
 
 
 function setVolumeFromMousePosition(event) {
@@ -199,103 +255,21 @@ mute.addEventListener("click", () => {
 
   if(mute.classList.contains("mute")){
     mute.classList.add("fas", "fa-volume-mute");
+    document.querySelector(".volumeProgress").style.width="0%";
     audio.volume = 0;
   }
   else{
     mute.classList.remove("fas", "fa-volume-mute");
     mute.classList.add("fas", "fa-volume-down")
+    document.querySelector(".volumeProgress").style.width="100%";
     audio.volume = 1;
   }
 })
-*/
-     
-let track;
-let trackContainer;
-let track_name;
-let artistname;
-let product_image;
 
-const uri = 'http://localhost:8080/dobooweb/tracks';
 
-let loadData;
-
-fetch(uri, {
-  method: 'GET',
-})
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return response.json(); // Assuming the response is in JSON format
-  })
-  .then(data => {
-    loadData = data["data"]; // Assign the JSON data to the loadData variable
-    // Handle the JSON data here
-    console.log(loadData);
-    console.log(data);
-
-    let length;
-    if (loadData.length >= 5) {
-      length = 5;
-    } else {
-      length = loadData.length;
-    }
-
-    for (let i = 0; i < length; i++) {
-      track = document.createElement("div");
-      track.setAttribute("class", "tracks");
-	  
-	  let tracdId = (loadData[i]["id"] * 25678);
-      trackContainer = document.createElement("a");
-      trackContainer.setAttribute("href", "../../pages/track listening page/track listening page.html?tracks=" +tracdId);
-      trackContainer.setAttribute("style", "text-decoration:none;");
-      track.append(trackContainer);
-
-      product_image = document.createElement("img");
-      product_image.setAttribute("src", loadData[i]["imageUrl"]);
-      trackContainer.append(product_image);
-
-      track_name = document.createElement("p");
-      track_name.innerText = loadData[i]["TrackName"];
-      trackContainer.append(track_name);
-
-      artistname = document.createElement("p");
-      artistname.innerText = "kishore";
-      track.append(artistname);
-
-      document.querySelector("div.productlist").append(track);
-    }
-  })
-  .catch(error => {
-    // Handle any errors that occurred during the fetch
-    console.error('Fetch error:', error);
-  });
-
-      
-
-/*
     const lyricsSection = document.querySelector('.secondright');
 
 document.getElementById("showLyrics").addEventListener("click", ()=>{ 
    lyricsSection.classList.toggle('hidden');   
 });
-    */
-
-// if (JSON.parse(localStorage.getItem("userRoleC")) === "seller") {
-//   alert("Welcome Artist "+ `${JSON.parse(localStorage.getItem("userEmail"))}`)
-// }
-
-
-       
-
-
-
-// import { add } from "../js/tracklistening.js";
-// console.log(add(4))
-
-
-
-
-
-
-
+    

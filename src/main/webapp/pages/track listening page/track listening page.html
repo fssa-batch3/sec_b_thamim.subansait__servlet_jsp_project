@@ -27,99 +27,31 @@
             rel="stylesheet"
         >
         <link rel="stylesheet" href="../../assets/css/header.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+          <link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/gh/suryaumapathy2812/notify__js/notify.css">
+	<script
+	src="https://cdn.jsdelivr.net/gh/suryaumapathy2812/notify__js/notify.js"> </script>
+        
       
     </head>
     <body>
-        <!-- <div class="header">
-            <a
-                href="../homepage/buyer homepage.html"
-                style="
-          text-decoration: none;
-          color: white;
-          font-size: large;
-          position: relative;
-          left: 30px;
-        "
-            >
-                <h2>DOBOO</h2></a
-      >
-            <div class="search">
-                <form role="search" id="form">
-                    <input
-                        type="search"
-                        id="query"
-                        name="q"
-                        placeholder="Search..."
-                        aria-label="Search through site content"
-                    >
-                    <i
-                        class="fa-solid fa-magnifying-glass"
-                        style="color: rgb(0, 0, 0); font-size: x-large"
-                    ></i>
-                </form>
-            </div>
-            <div class="dropdown">
-                <span style="color: white; font-size: large">EXPLORE </span>
-                <div class="dropdown-content">
-                    <a href="../explore artist.html">Connect with artist</a>
-                    <a href="../explore artist.html">Connect with singers</a>
-                </div>
-            </div>
-            <a href="../subscription page.html" style="text-decoration: none"
-            >
-                <p
-                    style="
-            color: white;
-            background-color: #222222;
-            border-radius: 10px;
-            padding: 10px;
-            font-size: large;
-          "
-                >
-                    SUBSCRPITION
-                </p></a
-      >
-            <a href="../profile.html"
-            >
-                <img
-                    loading="lazy"
-                    class="profile"
-                    src="../../assets/img/icons8-male-user-48.png"
-                    alt="profile"
-                ></a>
-            <a href="../cart/cart.html"
-            >
-                <img
-                    loading="lazy"
-                    class="carticon"
-                    src="../../assets/img/icons8-shopping-cart-60.png"
-                    alt="cart icon"
-                ></a>
-        </div> -->
+    
         <div class="content">
             <div class="leftside">
                 <div class="card">
-                    <!-- <img loading="lazy"class="logo1" src="https://cdn5.beatstars.com/eyJidWNrZXQiOiJidHMtY29udGVudCIsImtleSI6InVzZXJzL3Byb2QvMjAxMDIxL2ltYWdlL2hEaHB5NjBldnV0ci9lYm56ZmRzYnRiaS5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsiZml0IjoiZmlsbCIsIndpZHRoIjoyNDAsImhlaWdodCI6MjQwfX19?t=19301" alt="track logo">
-                        <h2>Track Name</h2>
-                        <p>Artist Name</p> -->
+
                 </div>
             </div>
 
             <div class="rightside">
                 <div class="detail">
                     <div class="properdetail">
-                        <!-- <p>Key: E MIN</p>
-                            <p>Used Daw: Name</p>
-                            <p>Camelot: 12B</p>
-                            <p> Music producer</p>
-                            <p>record label</p>
-                            <p>Track Detail</p> -->
+     
                     </div>
 
-                    <a href="../cart/cart.html" style="text-decoration: none"
-                    >
-                        <button type="button" class="cart">ADD TO CART</button></a
-          >
+                        <button type="button" class="cart">ADD TO CART</button>
 
                     <i
                         id="like"
@@ -175,6 +107,23 @@
                 </div>
             </div>
         </div>
+        <div class="secondright hidden animationLyric a1">
+            <h2>Lyrics</h2>
+            <div class="border">
+                <p>Young blood thinks there's always tomorrow
+                    ♪
+                    I miss your touch on nights when I'm hollow
+                    ♪
+                    I know you crossed a bridge that I can't follow
+                    ♪
+                    Since the love that you left is all that I get, I want you to know that
+                    If I can't be close to you, I'll settle for the ghost of you
+                    I miss you more than life (more than life)
+                    And if you can't be next to me, your memory is ecstasy
+                    I miss you more than life, I miss you more than life
+                </p>
+            </div>
+        </div>
         <div class="music-player">
             <div class="song-bar">
                 <div class="song-infos">
@@ -193,7 +142,7 @@
                     <i class="fas fa-compress"></i>
                 </div>
             </div>
-            <audio src="../../assets/audio/remix kingdom.ogg" id="audio"></audio>
+            <audio src="https://docs.google.com/uc?export=open&id=1wi23iPa6dAwilkods6Lx4kaTCmAzSQSH" id="audio"></audio>
             <div class="progress-controller">
                 <div class="control-buttons">
                     <i id="hide" class="fas fa-random"></i>
@@ -211,7 +160,7 @@
                 </div>
             </div>
             <div class="other-features">
-                <i class="fas fa-list-ul"></i>
+                <i class="fa-solid fa-sheet-plastic" id="showLyrics"> Lyrics</i>
                 <i class="fas fa-desktop"></i>
                 <div class="volume-bar">
                     <i class="fas fa-volume-up" id="voume"></i>
@@ -224,6 +173,7 @@
 
         <script src="../../assets/js/header.js"></script>
         <script src="../../assets/js/tracklistening.js"></script>
+        <script src="../../assets/js/musicPlayer.js"></script>
         <!-- <script src="../../assets/js/buyer home.js"></script> -->
     </body>
 </html>

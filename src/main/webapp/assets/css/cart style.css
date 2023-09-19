@@ -64,6 +64,7 @@ border-radius: 30px;
 }
 body{
     background-color: #000000;
+    overflow: scroll;
     
 
 }
@@ -76,7 +77,8 @@ body{
 
 }
 .trackimage{
-    width: 110px;
+     width: 100px;
+    height: 100px;
 }
 .trackimage:hover{
     transform: scale(1.02)
@@ -89,7 +91,11 @@ body{
     flex-direction: row;
     align-items: center;
     text-align: left;
-    width: min-content;
+    width: 100px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
 
 
 }

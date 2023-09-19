@@ -10,8 +10,13 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.google.gson.Gson;
 
 import in.fssa.doboo.exception.NoTrackFoundException;
+import in.fssa.doboo.exception.PersistanceException;
+import in.fssa.doboo.model.ResponseEntity;
 import in.fssa.doboo.model.TrackEntity;
 import in.fssa.doboo.service.TrackService;
 
@@ -24,33 +29,32 @@ public class UserDashBoardServlet extends HttpServlet {
        
  	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
  		TrackService trackService = new TrackService();
- 		 Cookie[] ck = request.getCookies();
-         String userId = null;
-
-         if (ck != null) {
-             for (Cookie cookie : ck) {
-                 if ("userid".equals(cookie.getName())) {
-                     userId = cookie.getValue();
-                     break;
-                 }
-             }
-         }
-
-         if (userId == null) {
-             // Handle the case where the userId cookie is not found.
-             response.sendRedirect("login"); // Redirect to login page or appropriate error page.
-             return;
-         }
+ 	   HttpSession session = request.getSession();
+	    Integer userId = (Integer) session.getAttribute("userId");
          try {
- 		Set<TrackEntity> tracks = trackService.findTracksByUserId(Integer.parseInt(userId));
+ 		Set<TrackEntity> tracks = trackService.findTracksByUserId(userId);
  		
- 		request.setAttribute("tracks", tracks);
- 		 RequestDispatcher rd = request.getRequestDispatcher("/user_dashboard.jsp");
-	  		rd.forward(request, response);
+ 		 if (tracks != null) {
+        	 ResponseEntity res = new ResponseEntity();
+				res.setStatus(200);
+				res.setData(tracks);
+				res.setMessage("track details successfully fetched");
+		
+				Gson gson = new Gson();
+				String responseJson = gson.toJson(res);
+				response.setContentType("application/json");
+				response.setCharacterEncoding("UTF-8");
+				response.getWriter().write(responseJson);
 				
- 		}catch (RuntimeException e) {
- 			 RequestDispatcher rd = request.getRequestDispatcher("/user_dashboard.jsp");
- 	  		rd.forward(request, response);
+        }
+				
+ 		}catch (RuntimeException | PersistanceException e) {
+ 			e.printStackTrace();
+ 			String errorMessage = e.getMessage();
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			response.getWriter().write(errorMessage);
  				
 		}
  		

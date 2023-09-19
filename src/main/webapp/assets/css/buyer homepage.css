@@ -25,11 +25,9 @@ body {
   background-color: #1c1c1c;
   border-radius: 20px;
   width: 22%;
-  margin-left: -25px;
+  height: fit-content;
   margin-top: 25px;
   padding: 10px;
-
-
 
 }
 
@@ -51,6 +49,7 @@ body {
   text-align: center;
   position: relative;
   left: 60px;
+  bottom: 25px;
 }
 
 .rightside h3 {

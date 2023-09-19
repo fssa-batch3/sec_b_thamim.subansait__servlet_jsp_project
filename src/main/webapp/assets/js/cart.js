@@ -68,15 +68,118 @@ const div = document.createElement("div");
 
 }
 
+const trackDetails = [];
 
-function createItem(i) {
+// Function to fetch and store track details
+async function fetchAndStoreTrackDetails() {
+  try {
+    const response = await fetch(root + '/tracks');
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    const loadData = data["data"];
+    
+    // Assuming the response is an array of track objects with properties like 'title' and 'artist'
+    trackDetails.push(...loadData);
+    const cartItem = JSON.parse(localStorage.getItem("cart"));
+	const userEmail = JSON.parse(localStorage.getItem("userEmail"))
+	const filteredItems = cartItem.filter((item) => item.userEmail === userEmail);
+	console.log(filteredItems);
+	const filterCartItems = trackDetails.filter((track) =>
+	  filteredItems.some((item) => item.trackid === track.id)
+	);
+	
+	console.log(filterCartItems);
+	
+	if (filterCartItems.length === 0) {
+	  console.error("Unable to retrieve cart items from local storage.");
+	  const Nothing = document.createElement("h2")
+	  Nothing.innerText="Nothing found in your cart."
+	  Nothing.style.color="white";
+	  Nothing.style.marginTop="40px"
+	  Nothing.style.textAlign="center";
+	  document.querySelector(".itemContainer").append(Nothing)
+	  // Handle the error (e.g. display a message to the user)
+	} else {
+	  let song;
+	  let total=0;
+	
+	  for (let i = 0; i < filterCartItems.length; i++) {
+	    song = createItem(i, filterCartItems[i].imageUrl);
+	    document.querySelector(".itemContainer").append(song);
+	    document.querySelector(`#item-${i} .name`).textContent =
+	    filterCartItems[i].TrackName;
+	    document.querySelector(`#item-${i} .detail`).textContent =
+	    filterCartItems[i].TrackDetail;
+	    document.querySelector(
+	      `#item-${i} .pricetag`
+	    ).textContent = `$${filterCartItems[i].price}`;
+	     total += parseInt(filterCartItems[i]["price"])
+	
+	  }
+	  document.querySelector("#TotalPrice").textContent = `Total price : $${total}`;
+	}
+	
+	const modal = document.getElementById("myModal");
+	const modalText = document.getElementById("modal-message-text");
+	const modalClose = document.getElementById("modal-close");
+	
+	if(filteredItems.length != 0){
+	
+	const button3 = document.querySelector("#license")
+	
+	button3.addEventListener("click", function() {
+	  modal.style.display = "block";
+	  modalText.innerText = "Your license details here";
+	});
+	
+	modalClose.addEventListener("click", function() {
+	  modal.style.display = "none";
+	});
+	
+	window.addEventListener("click", function(event) {
+	  if (event.target == modal) {
+	    modal.style.display = "none";
+	  }
+	});
+	}
+	
+	function removeCartItem(index) {
+  // Remove item from cart array
+  cartItem.splice(index, 1);
+  // Update cart in local storage
+  localStorage.setItem("cart", JSON.stringify(cartItem));
+  // Remove item from DOM
+  document.querySelector(`#item-${index}`).remove();
+	}
+	
+	const removeButtons = document.querySelectorAll(".remove");
+	removeButtons.forEach((button, index) => {
+	  button.addEventListener("click", () => {
+	    removeCartItem(index);
+	  });
+	});
+    // You can access track details anytime by using the 'trackDetails' array
+    console.log(trackDetails);
+  } catch (error) {
+    console.error('Error fetching track details:', error);
+  }
+}
+
+// Call the function to fetch and store track details
+fetchAndStoreTrackDetails();
+
+
+function createItem(i,trackImage) {
   const div = document.createElement("div");
   div.classList.add("item");
   div.id = `item-${i}`;
 
   const img = document.createElement("img");
   img.classList.add("trackimage");
-  img.src = `https://picsum.photos/200/200?random=${i}`;
+  img.src = trackImage;
   img.alt = "";
 
   const h2 = document.createElement("h2");
@@ -112,81 +215,6 @@ function createItem(i) {
   return div;
 }
 
-const cartItem = JSON.parse(localStorage.getItem("cart"));
-const userEmail = JSON.parse(localStorage.getItem("userEmail"))
-const filteredItems = cartItem.filter((item) => item.userEmail === userEmail)
-
-if (filteredItems.length === 0) {
-  console.error("Unable to retrieve cart items from local storage.");
-  const Nothing = document.createElement("h2")
-  Nothing.innerText="Nothing found in your cart."
-  Nothing.style.color="white";
-  Nothing.style.marginTop="40px"
-  Nothing.style.textAlign="center";
-  document.querySelector(".itemContainer").append(Nothing)
-  // Handle the error (e.g. display a message to the user)
-} else {
-  let song;
-  let total=0;
-
-  for (let i = 0; i < filteredItems.length; i++) {
-    song = createItem(i);
-    document.querySelector(".itemContainer").append(song);
-    document.querySelector(`#item-${i} .name`).textContent =
-    filteredItems[i].Trackname;
-    document.querySelector(`#item-${i} .detail`).textContent =
-    filteredItems[i].detail;
-    document.querySelector(
-      `#item-${i} .pricetag`
-    ).textContent = `$${filteredItems[i].price}`;
-     total += parseInt(filteredItems[i]["price"])
-
-  }
-  document.querySelector("#TotalPrice").textContent = `Total price : $${total}`;
-}
-
-function removeCartItem(index) {
-  // Remove item from cart array
-  cartItem.splice(index, 1);
-  // Update cart in local storage
-  localStorage.setItem("cart", JSON.stringify(cartItem));
-  // Remove item from DOM
-  document.querySelector(`#item-${index}`).remove();
-}
-
-const removeButtons = document.querySelectorAll(".remove");
-removeButtons.forEach((button, index) => {
-  button.addEventListener("click", () => {
-    removeCartItem(index);
-  });
-});
-
-
-
-const modal = document.getElementById("myModal");
-const modalText = document.getElementById("modal-message-text");
-const modalClose = document.getElementById("modal-close");
-
-if(filteredItems.length != 0){
-
-const button3 = document.querySelector("#license")
-
-button3.addEventListener("click", function() {
-  modal.style.display = "block";
-  modalText.innerText = "Your license details here";
-});
-
-modalClose.addEventListener("click", function() {
-  modal.style.display = "none";
-});
-
-window.addEventListener("click", function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-});
-}
-
 
 // Function to show the payment pop-up when the "Pay Now" button is clicked
 function showPaymentPopUp() {
@@ -194,7 +222,7 @@ function showPaymentPopUp() {
 }
 
 
-document.querySelector("#sumbitSuccess").addEventListener("click", hidePaymentPopUp);
+
 
 // document.querySelector("#sumbitSuccess").addEventListener("click", ()=>{
   
@@ -208,28 +236,52 @@ document.querySelector("#sumbitSuccess").addEventListener("click", hidePaymentPo
 //   }
 // })
 
-function submitPayment() {
-  setTimeout(function(){
-    document.querySelector(".payment-content").style.display = "none";
-    document.getElementById("paymentSuccess").style.display = "block";
-  }, 1000); // 5 seconds
-}
+		function submitPayment() {
+		  setTimeout(function() {
+		    document.querySelector(".payment-content").style.display = "none";
+		    document.getElementById("paymentSuccess").style.display = "block";
+		    
+		  },1000); 
+		  // 5 seconds
+		}
+		
+		function hidePaymentPopUp() {
+		  document.querySelector("#payment-popup").style.display = "none";
+		}
+		document.getElementById("sumbitSuccess").addEventListener("click", submitPayment);
+	
+	async function createOrder() {
+    try {
+        const cartItem = JSON.parse(localStorage.getItem("cart"));
+        const userEmail = JSON.parse(localStorage.getItem("userEmail"));
+        const filteredItems = cartItem.filter((item) => item.userEmail === userEmail);
 
-function hidePaymentPopUp() {
-  document.querySelector(".payment-content").style.display = "none";
-}
+        // Extract an array of track IDs from filteredItems
+        const trackIds = filteredItems.map((item) => item.trackid);
 
-document.getElementById("sumbitSuccess").addEventListener("click", submitPayment);
+        const requestBody = {
+            trackIds: trackIds,
+        };
 
-document.getElementById("sumbitSuccess").addEventListener("click", ()=>{
-  const filteredItemsNot = cartItem.filter((item) => item.userEmail !== userEmail)
-  localStorage.setItem("cart", JSON.stringify(filteredItemsNot))
+        const response = await fetch(root + '/order/create', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestBody),
+        });
 
-  const ordered_items = JSON.parse(localStorage.getItem("BroughtTracks")) || [];
- 
-  filteredItems.forEach((item) => {
-    ordered_items.push(item);
-});
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
 
-localStorage.setItem("BroughtTracks",JSON.stringify(ordered_items));
-})
+        const data = await response.json();
+        localStorage.removeItem("cart");
+        console.log(data);
+    } 	catch (error) {
+        // Handle errors
+    	    console.error(error);
+    	}
+    
+	}
+	document.getElementById("sumbitSuccess").addEventListener("click",createOrder);

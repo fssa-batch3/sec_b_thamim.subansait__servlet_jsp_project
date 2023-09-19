@@ -1,3 +1,32 @@
+.audioSource {
+  width: 100%;
+  max-width: 220px;
+  height: 45px;
+  position: relative;
+  bottom: 40px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1.5px solid #aaaaaa;
+  outline: none;
+  transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+  box-shadow: 0px 0px 20px -18px;
+}
+
+.audioSource:hover {
+  border: 2px solid lightgrey;
+  box-shadow: 0px 0px 20px -17px;
+}
+
+.audioSource:active {
+  transform: scale(0.95);
+}
+
+.audioSource:focus {
+  border: 2px solid grey;
+}
+
+
+
 .input {
   border: none;
   outline: none;
@@ -8,7 +37,6 @@
   transition: 300ms ease-in-out;
   text-align: center;
 }
-
 
 .input:focus {
   transform: scale(1.05);
@@ -44,21 +72,6 @@
  
 
   }
-  /* #dragger_wrapper {
-    display: flex;
-    flex-direction: column;
-    
-    
-} */
-
-/* #dragger_wrapper1 {
-    display: flex;
-   flex-direction: column;
-  
-   padding: 40px;
-   border-radius: 10px;
-  
-} */
 #dragger {
   position: relative;
   left: 100px;
@@ -79,17 +92,6 @@
   gap: 40px;
 }
 
-/* #dragger1 {
-  width: 500px;
-  height: 300px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  border: 2px dashed #929292;
-  border-radius: 5px;
-  background-color:rgb(28, 28, 28)
-} */
 .icon {
   color: #ffffff;
   font-size: 45px;
@@ -124,18 +126,12 @@ h1{
 }
 #fileInputField{
      position: relative;
-     left: 100px;
+   width: 90px;
+    height: 20px;
      bottom: 50px;
      opacity: 0;
-     
-     
+     cursor: pointer;
 }
-/* .below{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    margin-top: 20px;
-} */
 
 #Price{
       border-radius: 8px;

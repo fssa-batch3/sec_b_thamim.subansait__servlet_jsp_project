@@ -2,75 +2,49 @@
 <html lang="en">
     <head>
         <title>Cart</title>
+         <link rel="stylesheet" href="../../assets/css/header.css">
         <link rel="stylesheet" href="../../assets/css/cart style.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../assets/css/header.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     </head>
+    <style>
+    .containerForPayment {
+        display: none;
+    }
+
+    #paymentSuccess {
+        text-align: center;
+    }
+
+    svg {
+        height: 100px;
+        width: 100px;
+        fill: green;
+    }
+
+    h1 {
+        color: #008000;
+        font-size: 24px;
+        margin-top: 10px;
+    }
+
+    p {
+        font-size: 18px;
+    }
+
+    .btn2 {
+        display: block;
+        background-color: #007bff;
+        color: #fff;
+        padding: 5px 10px;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 18px;
+    }
+</style>
     <body>
-        <!-- <div class="header">
-            <a
-              href="../homepage/buyer homepage.html"
-              style="
-                text-decoration: none;
-                color: white;
-                font-size: large;
-                position: relative;
-                left: 30px;
-              "
-              ><h2>DOBOO</h2></a
-            >
-            <div class="search">
-              <form role="search" id="form">
-                <input
-                  type="search"
-                  id="query"
-                  name="q"
-                  placeholder="Search..."
-                  aria-label="Search through site content"
-                /><i
-                  class="fa-solid fa-magnifying-glass"
-                  style="color: rgb(0, 0, 0); font-size: x-large"
-                ></i>
-              </form>
-            </div>
-            <div class="dropdown">
-              <span style="color: white; font-size: large">EXPLORE </span>
-              <div class="dropdown-content">
-                <a href="../explore artist.html">Connect with artist</a>
-                <a href="../explore artist.html">Connect with singers</a>
-              </div>
-            </div>
-            <a href="../subscription page.html" style="text-decoration: none"
-              ><p
-                style="
-                  color: white;
-                  background-color: #222222;
-                  border-radius: 10px;
-                  padding: 10px;
-                  font-size: large;
-                "
-              >
-                SUBSCRPITION
-              </p></a
-            >
-            <a href="../profile.html"
-              ><img
-                loading="lazy"
-                class="profile"
-                src="../../assets/img/icons8-male-user-48.png"
-                alt="profile"
-            /></a>
-            <a href="../cart/cart.html"
-              ><img
-                loading="lazy"
-                class="carticon"
-                src="../../assets/img/icons8-shopping-cart-60.png"
-                alt="cart icon"
-            /></a>
-          </div> -->
         <div class="title">
             <h2>CART</h2>
         </div>
@@ -233,28 +207,28 @@
                     <h2 style="font-size: 35px; margin-bottom: 20px;">Payment Details</h2>
                     
                   <div class = "inputContainer">  
-                    <div class ="labelContainer"><label for="name">Name on Card</label></div>
-                    <div class="fieldContainer"><input type="text" id="name" name="name"><br></div>
+                    <div class ="labelContainer"><label for="name">Card Holder's Name</label></div>
+                    <div class="fieldContainer"><input type="text" id="name" name="name" ><br></div>
                   </div>
                 
                     <div class = "inputContainer">
                       <div class = "labelContainer"><label for="cardNumber">Card Number</label></div>
-                      <div class = "fieldContainer"><input type="text" id="cardNumber" name="cardNumber"><br></div>
+                      <div class = "fieldContainer"><input type="number" id="cardNumber" name="cardNumber" min=10000000000000 max=99999999999999><br></div>
                     </div>
               
                   <div class = "inputContainer">
                     <div class = "labelContainer"><label for="expMonth">Expiration Month</label></div>
-                    <div class = "fieldContainer"><input type="text" id="expMonth" name="expMonth"><br></div>
+                    <div class = "fieldContainer"><input type="number" id="expMonth" name="expMonth" min="1" max="12"><br></div>
                   </div>
                   
                   <div class = "inputContainer">
                     <div class = "labelContainer"><label for="expYear">Expiration Year</label></div>
-                    <div class = "fieldContainer"><input type="text" id="expYear" name="expYear" ><br></div>
+                    <div class = "fieldContainer"><input type="number" id="expYear" name="expYear"  min="1000" max="9999" ><br></div>
                 </div>
 
                   <div class = "inputContainer">
                     <div class = "labelContainer"><label for="cvv">CVV</label></div>
-                    <div class = "fieldContainer"><input type="text" id="cvv" name="cvv" min="0" max="5"><br></div>
+                    <div class = "fieldContainer"><input type="number" id="cvv" name="cvv" min="100" max="999"><br></div>
                 </div>
 
                 <div class = "inputContainer">
@@ -273,13 +247,16 @@
           
                   </div>
 
-                  <div id="paymentSuccess" class="container" style="display:none;">
-                    <img src="https://pixlok.com/wp-content/uploads/2022/01/Tick-Icon-SVG-psokcd.png" style="height: 100px;width: 100px;" alt="">
-                    <h1>Payment Successful!</h1>
-                    <p>Your payment has been processed successfully.</p>
-                    <p>Thank you for your purchase.</p>
-                    <a href="../../pages/homepage/buyer homepage.html" class="btn2">Continue Shopping</a>
-                  </div>
+                 <div id="paymentSuccess" class="containerForPayment" style="display: none; text-align: center;">
+				    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 24 24" fill="green" style="height: 100px; width: 100px;">
+				        <path d="M0 0h24v24H0z" fill="none"/>
+				        <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>
+				    </svg>
+				    <h1 style="color: #008000; font-size: 24px; margin-top: 10px;">Payment Successful!</h1>
+				    <p style="font-size: 18px;">Your payment has been processed successfully.</p>
+				    <p style="font-size: 18px;">Thank you for your purchase.</p>
+				    <a href="../../pages/homepage/buyer homepage.html" class="btn2">Continue Shopping</a>
+				</div>
 
                   
 

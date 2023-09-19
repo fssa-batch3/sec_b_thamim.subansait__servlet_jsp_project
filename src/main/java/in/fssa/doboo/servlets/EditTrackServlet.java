@@ -11,9 +11,13 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.google.gson.Gson;
 
 import in.fssa.doboo.exception.PersistanceException;
 import in.fssa.doboo.exception.ValidationException;
+import in.fssa.doboo.model.ResponseEntity;
 import in.fssa.doboo.model.TrackEntity;
 import in.fssa.doboo.service.TrackService;
 
@@ -68,34 +72,33 @@ public class EditTrackServlet extends HttpServlet {
 			track.setBpm(Integer.parseInt(request.getParameter("trackBpm")));
 			track.setDaw(request.getParameter("trackDaw"));
 			track.setGenre(request.getParameter("trackGenre"));
-			
-			TrackService trackService = new TrackService();
-			Cookie[] ck = request.getCookies();
-	         String userId = null;
-
-	         if (ck != null) {
-	             for (Cookie cookie : ck) {
-	                 if ("userid".equals(cookie.getName())) {
-	                     userId = cookie.getValue();
-	                     break;
-	                 }
-	             }
-	         }
-
-	         if (userId == null) {
-	             // Handle the case where the userId cookie is not found.
-	             response.sendRedirect("login"); // Redirect to login page or appropriate error page.
-	             return;
-	         }
-	         
-	         int trackId = Integer.parseInt(request.getParameter("trackid")); 
+			track.setImageUrl(request.getParameter("trackImage"));
+			track.setAudioUrl(request.getParameter("trackAudio"));
+			int trackId = Integer.parseInt(request.getParameter("trackid")); 
+	        TrackService trackService = new TrackService();
 			trackService.updateTrack(trackId, track);
-			response.sendRedirect("/dobooweb/user/dashboard");
+			ResponseEntity res = new ResponseEntity();
+			res.setStatus(200);
+			res.setData(null);
+			res.setMessage("Track details successfully update");
+
+			// Convert the custom class to JSON using Gson
+			 Gson gson = new Gson();
+			 String responseJson = gson.toJson(res);
+
+			    // Set the response content type and write the JSON to the response
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			response.getWriter().write(responseJson);
 			
-		} catch (ValidationException | RuntimeException e) {
+			
+		} catch (ValidationException | RuntimeException | PersistanceException e) {
 			e.printStackTrace();
-			PrintWriter consoleOutput = response.getWriter();
-			consoleOutput.println(e.getMessage());
+			String errorMessage = e.getMessage();
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			response.getWriter().write(errorMessage);
 		}
 		
 

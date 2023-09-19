@@ -26,12 +26,15 @@ public class DeleteTrackServlet extends HttpServlet {
 		TrackService trackService = new TrackService();
 		try {
 			trackService.deleteTrack(Integer.parseInt(request.getParameter("trackid")));
-			response.sendRedirect("/dobooweb/user/dashboard");
+			response.setStatus(HttpServletResponse.SC_OK);
 			
 		} catch (ValidationException | RuntimeException e) {
 			e.printStackTrace();
-			PrintWriter out = response.getWriter();
-			out.println(e.getMessage());
+			String errorMessage = e.getMessage();
+			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			response.getWriter().write(errorMessage);
 			
 			
 		}

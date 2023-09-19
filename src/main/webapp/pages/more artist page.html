@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>Track for sales</title>
+        <link rel="stylesheet" href="../assets/css/header.css">
         <link rel="stylesheet" href="../assets/css/more artist style.css">
         <link
             rel="stylesheet"
@@ -16,143 +17,114 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Nerko+One&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="../assets/css/header.css">
+        
     </head>
     <body>
-        <h1 style="font-size: 38px; color: white; text-align: center;">MORE TRACKS</h1>   
+        <h1 style="font-size: 38px; color: white; text-align: center;">All Tracks</h1>   
         
-        <div class="content">
-                 
-                
-
-        </div>
+		        <!-- Inside the .content div -->
+		<div class="card-container" id="card-container">
+		  <!-- Dynamic cards will be inserted here -->
+		</div>
 
         <script src="../assets/js/header.js"></script>
         <script>
+        const rootUrl = window.location.origin + "/dobooweb";
+     // Define a global array to store track details
+        const trackDetails = [];
 
+        // Function to fetch and store track details
+        async function fetchAndStoreTrackDetails() {
+          try {
+            const response = await fetch(rootUrl+'/tracks');
+            
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            
+            const data = await response.json();
+            const loadData = data["data"];
+            // Assuming the response is an array of track objects with properties like 'title' and 'artist'
+            trackDetails.push(...loadData);
 
-          let track;
-let product_image;
-
-
-
-
-const loadData = JSON.parse(localStorage.getItem("trackName"));
-
-
-      
-
-for (let i = 0; i <loadData.length; i++) {
-  // <div class="card">
-  //     <div>
-  //     <a href="../pages/track listening page/track listening page.html" style="text-decoration:none; color: white;"><img loading="lazy"src="https://cdn5.beatstars.com/eyJidWNrZXQiOiJidHMtY29udGVudCIsImtleSI6InVzZXJzL3Byb2QvMTEyNDc3MC9pbWFnZS9YUjYwR0Z3M1lMemEvbW9yYWwyanBlZy5qcGciLCJlZGl0cyI6eyJyZXNpemUiOnsiZml0IjoiZmlsbCIsIndpZHRoIjoyNDAsImhlaWdodCI6MjQwfX19?t=19275" alt="track photo"></a>
-  //     <a href="../pages/track listening page/track listening page.html" style="text-decoration:none; color: white;"><p>Track Name</p></a>
-  //     </div>
-  //     <a href="../pages/track listening page/track listening page.html" style="text-decoration:none; color: white;"><p>DRAKEY</p></a>
-  //     <p>3:00</p>
-  //     <p>Fmin/100 bpm</p>
-  //     <div class="heart">
-  //     <i class="fa-regular fa-heart"></i>
-  //     <i class="fa-regular fa-bookmark"></i>
-  //     </div>
-  //     <span class="price">$14.99/-</span>
-  //     <a href="../pages/cart/cart.html" style="text-decoration:none;"><button type="button"><i class="fa-solid fa-cart-shopping"></i>Add to cart</button></a>
-
-  // </div>
-
-  track = document.createElement("div");
-  track.setAttribute("class", "card");
-  track.setAttribute("data-id",loadData[i]["songId"])
-
-  link= document.createElement("a");
-  link.setAttribute("href","../../pages/track listening page/track listening page.html?tracks="+loadData[i]["songId"])
-  track.append(link)
-  trackContainer = document.createElement("div");
-  track.append(trackContainer);
-
-  product_image = document.createElement("img");
-  product_image.setAttribute(
-    "src",
-    `https://picsum.photos/200/300?random=${i}`
-  );
-  product_image.setAttribute("alt", "trackposter");
-  link.append(product_image);
-
-  trackname = document.createElement("p");
-    trackname.innerText = loadData[i]["trackname"];
-  trackContainer.append(trackname);
-
-  artistname = document.createElement("p");
-  artistname.innerText =loadData[i]["artistName"];
-  track.append(artistname);
-
-  bpmKey = document.createElement("p");
-  bpmKey.innerText = `BPM :` + ` ${loadData[i]["bpm"]} key : ${loadData[i]["key"]} `;
-  track.append(bpmKey);
-
-  price = document.createElement("span");
-  price.setAttribute("class", "price");
-  
-  price.innerText = `$`+`${loadData[i]["price"]}`;
-  track.append(price);
-
-  
-
-  cartButton = document.createElement("button");
-  cartButton.className = "Cart"
-  cartButton.setAttribute("type", "submit");
-  track.append(cartButton);
-
-  cartIcon = document.createElement("i");
-  cartIcon.setAttribute("class", "fa-solid fa-cart-shopping");
-  cartIcon.setAttribute("style", "width: max-content")
-  cartIcon.innerText = ["Add to cart"];
-  cartButton.append(cartIcon);
-
-  //   artistname = document.createElement("p");
-  //   artistname.innerText = trackproduct[i]["artistname"];
-  //   track.append(artistname);
-
-  document.querySelector("div.content").append(track);
-}
-
-const userEmail = JSON.parse(localStorage.getItem("userEmail")); 
-
-const cart_button = document.querySelectorAll(".Cart");
-
-cart_button.forEach(function(button){
-        button.addEventListener("click", function (e) {
-
-            const parent = this.closest(".card")
-            const trackId = parent.dataset.id
-            console.log(trackId)
-            function findTrack(track) {
-        return track.songId === trackId;
-      }
-
-      const loadtrack = loadData.find(findTrack);
-
-        const cart = JSON.parse(localStorage.getItem("cart")) || [];
-        const trackid = loadtrack.songId;
-        const exist = cart.some((data) => data.trackid == trackid && data.userEmail == userEmail);
-
-        if (!exist) {
-          cart.push({
-            trackid: loadtrack.songId,
-            Trackname: loadtrack.trackname,
-            artistname: loadtrack[""],
-            detail: loadtrack.detail,
-            price: loadtrack.price,
-            userEmail,
-          });
-          localStorage.setItem("cart", JSON.stringify(cart));
-          // JSON.stringify({"track-id":loadtrack["productId"],"Trackname":loadtrack["trackname"],})
-        } else {
-            alert("Already In cart")
-
-          localStorage.setItem("cart", JSON.stringify(cart));
+            // You can access track details anytime by using the 'trackDetails' array
+            console.log(trackDetails);
+          } catch (error) {
+            console.error('Error fetching track details:', error);
+          }
         }
-      });})
+
+        // Call the function to fetch and store track details
+        fetchAndStoreTrackDetails();
+
+        // Now, 'trackDetails' will contain the fetched data and can be accessed globally
+		function createTrackCards() {
+		  const cardContainer = document.getElementById('card-container');
+		
+		  trackDetails.forEach((track) => {
+		    const card = document.createElement('div');
+		    card.classList.add('card');
+		
+		    const cardImage = document.createElement('div');
+		    cardImage.classList.add('card-image');
+		    const img = document.createElement('img');
+		    img.src = track.imageUrl;
+		    img.alt = 'Track Poster';
+		    cardImage.appendChild(img);
+		
+		    const cardDetails = document.createElement('div');
+		    cardDetails.classList.add('card-details');
+		
+		    const title = document.createElement('h2');
+		    title.classList.add('card-title');
+		    title.textContent = track.TrackName;
+		
+		    const trackDetail = createInfoElement('Track Detail:', track.TrackDetail);
+		    const scale = createInfoElement('Scale:', track.scale);
+		    const genre = createInfoElement('Genre:', track.genre);
+		    const daw = createInfoElement('DAW:', track.daw);
+		    const bpm = createInfoElement('BPM:', track.bpm);
+		
+		    let trackId = (track.id * 25678);
+		    const buttonContainer = document.createElement('div');
+		    buttonContainer.classList.add('button-container');
+		    const viewButton = document.createElement('button');
+		    viewButton.classList.add('view-button');
+		    viewButton.textContent = 'View';
+		    viewButton.addEventListener('click', () => {
+		    	window.location.href = "../pages/track listening page/track listening page.html?tracks="+trackId;
+		    });
+		    buttonContainer.appendChild(viewButton);
+		
+		    cardDetails.appendChild(title);
+		    cardDetails.appendChild(trackDetail);
+		    cardDetails.appendChild(scale);
+		    cardDetails.appendChild(genre);
+		    cardDetails.appendChild(daw);
+		    cardDetails.appendChild(bpm);
+		    cardDetails.appendChild(buttonContainer);
+		
+		    card.appendChild(cardImage);
+		    card.appendChild(cardDetails);
+		
+		    cardContainer.appendChild(card);
+		  });
+		}
+		// Helper function to create info elements
+		function createInfoElement(label, value) {
+		  const infoElement = document.createElement('div');
+		  infoElement.classList.add('info');
+		  
+		  const strongElement = document.createElement('strong');
+		  strongElement.textContent = label;
+		  
+		  infoElement.appendChild(strongElement);
+		  infoElement.appendChild(document.createTextNode(` ${value}`));
+		  
+		  return infoElement;
+		}
+
+		window.addEventListener('load', createTrackCards);
 
       
     </script>
