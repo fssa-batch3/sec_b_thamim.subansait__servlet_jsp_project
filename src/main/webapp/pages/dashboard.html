@@ -11,32 +11,36 @@
      
     <!----===== Iconscout CSS ===== -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/gh/suryaumapathy2812/notify__js/notify.css">
+	<script
+	src="https://cdn.jsdelivr.net/gh/suryaumapathy2812/notify__js/notify.js"> </script>
 
     <title>Admin Dashboard Panel</title>
 </head>
 <body>
     <nav>
         <div class="logo-name">
-            <span class="logo_name">Doboo Artist</span>
+            <span class="logo_name">DOBOO Artist</span>
         </div>
 
         <div class="menu-items">
             <ul class="nav-links">
-                <li><a href="#">
+                <li><a href="./dashboard.html">
                     <i class="uil uil-estate"></i>
                     <span class="link-name">Dashboard</span>
                 </a></li>
-                <li><a href="#">
+                <li><a href="./sellerBrought.html">
                     <i class="uil uil-files-landscapes"></i>
-                    <span class="link-name">Your Tracks</span>
+                    <span class="link-name">You brought tracks</span>
                 </a></li>
                 <li><a href="#">
                     <i class="uil uil-chart"></i>
                     <span class="link-name">Analytics</span>
                 </a></li>
-                <li><a href="#">
-                    <i class="uil uil-thumbs-up"></i>
-                    <span class="link-name">Like</span>
+                <li><a href="./sellerSavedTracks.html">
+                    <i class="uil uil-bookmark"></i>
+                    <span class="link-name">your Saved Tracks</span>
                 </a></li>
                 <li><a href="#">
                     <i class="uil uil-rocket"></i>
@@ -73,7 +77,7 @@
                 <input type="text" placeholder="Search here...">
             </div>
             
-            <img src="https://media.gq.com/photos/56bcb218cdf2db6945d2ef93/1:1/w_2000,h_2000,c_limit/bieber-coverstory-square.jpg" alt="">
+            <img alt="">
         </div>
 
         <div class="dash-content">
@@ -87,17 +91,17 @@
                     <div class="box box1">
                         <i class="uil uil-play"></i>
                         <span class="text">Total Streams</span>
-                        <span class="number">50,120</span>
+                        <span class="number" id="streamCount">50,120</span>
                     </div>
                     <div class="box box2">
                         <i class="uil uil-thumbs-up"></i>
                         <span class="text">Total Like</span>
-                        <span class="number">20,120</span>
+                        <span class="number" id="likeCount">20,120</span>
                     </div>
                     <div class="box box3">
                         <i class="uil uil-bookmark"></i>
                         <span class="text">Saved</span>
-                        <span class="number">10,120</span>
+                        <span class="number" id="saveCount">10,120</span>
                     </div>
                 </div>
             </div>
@@ -108,74 +112,38 @@
                     <i class="uil uil-user-circle"></i>
                     <span class="text">Account</span>
                 </div>
-
+                <div class="container">
                 
+			  <div class="left">
+			    <div class="form">
+			      <input type="text" class="form-field animation a3" required pattern="[A-Za-z\s]+" id="artistName" placeholder="Artist Name" aria-required="true">
 
-
-
-
-
+			      <select class="form-field animation a3" name="typeofartist" id="typeofartist" aria-required="true" required>
+			        <option value="musicproducer">Music Producer</option>
+			        <option value="beatmakers">Beat Makers</option>
+			        <option value="mixmastereng">Mix and Master Eng</option>
+			        <option value="singer">Singer/Vocalist</option>
+			        <option value="songwriter">Songwriters</option>
+			      </select>
+			      <textarea class="animation a2" id="bio" cols="10" rows="5" style="resize: none;" required></textarea><br>
+			      <span class="animation a2">Please paste your Links here (optional)</span>
+			      <div class="social-icons">
+			        <i class="uil uil-instagram"></i>
+			        <input type="text" class="socail" id="instaLink">
+			        <i class="uil uil-facebook-f"></i>
+			        <input type="text" class="socail" id="faceBook">
+			      </div>
+			      <div class="social-icons">
+			        <i class="uil uil-linkedin"></i>
+			        <input type="text" class="socail" id="Linkedin">
+			        <i class="uil uil-play"></i>
+			        <input type="text" class="socail" id="spotify">
+			      </div>
+			      <button class="animation a6" id="submitForm" type="button" onclick="sellerDetails()">update</button>
+			    </div>
+			  </div>
+			</div>
             </div>
-
-            <!-- <div class="activity">
-                <div class="title">
-                    <i class="uil uil-clock-three"></i>
-                    <span class="text">Recent Activity</span>
-                </div>
-
-                <div class="activity-data">
-                    <div class="data names">
-                        <span class="data-title">Name</span>
-                        <span class="data-list">Prem Shahi</span>
-                        <span class="data-list">Deepa Chand</span>
-                        <span class="data-list">Manisha Chand</span>
-                        <span class="data-list">Pratima Shahi</span>
-                        <span class="data-list">Man Shahi</span>
-                        <span class="data-list">Ganesh Chand</span>
-                        <span class="data-list">Bikash Chand</span>
-                    </div>
-                    <div class="data email">
-                        <span class="data-title">Email</span>
-                        <span class="data-list">premshahi@gmail.com</span>
-                        <span class="data-list">deepachand@gmail.com</span>
-                        <span class="data-list">prakashhai@gmail.com</span>
-                        <span class="data-list">manishachand@gmail.com</span>
-                        <span class="data-list">pratimashhai@gmail.com</span>
-                        <span class="data-list">manshahi@gmail.com</span>
-                        <span class="data-list">ganeshchand@gmail.com</span>
-                    </div>
-                    <div class="data joined">
-                        <span class="data-title">Joined</span>
-                        <span class="data-list">2022-02-12</span>
-                        <span class="data-list">2022-02-12</span>
-                        <span class="data-list">2022-02-13</span>
-                        <span class="data-list">2022-02-13</span>
-                        <span class="data-list">2022-02-14</span>
-                        <span class="data-list">2022-02-14</span>
-                        <span class="data-list">2022-02-15</span>
-                    </div>
-                    <div class="data type">
-                        <span class="data-title">Type</span>
-                        <span class="data-list">New</span>
-                        <span class="data-list">Member</span>
-                        <span class="data-list">Member</span>
-                        <span class="data-list">New</span>
-                        <span class="data-list">Member</span>
-                        <span class="data-list">New</span>
-                        <span class="data-list">Member</span>
-                    </div>
-                    <div class="data status">
-                        <span class="data-title">Action</span>
-                        <span class="data-list">Liked</span>
-                        <span class="data-list">Liked</span>
-                        <span class="data-list">Liked</span>
-                        <span class="data-list">Liked</span>
-                        <span class="data-list">Liked</span>
-                        <span class="data-list">Liked</span>
-                        <span class="data-list">Liked</span>
-                    </div>
-                </div>
-            </div> -->
         </div>
     </section>
 

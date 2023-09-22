@@ -341,15 +341,40 @@ window.addEventListener("load", fetchTrackDetails);
     }
       
 	// function for to add the track to the cart page 
+	let SellersTrackIds = [];
+  async function fetchTracks() {
+	  try {
+	    const response = await fetch(rootUrl+'/user/dashboard'); // endpoint
+	    if (!response.ok) {
+	      throw new Error(`HTTP error! Status: ${response.status}`);
+	    }
+
+	    const data = await response.json();
+
+	    if (data.status === 200) {
+			const Loadata =data.data;
+	      SellersTrackIds.push(...Loadata);
+	      console.log('seller track to check in add to cart option.');
+	    } else {
+	      console.error('Failed to fetch tracks:', data.message);
+	    }
+	  } catch (error) {
+	    console.error('An error occurred while fetching tracks:', error);
+	  }
+	}
+	fetchTracks();
+	
+	console.log(SellersTrackIds);
+	
 	
       const cart_button = document.querySelector(".cart");
-
       cart_button.addEventListener("click", function () {
         const cart = JSON.parse(localStorage.getItem("cart")) || [];
         const trackId = realId;
         const exist = cart.some((data) => data.trackid == trackId && data.userEmail == userEmail);
-
-        if (!exist) {
+        const isUserTrack = SellersTrackIds.some((track) => String(track.id) === String(trackId));
+        
+        if (!exist && !isUserTrack) {
           cart.push({
             trackid: realId,
             userEmail,
@@ -357,13 +382,15 @@ window.addEventListener("load", fetchTrackDetails);
           localStorage.setItem("cart", JSON.stringify(cart));
           Notify.success("product successfully added to your cart");
           // JSON.stringify({"track-id":loadtrack["productId"],"Trackname":loadtrack["trackname"],})
-        } else {
+        } else if(isUserTrack){
+			alert("you can't buy your own track");
+		} else {
           alert("Already in the cart")
 
           localStorage.setItem("cart", JSON.stringify(cart));
         }
          
-        location.reload();
+       // location.reload();
       });
       
       

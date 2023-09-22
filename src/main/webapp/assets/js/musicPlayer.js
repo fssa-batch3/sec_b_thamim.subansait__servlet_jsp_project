@@ -1,4 +1,4 @@
-/**
+	/**
  * 
  */
 const musicContainer = document.querySelector('.music-player');
@@ -12,7 +12,7 @@ const musicContainer = document.querySelector('.music-player');
     const progressbar = document.querySelector('.progress-bar');
     const title = document.querySelector('.title1');
     const songImage = document.querySelector('#cover');
-    const likeBtn = document.querySelector('#like'); 
+    const likeBtn = document.querySelector('#likeMusic'); 
     const sound = document.querySelector('#voume');
     console.log(sound)
     
@@ -106,7 +106,102 @@ async function fetchAndStoreTrackDetails() {
     
      pevBtn.addEventListener("click", prevSong);
      nextBtn.addEventListener("click",nextSong);
- 
+     
+     // Function to create and append images to the "similar" div
+		function createAndAppendImages() {
+		    // Get the div element with the class "similar"
+		    var divElement = document.querySelector('.similar');
+		
+		    if (divElement) {
+		        // Create an array of image URLs
+		        var imageUrls = [
+					
+		            trackDetails[1].imageUrl,
+		            trackDetails[2].imageUrl,
+		            trackDetails[3].imageUrl,
+		           	trackDetails[4].imageUrl
+		        ];
+		
+		        // Loop through the image URLs and create img elements
+		        imageUrls.forEach(function(url) {
+		            var imgElement = document.createElement('img');
+		            imgElement.setAttribute('loading', 'lazy');
+		            imgElement.setAttribute('src', url);
+		            imgElement.setAttribute('alt', '');
+		
+		            // Append the img element to the "similar" div
+		            divElement.appendChild(imgElement);
+		        });
+		    } else {
+		        console.log('Div element with class "similar" not found.');
+		    }
+		}
+
+		// Call the function to create and append images
+		if (buyingTracks || streamingTracks) {
+			createAndAppendImages();
+		}
+		
+		
+		// we need the like to be created 
+		
+		function likesong(){
+      
+		let userEmailDuplicate = JSON.parse(localStorage.getItem("userEmail"));
+        likeBtn.classList.toggle("fa-solid")
+        likeBtn.classList.toggle("animated");
+        likeBtn.classList.toggle("active");
+        likeBtn.classList.toggle("true");
+        const likedTracks = JSON.parse(localStorage.getItem("Liked")) || [];
+        const trackid = trackDetails[realTrack].id;
+        const exist =
+          likedTracks.length && likedTracks.some((data) => data.trackid == trackid && data.userEmail == userEmailDuplicate);
+        // let trueorfalse=this.dataset.getAttribute("like").toggle("true")
+		const trackInfo = trackDetails[realTrack];
+		
+        if (this.classList.contains("true") && !exist) {
+          this.setAttribute("like", "true");
+          likedTracks.push({
+			  "Trackname":trackInfo.TrackName,
+			  "artistname":trackInfo.artistName,
+			  "imageUrl":trackInfo.imageUrl,
+			  "trackid":trackInfo.id,
+			  "userEmail":userEmailDuplicate
+		  });
+        
+          localStorage.setItem("Liked", JSON.stringify(likedTracks));
+          // JSON.stringify({"track-id":loadtrack["productId"],"Trackname":loadtrack["trackname"],})
+        } 
+        else {
+          this.setAttribute("like", "false");
+          const LikedList = likedTracks.filter((data) => data.trackid != trackid || data.userEmail !== userEmail);
+          localStorage.setItem("Liked", JSON.stringify(LikedList));
+        }
+    
+    }
+    
+     likeBtn.addEventListener('click',likesong);
+     
+     
+     function findMusicPlayerLike() {
+        const likedTracks = JSON.parse(localStorage.getItem("Liked"));
+        const userEmail = JSON.parse(localStorage.getItem("userEmail"));
+        const trackid = trackDetails[realTrack].id;
+        const exist = 
+          likedTracks.length && likedTracks.some((data) => data.trackid == trackid && data.userEmail == userEmail);
+        // const alreadyUser = exist.some((email) => email.userEmail == userEmail);
+        if (exist) {
+          likeBtn.classList.toggle("fa-solid");
+          likeBtn.classList.toggle("animated");
+          likeBtn.classList.toggle("active");
+          likeBtn.classList.toggle("true");
+        }
+      }
+      
+      if(localStorage.getItem("Liked")){
+      findMusicPlayerLike();
+    }
+    
   } catch (error) {
     console.error('Error fetching track details:', error);
   }
@@ -121,13 +216,8 @@ function findTrackIndexById(songId) {
   return index !== -1 ? index : null;
 }
 
-
-
-    
-
     // need to add progress event
-    
-      
+          
     function updateProgress(e) {
       const { duration, currentTime} = e.srcElement
       const progressPercent = (currentTime / duration) * 100
@@ -193,13 +283,8 @@ function findTrackIndexById(songId) {
     })
     
   
-    // we need the like to be created 
     
-    function likesong(){
-      
-      likeBtn.classList.toggle("fa-solid")
-    
-    }
+
     // volume control function on music player.
     
     
@@ -208,7 +293,7 @@ function findTrackIndexById(songId) {
      audio.addEventListener('timeupdate', updateProgress);
      progressbar.addEventListener('click', setProgress);
    
-     likeBtn.addEventListener('click',likesong);
+    
      
 
      const volumeBar = document.querySelector('.volume-bar-1');

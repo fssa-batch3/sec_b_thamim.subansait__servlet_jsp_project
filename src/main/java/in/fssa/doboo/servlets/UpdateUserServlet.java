@@ -35,8 +35,8 @@ public class UpdateUserServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setHeader("Access-Control-Allow-Origin", "*"); // Replace '*' with your allowed origin(s)
-	     response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-	     response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	    response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+	    response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 	     
 		UserEntity user = new UserEntity();
 		
@@ -54,15 +54,7 @@ public class UpdateUserServlet extends HttpServlet {
 //			consoleOutput.println("artistName cannot be null or empty");
 //		} else {
 //			user.setArtistName(request.getParameter("artistName"));
-//		}
-		
-		if(request.getParameter("password") == null || request.getParameter("password").isEmpty()) {
-			PrintWriter consoleOutput = new PrintWriter(System.out);
-			consoleOutput.println("Name cannot be null or empty");
-		} else {
-			user.setPassword(request.getParameter("password"));
-		}
-		
+//		}		
 		HttpSession session = request.getSession();
 		
 		user.setEmail(request.getParameter("email"));

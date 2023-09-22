@@ -59,16 +59,6 @@
                     <h2>Email</h2>
                     <input type="email" id="email" disabled>
                 </div>
-                <div class="input1" style="width: 95%;">
-				    <h2>Password</h2>
-				        <input type="password" id="password" class="read" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+\-]).{8,24}$" readonly>	      
-				</div>
-				 <span class="password-toggle" onclick="togglePasswordVisibility()" style="position: absolute;">
-				            <i id="eyeIcon" class="fas fa-eye" style="position: relative;
-    top: 378px;
-    left: 260px;
-    color: black;"></i>
-				        </span>
                 <div class="input"> 
                     <h2>Name</h2>
                     <input type="text" id="name"class="read" pattern="[a-zA-z0-9]+" readonly>
@@ -77,6 +67,7 @@
                     <h2>Age</h2>
                     <input type="text" id="age" disabled>
                 </div>
+                <small style="color: white;text-decoration: none;font-size: 18px;position: relative;top: 18px;"><strong><a href="../pages/changePassword.html">Click here</a> to change password</strong></small>
                 <div class="btn">
                     <button type="button" class="btn1">Edit</button>
                     <button type="submit" class="btn2" id="sav" style="display: none;">Save</button>
@@ -301,7 +292,7 @@ function sellerFeat() {
 
   // Create first child element
   const recent1 = document.createElement("div");
-  recent1.classList.add("recent1");
+  recent1.classList.add("recent4");
 
   const h2 = document.createElement("h2");
   h2.textContent = "WITHDRAW MONEY";
@@ -332,6 +323,83 @@ function sellerFeat() {
 
   // append to the document
   document.querySelector(".content").append(parentElem);
+  
+  const rootUrl = window.location.origin + "/dobooweb";
+  async function fetchTracks() {
+	  try {
+	    const response = await fetch(rootUrl+'/user/dashboard'); // endpoint
+	    if (!response.ok) {
+	      throw new Error(`HTTP error! Status: ${response.status}`);
+	    }
+
+	    const data = await response.json();
+
+	    if (data.status === 200) {
+	      const filteredData = data.data;
+	      const recent3 = document.querySelector('.recent3');
+
+	      filteredData.forEach((trackData) => {
+	        const track = document.createElement('div');
+	        track.setAttribute('class', 'spread1');
+
+	        const imageContainer = document.createElement('div');
+	        imageContainer.setAttribute('class', 'card');
+	        track.append(imageContainer);
+
+	        const TrackImage = document.createElement('img');
+	        TrackImage.setAttribute('loading', 'lazy');
+	        TrackImage.setAttribute('class', 'trackPoster');
+	        TrackImage.setAttribute('src', trackData.imageUrl);
+	        TrackImage.setAttribute('alt', 'trackPoster');
+	        imageContainer.append(TrackImage);
+
+	        const textContainer = document.createElement('div');
+	        textContainer.setAttribute('class', 'text1');
+	        track.append(textContainer);
+
+	        const trackName = document.createElement('h3');
+	        trackName.innerText = trackData.TrackName;
+	        textContainer.append(trackName);
+		
+	        const edit = document.createElement('button');
+	        edit.setAttribute('type', 'button');
+	        edit.setAttribute('class', 'btn_edit');
+	        track.append(edit); 
+	        
+	        let trackId = (trackData.id * 25678); // this is for to convert the track id into bit more complex so user can't edit
+	        
+	        const linkToEdit = document.createElement("a");
+	        linkToEdit.href="../pages/seller profile and upload a track/upload a track .html?edit="+trackId;
+			linkToEdit.innerText = ['Edit'];
+			  linkToEdit.setAttribute("style","text-decoration: none;color: black;")  
+			edit.append(linkToEdit);
+			
+	        recent3.append(track);
+	      });
+
+	      console.log('Tracks fetched and displayed successfully.');
+	    } else {
+	      console.error('Failed to fetch tracks:', data.message);
+	    }
+	  } catch (error) {
+	    console.error('An error occurred while fetching tracks:', error);
+	  }
+	}
+	fetchTracks();
+
+
+	// this edit function in the your track section in seller side
+
+
+	const editButton = document.querySelectorAll("button.btn_edit");
+
+	editButton.forEach((findId) => {
+	  findId.addEventListener("click", function () {
+	    const dataId = (this.dataset.id)*25678;
+	    window.location.href = "../pages/seller profile and upload a track/upload a track .html?edit="+dataId;
+	    console.log(dataId);
+	  });
+	})
 }
 
 // const UserRole = JSON.parse(localStorage.getItem("userRoleC"));
@@ -450,7 +518,6 @@ const deleteUser = document.querySelector("#delete").addEventListener("click", d
                   document.getElementById('loader').style.display = 'none';
                     if (data.status == 200) {
                         document.getElementById("email").value = data.data["email"];
-                        document.getElementById("password").value = data.data["password"];
                         document.getElementById("name").value = data.data["name"];
                         const dob = new Date(data.data["Dob"]);
                         
@@ -469,8 +536,6 @@ const deleteUser = document.querySelector("#delete").addEventListener("click", d
         };
         profile();
 
-
-
         /// end of fetch method for user details.
 
 
@@ -480,20 +545,19 @@ async function update(e) {
     // Getting the updated data from the input field
     e.preventDefault();
     const update_name = document.getElementById("name").value;
-    const update_password = document.getElementById("password").value;
+    //const update_password = document.getElementById("password").value;
     const update_email = document.getElementById("email").value;
     
     console.log(update_name);
-    console.log(update_password);
+    //console.log(update_password);
     console.log(update_email);
 
     // Create an object with the updated data
     const formData = new FormData();
     formData.append("name",update_name);
-    formData.append("password",update_password);
     formData.append("email",update_email);
     
-    let params = "?name=" + update_name +"&"+"password=" +update_password + "&" +"email="+update_email;
+    let params = "?name=" + update_name +"&"+"email="+update_email;
    
     try {
         const response = await fetch("http://localhost:8080/dobooweb/user/update" + params, {
@@ -518,7 +582,7 @@ async function update(e) {
             const errorResponse = await response.text();
             console.error('Error:', errorResponse.error);
             alert("Update failed: " + errorResponse);
-            // location.reload();
+            location.reload();
         }
     } catch (error) {
         console.error('Error:', error);
@@ -534,7 +598,7 @@ sumbit.addEventListener("click", findReadonly1);
 // end edit page
 
 function findReadonly(e) {
-  document.getElementById("password").removeAttribute("readonly");
+ // document.getElementById("password").removeAttribute("readonly");
   document.getElementById("name").removeAttribute("readonly");
   
   document.querySelector(".btn2").removeAttribute("style");
@@ -542,7 +606,7 @@ function findReadonly(e) {
 }
 
 function findReadonly1(e) {
-  document.getElementById("password").setAttribute("readonly", "true");
+ // document.getElementById("password").setAttribute("readonly", "true");
   document.getElementById("name").setAttribute("readonly", "true");
   
   document.querySelector(".btn2").setAttribute("style", "display:none");
@@ -677,23 +741,13 @@ function card(trackname,artistName,i,trackImage){
             }
         }
         else{
-
-            //  let div = document.createElement("div")
-            //  div.setAttribute("class", `${fileterRecentlyPlayed[i]["date"]}`)
-
-             
-
-            document.querySelector(".thisweek").prepend(card(fileterRecentlyPlayed[i]["trackname"],fileterRecentlyPlayed[i]["artistname"],i))
-
-
+            document.querySelector(".thisweek").prepend(card(fileterRecentlyPlayed[i]["trackname"],fileterRecentlyPlayed[i]["artistname"],i,fileterRecentlyPlayed[i]["trackImage"]));
 
         }
     }
   }
   
 
-        </script>
-     <script src="../assets/js/seller profile.js"></script>
-        
+        </script>        
     </body>
 </html>

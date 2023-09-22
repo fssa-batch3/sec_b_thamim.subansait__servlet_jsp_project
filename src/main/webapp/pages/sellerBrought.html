@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<!-- Coding By CodingNepal - codingnepalweb.com -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!----======== CSS ======== -->
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+     
+    <!----===== Iconscout CSS ===== -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/gh/suryaumapathy2812/notify__js/notify.css">
+	<script
+	src="https://cdn.jsdelivr.net/gh/suryaumapathy2812/notify__js/notify.js"> </script>
+
+    <title>Admin Dashboard Panel</title>
+</head>
+		<style>
+		/* Style the table */
+		table {
+		  width: 100%;
+		  border-collapse: collapse;
+		  margin: 20px auto;
+		  font-family: Arial, sans-serif;
+		  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+		}
+		
+		/* Style table headers */
+		th {
+		  background-color: #f5f5f5;
+		  color: #333;
+		  text-align: left;
+		  padding: 12px;
+		  border-bottom: 2px solid #ddd;
+		}
+		
+		/* Style table rows */
+		tr:nth-child(even) {
+		  background-color: #f2f2f2;
+		}
+		
+		/* Style table data cells */
+		td {
+		  padding: 20px;
+		  border-bottom: 1px solid #ddd;
+		  color: #555;
+		}
+		
+		/* Highlight table rows on hover */
+		tr:hover {
+		  background-color: #e0e0e0;
+		}
+		
+		/* Add spacing around the table */
+		#trackTable {
+		  margin: 20px auto;
+		    position: relative;
+		    top: 100px;
+		    max-width: 1000px;
+		}
+		
+		
+		</style>
+<body>
+    <nav>
+        <div class="logo-name">
+            <span class="logo_name">DOBOO Artist</span>
+        </div>
+
+        <div class="menu-items">
+            <ul class="nav-links">
+                <li><a href="./dashboard.html">
+                    <i class="uil uil-estate"></i>
+                    <span class="link-name">Dashboard</span>
+                </a></li>
+                <li><a href="./sellerBrought.html">
+                    <i class="uil uil-files-landscapes"></i>
+                    <span class="link-name">You brought tracks</span>
+                </a></li>
+                <li><a href="#">
+                    <i class="uil uil-chart"></i>
+                    <span class="link-name">Analytics</span>
+                </a></li>
+                <li><a href="./sellerSavedTracks.html">
+                    <i class="uil uil-bookmark"></i>
+                    <span class="link-name">your Saved Tracks</span>
+                </a></li>
+                <li><a href="#">
+                    <i class="uil uil-rocket"></i>
+                    <span class="link-name">Start campaign</span>
+                </a></li>
+            </ul>
+            
+            <ul class="logout-mode">
+                <li><a href="../pages/homepage/buyer homepage.html">
+                    <i class="uil uil-signout"></i>
+                    <span class="link-name">Exit From Seller</span>
+                </a></li>
+
+                <li class="mode">
+                    <a href="#">
+                        <i class="uil uil-moon"></i>
+                    <span class="link-name">Dark Mode</span>
+                </a>
+
+                <div class="mode-toggle">
+                  <span class="switch"></span>
+                </div>
+            </li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="dashboard">
+        <div class="top">
+            <i class="uil uil-bars sidebar-toggle"></i>
+
+            <div class="search-box">
+                <i class="uil uil-search"></i>
+                <input type="text" placeholder="Search here...">
+            </div>
+            
+            <img alt="">
+        </div>
+        <div class="broughtTracks" id="trackTable">
+        
+        
+        
+        </div>
+
+        
+    </section>
+    
+    <script>
+    
+			    const body = document.querySelector("body"),
+			    modeToggle = body.querySelector(".mode-toggle");
+			    sidebar = body.querySelector("nav");
+			    sidebarToggle = body.querySelector(".sidebar-toggle");
+			
+				let getMode = localStorage.getItem("mode");
+				if(getMode && getMode ==="dark"){
+				  body.classList.toggle("dark");
+				}
+				
+				let getStatus = localStorage.getItem("status");
+				if(getStatus && getStatus ==="close"){
+				  sidebar.classList.toggle("close");
+				}
+				
+				modeToggle.addEventListener("click", () =>{
+				  body.classList.toggle("dark");
+				  if(body.classList.contains("dark")){
+				      localStorage.setItem("mode", "dark");
+				  }else{
+				      localStorage.setItem("mode", "light");
+				  }
+				});
+				
+				sidebarToggle.addEventListener("click", () => {
+				  sidebar.classList.toggle("close");
+				  if(sidebar.classList.contains("close")){
+				      localStorage.setItem("status", "close");
+				  }else{
+				      localStorage.setItem("status", "open");
+				  }
+				})
+    
+    
+				    function generateTableHTML(data) {
+				    	  let tableHTML = '<table>';
+				    	  tableHTML += '<thead><tr><th>Title</th><th>Artist</th><th>Genre</th><th>Price</th></tr></thead>';
+				    	  tableHTML += '<tbody>';
+				
+				    	  // Loop through the data and populate the table rows
+				    	  data.forEach(track => {
+				    	    tableHTML += '<tr>';
+				    	    tableHTML += `<td>${track.TrackName}</td>`;
+				    	    tableHTML += `<td>${track.artistName}</td>`;
+				    	    tableHTML += `<td>${track.genre}</td>`;
+				    	    tableHTML += `<td>$${track.price.toFixed(2)}</td>`;
+				    	    tableHTML += '</tr>';
+				    	  });
+				
+				    	  tableHTML += '</tbody>';
+				    	  tableHTML += '</table>';
+				
+				    	  return tableHTML;
+				    	}
+				    
+    
+				    function buyerFeat() {
+					////brougthed tracks
+					
+					const allTrack = [];
+					const userOrderedTrack = [] ;
+					
+					const rootUri = window.location.origin + "/dobooweb";
+					//Function to fetch and store track details
+					async function fetchAndStoreTrackDetails() {
+					try {
+					const response = await fetch(rootUri + '/tracks');
+					
+					if (!response.ok) {
+					  throw new Error('Network response was not ok');
+					}
+					
+					const data = await response.json();
+					const loadData = data["data"];
+					
+					// Assuming the response is an array of track objects with properties like 'title' and 'artist'
+					allTrack.push(...loadData);
+					
+					// You can access track details anytime by using the 'trackDetails' array
+					} catch (error) {
+					console.error('Error fetching track details:', error);
+					}
+					}
+					
+					async function getBroughtTracks() {
+					  try {
+					    const response = await fetch(rootUri+'/orders'); // Replace with the correct URL of your servlet
+					    if (!response.ok) {
+					      throw new Error('Failed to fetch data');
+					    }
+					
+					    const data = await response.json();
+					    const broughtTracks = data.data;
+					
+					    userOrderedTrack.push(...broughtTracks);
+					    
+					  } catch (error) {
+					    console.error('Error:', error);
+					    // Handle the error as needed (e.g., show an error message to the user)
+					  }
+					}
+					
+					const trackTable = document.getElementById('trackTable');
+					
+					// Call the function to fetch and display brought tracks
+					Promise.all([fetchAndStoreTrackDetails(), getBroughtTracks()]).then(() => {
+					  const filteredAllTrack = allTrack.filter(track => userOrderedTrack.some(userTrack => userTrack.trackId === track.id));
+					  const tableHTML = generateTableHTML(filteredAllTrack);
+					  trackTable.innerHTML = tableHTML;
+						}	 
+					);	
+					
+				}
+			 buyerFeat();
+    
+    </script>
+</body>
+</html>

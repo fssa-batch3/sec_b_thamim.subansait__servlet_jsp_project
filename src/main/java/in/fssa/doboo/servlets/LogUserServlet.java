@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import com.google.gson.Gson;
 
 import in.fssa.doboo.exception.PersistanceException;
@@ -19,6 +21,7 @@ import in.fssa.doboo.exception.ValidationException;
 import in.fssa.doboo.model.ResponseEntity;
 import in.fssa.doboo.model.UserEntity;
 import in.fssa.doboo.service.UserService;
+import in.fssa.doboo.util.PasswordEncryptUtil;
 
 /**
  * Servlet implementation class LogUserServlet
@@ -44,7 +47,8 @@ public class LogUserServlet extends HttpServlet {
 	        	
 	        	user = userService.Login(email);
 	        	String pwsd = user.getPassword();
-				if(!pwsd.equals(password)) {
+	        	
+				if(!BCrypt.checkpw(password, pwsd)) {
 					throw new ValidationException("Incorrect Password");
 				}
 				

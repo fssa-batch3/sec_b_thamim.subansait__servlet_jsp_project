@@ -7,6 +7,141 @@
     font-family: 'Poppins', sans-serif;
 }
 
+
+.container {
+  justify-content: center;
+  align-items: center;
+      margin-left: 200px;
+    margin-right: 200px;
+}
+#bio {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none;
+  font-size: 16px;
+  line-height: 1.5;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+}
+
+#bio:hover,
+#bio:focus {
+  border-color: #007bff; /* Highlight border on hover and focus */
+}
+
+/* Optional: Add a box-shadow when focused for a more prominent effect */
+#bio:focus {
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+.social-icons {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.social-icons i {
+  font-size: 24px; /* Adjust the font size as needed */
+  margin-right: 10px; /* Add spacing between icons and input fields */
+}
+
+.socail {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  line-height: 1.5;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.socail:focus {
+  border-color: #007bff; /* Highlight border on focus */
+}
+
+#submitForm {
+  background-color: #007bff; /* Button background color */
+  color: #fff; /* Button text color */
+  padding: 10px 20px; /* Adjust padding as needed */
+  border: none;
+  border-radius: 5px;
+  font-size: 18px; /* Adjust font size as needed */
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+#submitForm:hover {
+  background-color: #0056b3; /* Change background color on hover */
+  color: #fff; /* Change text color on hover */
+}
+
+
+.left {
+  
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.form {
+  text-align: center;
+}
+
+.form-field {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.animation {
+  transition: all 0.3s ease-in-out;
+}
+
+.a2 {
+  top: 10px;
+}
+
+.a3 {
+  top: 15px;
+}
+
+.a6 {
+  top: 15px;
+  cursor: pointer;
+}
+
+.social-icons {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.social-icons i {
+  margin: 0 5px;
+}
+
+textarea {
+  resize: none;
+}
+
+/* Adjust the style of select element */
+.form-field.select {
+  appearance: none;
+  padding-right: 20px; /* Add space for the dropdown arrow */
+  background-image: url('down-arrow.png'); /* Replace with your own arrow icon */
+  background-repeat: no-repeat;
+  background-position: right center;
+  cursor: pointer;
+}
+
+
+
+
 :root{
     /* ===== Colors ===== */
     --primary-color: #0E4BF1;
@@ -360,6 +495,8 @@ nav.close ~ .dashboard .top{
     white-space: nowrap;
     color: var(--text-color);
 }
+
+
 
 @media (max-width: 1000px) {
     nav{

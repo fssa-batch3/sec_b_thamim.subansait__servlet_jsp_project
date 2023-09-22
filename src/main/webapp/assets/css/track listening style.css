@@ -209,13 +209,15 @@
     margin-right: 20px;
 }
 .similar img{
-        width: 170px;    
-        padding:3px;
-        margin-left: 150px;        
+      width: 150px;
+      height: 145px;  
+      padding:3px;
+      margin-left: 150px;
+      border-radius: 20px;        
 }
 .similar img:hover{
    transform: scale(1.05);
-    border-radius: 10px;
+    border-radius: 20px; 
 
 }
 @import url(//db.onlinewebfonts.com/c/860c3ec7bbc5da3e97233ccecafe512e?family=Circular+Std+Book);

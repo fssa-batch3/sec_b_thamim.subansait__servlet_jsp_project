@@ -49,6 +49,7 @@
 
             // You can access track details anytime by using the 'trackDetails' array
             console.log(trackDetails);
+            createTrackCards();
           } catch (error) {
             console.error('Error fetching track details:', error);
           }
@@ -123,8 +124,6 @@
 		  
 		  return infoElement;
 		}
-
-		window.addEventListener('load', createTrackCards);
 
       
     </script>

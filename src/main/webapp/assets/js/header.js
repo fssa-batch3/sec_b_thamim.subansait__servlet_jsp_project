@@ -154,13 +154,13 @@ const sellerHeader = `<div class="header">
       
   		<div class="section-dropdown"> 
         
-       <a href="../dashboard.html" class="api">Dashboard<i class="fa-solid fa-arrow-right"></i></a>
+       <a href="${root}/pages/dashboard.html" class="api">Dashboard<i class="fa-solid fa-arrow-right"></i></a>
         
-		  	<a href="../dashboard.html" class="api">Analytics<i class="fa-solid fa-arrow-right"></i></a>
+		  	<a href="${root}/pages/dashboard.html" class="api">Analytics<i class="fa-solid fa-arrow-right"></i></a>
  
   			<a href="#" class="api">Record Label<i class="fa-solid fa-arrow-right"></i></a>
         
-  			<a href="../dashboard.html" class="api">Start campaign <i class="fa-solid fa-arrow-right"></i></a>
+  			<a href="${root}/pages/dashboard.html" class="api">Start campaign <i class="fa-solid fa-arrow-right"></i></a>
   		</div>
   	</div>
 

@@ -13,6 +13,67 @@
       rel="stylesheet"
     />
   </head>
+   <script type="text/javascript"
+   src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
+   </script>
+   <script type="text/javascript">
+   (function(){
+       emailjs.init("MJkH21yxw1kq8USCP");
+   })();
+   </script>
+  <style>
+
+#container {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 435px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+#title {
+    text-align: center;
+    color: #333;
+}
+
+#changePasswordForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+#passwordLabel {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+#oldPassword, #newPassword {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+}
+
+#submitBtn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    width: 40%;
+    text-align: center;
+    border-radius: 4px;
+    padding: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#submitBtn:hover {
+    background-color: #0056b3;
+}
+</style>
   <body>
     <div class="log">
       <h1>Login</h1>
@@ -38,7 +99,7 @@
           </div>
           <input type="submit" class="op" value="Login" />
           <div>
-            <a href="#" style="color: white; text-decoration: none" class="btn1"
+            <a href="#" id="forgot" style="color: white; text-decoration: none" class="btn1"
               >Forgot password?</a
               
             >
@@ -46,18 +107,57 @@
                     Want to go back click <a href="/dobooweb" style="color:dodgerblue">here</a>.
                 </p>
           </div>
+          
+          
         </div>
       </div>
     </div>
+    <div id="container" style="display: none">
+		   	 <h1 id="title">Change Password</h1>
+		    	<form id="changePasswordForm">
+		        <label for="oldPassword" id="passwordLabel">Enter your Email:</label>
+		        <input type="text" id="oldPassword" name="oldPassword" required>  <br>
+		        <button type="submit" id="submitBtn">Send mail</button>
+		    </form>
+		</div>
     <script>
-      //  function sub(){
-      //     const username = document.getElementById("username").value
-      //     const password = document.getElementById("password").value
+      
+    
+    document.querySelector("#forgot").addEventListener("click", ()=>{
+    	alert("are you sure, want to change password");
+    	document.querySelector("#container").style.display="block";
+    	document.querySelector(".btn").setAttribute("style","display:none")
+    });
+    /*
+    function SendMail() {
+        
+        var params = {
+            to_name : UserId,
+            OTP: num
+        }
 
-      //     console.log(username)
-      //     console.log(password)
-      //     window.location.href ="../homepage/buyer homepage.html"
-      //  }
+        const EmailVerify=JSON.parse(localStorage.getItem("EmailVerify"))||[]
+            const varifyUser ={
+                "email":UserId,
+                "OTP": num,
+                "date":new Date(),
+                "time":new Date().toLocaleTimeString(),
+            }
+           
+            EmailVerify.push(varifyUser)
+        
+        
+            localStorage.setItem("EmailVerify", JSON.stringify(EmailVerify))
+
+        emailjs.send("service_myq1w7c", "template_zew00y8", params).then(function (res) {
+        alert("Successfull The otp has been sent to your email ! " + res.status);
+        })
+        }
+
+        SendMail()
+        */
+    
+    
       localStorage.removeItem("userRole");
 
       function setCookie(name, value, days) {

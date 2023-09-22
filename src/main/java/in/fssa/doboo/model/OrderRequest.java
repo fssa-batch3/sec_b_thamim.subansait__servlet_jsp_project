@@ -2,7 +2,14 @@ package in.fssa.doboo.model;
 
 import java.util.List;
 
+
 public class OrderRequest {
+	
+	private List<Integer> trackIds;
+	 
+	private int userId;
+	
+	
     public List<Integer> getTrackIds() {
 		return trackIds;
 	}
@@ -15,10 +22,8 @@ public class OrderRequest {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-	private List<Integer> trackIds;
- 
-	private int userId;
 	
+
 	   @Override
 		public String toString() {
 			return "OrderRequest [trackIds=" + trackIds + ", userId=" + userId + "]";

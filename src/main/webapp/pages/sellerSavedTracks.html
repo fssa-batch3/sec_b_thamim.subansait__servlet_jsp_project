@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<!-- Coding By CodingNepal - codingnepalweb.com -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!----======== CSS ======== -->
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+     
+    <!----===== Iconscout CSS ===== -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/gh/suryaumapathy2812/notify__js/notify.css">
+	<script
+	src="https://cdn.jsdelivr.net/gh/suryaumapathy2812/notify__js/notify.js"> </script>
+
+    <title>Admin Dashboard Panel</title>
+</head>
+		<style>
+		/* Style the table */
+		table {
+		  width: 100%;
+		  border-collapse: collapse;
+		  margin: 20px auto;
+		  font-family: Arial, sans-serif;
+		  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+		}
+		
+		/* Style table headers */
+		th {
+		  background-color: #f5f5f5;
+		  color: #333;
+		  text-align: left;
+		  padding: 12px;
+		  border-bottom: 2px solid #ddd;
+		}
+		
+		/* Style table rows */
+		tr:nth-child(even) {
+		  background-color: #f2f2f2;
+		}
+		
+		/* Style table data cells */
+		td {
+		  padding: 20px;
+		  border-bottom: 1px solid #ddd;
+		  color: #555;
+		}
+		
+		/* Highlight table rows on hover */
+		tr:hover {
+		  background-color: #e0e0e0;
+		}
+		
+		/* Add spacing around the table */
+		#trackTable {
+		  margin: 20px auto;
+		    position: relative;
+		    top: 100px;
+		    max-width: 1000px;
+		}
+		
+		.recent3::-webkit-scrollbar{
+  width: 0px;
+}
+		.recent3{
+		      background-color: #f5f5f5;
+    text-align: center;
+    color: black;
+    padding: 20px;
+    border-radius: 20px;
+    height: 70%;
+    overflow: scroll; 
+    margin-bottom: 50px;
+    margin-right: 20px;
+		
+		}
+		
+		.spread{
+		 display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 20px;
+    background-color: #f0f0f0;
+    margin-top: 15px;
+    margin-left: 40px;
+    /* margin-right: 150px; */
+    margin-bottom: 15px;
+    width: 90%;
+		
+		}
+		
+		
+		.card img {
+		    width: 80px;
+		    height: 80px;
+		    border-radius: 20px;
+		    margin-right: 10px; /* Add some spacing between the image and text */
+		}
+		.card img:hover{
+		     transform: scale(1.1);
+		     transition: 0.5s;
+		
+		}
+		.card {
+		    display: flex;
+		    flex-direction: row;
+		    align-items: center; /* Center the content vertically */
+		}
+				
+		.text1 {
+		    flex-grow: 1; /* Allow the text container to grow and fill available space */
+		}
+
+		</style>
+<body>
+    <nav>
+        <div class="logo-name">
+            <span class="logo_name">DOBOO Artist</span>
+        </div>
+
+        <div class="menu-items">
+            <ul class="nav-links">
+                <li><a href="./dashboard.html">
+                    <i class="uil uil-estate"></i>
+                    <span class="link-name">Dashboard</span>
+                </a></li>
+                <li><a href="./sellerBrought.html">
+                    <i class="uil uil-files-landscapes"></i>
+                    <span class="link-name">You brought tracks</span>
+                </a></li>
+                <li><a href="#">
+                    <i class="uil uil-chart"></i>
+                    <span class="link-name">Analytics</span>
+                </a></li>
+                <li><a href="./sellerSavedTracks.html">
+                    <i class="uil uil-bookmark"></i>
+                    <span class="link-name">your Saved Tracks</span>
+                </a></li>
+                <li><a href="#">
+                    <i class="uil uil-rocket"></i>
+                    <span class="link-name">Start campaign</span>
+                </a></li>
+            </ul>
+            
+            <ul class="logout-mode">
+                <li><a href="../pages/homepage/buyer homepage.html">
+                    <i class="uil uil-signout"></i>
+                    <span class="link-name">Exit From Seller</span>
+                </a></li>
+
+                <li class="mode">
+                    <a href="#">
+                        <i class="uil uil-moon"></i>
+                    <span class="link-name">Dark Mode</span>
+                </a>
+
+                <div class="mode-toggle">
+                  <span class="switch"></span>
+                </div>
+            </li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="dashboard">
+        <div class="top">
+            <i class="uil uil-bars sidebar-toggle"></i>
+
+            <div class="search-box">
+                <i class="uil uil-search"></i>
+                <input type="text" placeholder="Search here...">
+            </div>
+            
+            <img alt="">
+        </div>
+        <div class="broughtTracks" id="trackTable">
+        
+        
+        
+        </div>
+
+        
+    </section>
+    
+    <script>
+    
+			    const body = document.querySelector("body"),
+			    modeToggle = body.querySelector(".mode-toggle");
+			    sidebar = body.querySelector("nav");
+			    sidebarToggle = body.querySelector(".sidebar-toggle");
+			
+				let getMode = localStorage.getItem("mode");
+				if(getMode && getMode ==="dark"){
+				  body.classList.toggle("dark");
+				}
+				
+				let getStatus = localStorage.getItem("status");
+				if(getStatus && getStatus ==="close"){
+				  sidebar.classList.toggle("close");
+				}
+				
+				modeToggle.addEventListener("click", () =>{
+				  body.classList.toggle("dark");
+				  if(body.classList.contains("dark")){
+				      localStorage.setItem("mode", "dark");
+				  }else{
+				      localStorage.setItem("mode", "light");
+				  }
+				});
+				
+				sidebarToggle.addEventListener("click", () => {
+				  sidebar.classList.toggle("close");
+				  if(sidebar.classList.contains("close")){
+				      localStorage.setItem("status", "close");
+				  }else{
+				      localStorage.setItem("status", "open");
+				  }
+				})
+    
+    
+				  const getEmail = JSON.parse(localStorage.getItem("userEmail"));
+				const rootUri = window.location.origin + "/dobooweb";
+
+				// Create the save later section
+				  const recent2Div = document.createElement("div");
+				recent2Div.classList.add("recent3");
+				const recent2Header = document.createElement("h2");
+				recent2Header.textContent = "Save later";
+				recent2Div.appendChild(recent2Header);
+				document.querySelector("#trackTable").appendChild(recent2Div);
+				
+				if(localStorage.getItem("saved")){
+				const saved = JSON.parse(localStorage.getItem("saved"));
+				const filteredSaved = saved.filter((e) => e.userEmail === getEmail);
+				console.log(filteredSaved)
+
+
+
+
+				for (let i = 0; i < filteredSaved.length; i++) {
+				    const link = document.createElement("a");
+				    const tracKID = filteredSaved[i]["trackid"];
+				  link.setAttribute("href",rootUri+"/pages/track listening page/track listening page.html?tracks="+(tracKID*25678))
+				  link.setAttribute("style", "color:black; text-decoration:none")
+				  const spreadDiv2 = document.createElement("div");
+				  spreadDiv2.classList.add("spread");
+
+
+				  const cardDiv2 = document.createElement("div");
+				  cardDiv2.classList.add("card");
+
+				  const img2 = document.createElement("img");
+				  img2.setAttribute("loading", "lazy");
+				  let imageUrl =  filteredSaved[i].imageUrl;
+				  let imageValue ;
+				  if(imageUrl){
+					  imageValue = imageUrl;
+				  }
+				  else{
+					  imageValue = "https://picsum.photos/200/300?random=${i}";
+				  }
+				  img2.setAttribute("src",imageValue);
+
+				  const textDiv2 = document.createElement("div");
+				  textDiv2.classList.add("text1");
+
+				  const textHeader2 = document.createElement("h3");
+				  textHeader2.textContent = filteredSaved[i]["Trackname"];
+
+				  const textPara2 = document.createElement("p");
+				  textPara2.textContent = filteredSaved[i]["artistname"];
+
+				  cardDiv2.appendChild(img2);
+				  textDiv2.appendChild(textHeader2);
+				  textDiv2.appendChild(textPara2);
+				  spreadDiv2.appendChild(cardDiv2);
+				  spreadDiv2.appendChild(textDiv2);
+				  link.appendChild(spreadDiv2);
+				  recent2Div.appendChild(link)
+				}
+				}
+				       
+    </script>
+</body>
+</html>
