@@ -28,6 +28,7 @@ public class GetAllTracksServlets extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		 response.setHeader("Access-Control-Allow-Origin", "*"); // Replace '*' with your allowed origin(s)
 	     response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");

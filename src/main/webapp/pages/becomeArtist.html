@@ -9,11 +9,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/gh/suryaumapathy2812/notify__js/notify.css">
-	<script
-	src="https://cdn.jsdelivr.net/gh/suryaumapathy2812/notify__js/notify.js"> </script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
     
@@ -42,20 +37,23 @@
                     <span class="animation a2" style="position: relative; top: 20px;">Please paste your Links here (optional)</span>
                     <div class="social-icons">
                         <i class="fab fa-instagram fa-lg"></i>
-                        <input type="text" id="instaLink">
+                        
+                        <input type="text" id="instaLink" value="">
+                        
                         <i class="fab fa-facebook fa-lg"></i>
-                        <input type="text" id="faceBook">
+                        
+                        <input type="text" id="faceBook" value="">
     
                       </div>
 
                       <div class="social-icons">
                       <i class="fab fa-linkedin fa-lg"></i>
-                        <input type="text" id="Linkedin">
+                        <input type="text" id="Linkedin" value="">
                         <i class="fab fa-spotify fa-lg"></i>
-                        <input type="text" id="spotify">
+                        <input type="text" id="spotify" value="">
                     </div>
 
-                           <button class="animation a6" id="submitForm" type="button" style="position: relative;top: 15px; cursor: pointer;" onclick="sellerDetails()">Sumbit</button>
+                           <button class="animation a6" id="submitForm" type="button" style="position: relative;top: 15px; cursor: pointer;">Sumbit</button>
                         
                           </div>
                         
@@ -88,7 +86,9 @@
                 });
 
                 const root = window.location.origin + "/dobooweb";
+              
                 async function sellerDetails() {
+                	
                     const artistName = document.getElementById("artistName").value;
                     const bio = document.getElementById("bio").value;
                     const typeOfArtist = document.getElementById("typeofartist").value;
@@ -97,7 +97,7 @@
                     const linkedin = document.getElementById("Linkedin").value;
                     const spotify = document.getElementById("spotify").value;
 
-                    const  formData = new FormData();
+                    const formData = new FormData();
                     formData.append("artistName", artistName);
                     formData.append("bio", bio);
                     formData.append("type", typeOfArtist);
@@ -107,7 +107,7 @@
                     formData.append("spotify", spotify);
 
                     try {
-                        const response = await fetch(root+'/artist/new', {
+                        const response = await fetch(root+"/create/artist", {
                             method: 'POST',
                             headers: {
                                 "Content-Type": "application/x-www-form-urlencoded", // Set the content type
@@ -120,24 +120,27 @@
                             console.log(result);
                             if (result.status === 200) {
                                 // Success, redirect to the buyer homepage
-                                 Notify.success("you are successfully became a artist");
+                                 
                                 window.location.href = "../pages/homepage/buyer homepage.html";
                             } else {
                                 // Handle error if needed
                                 console.error("Failed to become an artist:", result.message);
-                                Notify.error(result.message);
+                                
                             }
                         } else {
                             // Handle HTTP error
-                            console.error("HTTP Error:", response.statusText);
+                            const result = await response.text();
+                            alert(result);
+                            console.error("HTTP Error:", result);
                         }
                     } catch (error) {
                         // Handle network or other errors
                         console.error("Error:", error);
-                        Notify.error(error.message);
+                       
                     }
                 }
 
+                document.querySelector("#submitForm").addEventListener("click", sellerDetails)
 
                       </script>
 

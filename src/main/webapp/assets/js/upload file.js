@@ -53,7 +53,7 @@
 				.catch((error) => {
                 // Handle any errors here
                 console.error('API Error:', error);        
-                 alert("image successfully uploaded");
+                 alert(error);
             });
             
             }
@@ -102,13 +102,16 @@
       alert("track successfully uploaded");
       } else {
        // Handle error if needed
+       
         console.error("Failed to upload track:", result.message);
         alert(result.message);           
        }
 
     } else {
       // Handle error response here
-      console.error("Upload failed");
+      const result = await response.text();
+      console.error("Upload failed"+result);
+      alert(result);
     }
   } catch (error) {
     console.error("An error occurred:", error);

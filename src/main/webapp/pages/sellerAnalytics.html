@@ -15,54 +15,61 @@
 	href="https://cdn.jsdelivr.net/gh/suryaumapathy2812/notify__js/notify.css">
 	<script
 	src="https://cdn.jsdelivr.net/gh/suryaumapathy2812/notify__js/notify.js"> </script>
+	
+	
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <title>Admin Dashboard Panel</title>
 </head>
 		<style>
-		/* Style the table */
-		table {
-		  width: 100%;
-		  border-collapse: collapse;
-		  margin: 20px auto;
-		  font-family: Arial, sans-serif;
-		  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-		}
-		
-		/* Style table headers */
-		th {
-		  background-color: #f5f5f5;
-		  color: #333;
-		  text-align: left;
-		  padding: 12px;
-		  border-bottom: 2px solid #ddd;
-		}
-		
-		/* Style table rows */
-		tr:nth-child(even) {
-		  background-color: #f2f2f2;
-		}
-		
-		/* Style table data cells */
-		td {
-		  padding: 20px;
-		  border-bottom: 1px solid #ddd;
-		  color: #555;
-		}
-		
-		/* Highlight table rows on hover */
-		tr:hover {
-		  background-color: #e0e0e0;
-		}
-		
-		/* Add spacing around the table */
-		#trackTable {
-		  margin: 20px auto;
+		.chart-container {
 		    position: relative;
-		    top: 100px;
-		    max-width: 1000px;
+    top: 100px;
+    width: 80%; /* Adjust the width as needed */
+    max-width: -webkit-fill-available; /* Set a maximum width for responsiveness */
+    margin: 20px auto; /* Center the chart container horizontally */
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+		/* Style the chart canvas */
+		#salesChart {
+		    width: 100%;
+		    height: auto; /* Maintain aspect ratio */
 		}
 		
+		/* Add styles to headings and labels */
+		h1 {
+		    font-size: 24px;
+		    margin-bottom: 20px;
+		}
 		
+		h2 {
+		    font-size: 18px;
+		    margin-bottom: 10px;
+		}
+		
+		/* Style the chart legend */
+		.legend {
+		    display: flex;
+		    justify-content: center;
+		    margin-top: 10px;
+		}
+		
+		.legend-item {
+		    display: flex;
+		    align-items: center;
+		    margin-right: 20px;
+		}
+		
+		.legend-item i {
+		    width: 12px;
+		    height: 12px;
+		    border-radius: 50%;
+		    margin-right: 8px;
+		}
 		</style>
 <body>
     <nav>
@@ -125,12 +132,9 @@
             
             <img alt="">
         </div>
-        <div class="broughtTracks" id="trackTable">
-        
-        
-        
-        </div>
-
+		  <div class="chart-container">
+        <canvas id="salesChart"></canvas>
+    </div>
         
     </section>
     
@@ -170,87 +174,34 @@
 				})
     
     
-				    function generateTableHTML(data) {
-				    	  let tableHTML = '<table>';
-				    	  tableHTML += '<thead><tr><th>Title</th><th>Artist</th><th>Genre</th><th>Price</th></tr></thead>';
-				    	  tableHTML += '<tbody>';
 				
-				    	  // Loop through the data and populate the table rows
-				    	  data.forEach(track => {
-				    	    tableHTML += '<tr>';
-				    	    tableHTML += `<td>${track.TrackName}</td>`;
-				    	    tableHTML += `<td>${track.artistName}</td>`;
-				    	    tableHTML += `<td>${track.genre}</td>`;
-				    	    tableHTML += `<td>$${track.price.toFixed(2)}</td>`;
-				    	    tableHTML += '</tr>';
-				    	  });
+				const salesData = {
+				    labels: ['January', 'February', 'March', 'April', 'May','June','July','Augsut','September','October','November','December'],
+				    datasets: [{
+				        label: 'Track sales',
+				        backgroundColor: 'rgba(75, 192, 192, 0.2)', 
+				        borderColor: 'rgba(75, 192, 192, 1)', 
+				        borderWidth: 5,
+				        data: [40, 20, 200,150 ,300], 
+				    }]
+				};
 				
-				    	  tableHTML += '</tbody>';
-				    	  tableHTML += '</table>';
-				
-				    	  return tableHTML;
-				    	}
-				    
-    
-				    function buyerFeat() {
-					////brougthed tracks
-					
-					const allTrack = [];
-					const userOrderedTrack = [] ;
-					
-					const rootUri = window.location.origin + "/dobooweb";
-					//Function to fetch and store track details
-					async function fetchAndStoreTrackDetails() {
-					try {
-					const response = await fetch(rootUri + '/tracks');
-					
-					if (!response.ok) {
-					  throw new Error('Network response was not ok');
-					}
-					
-					const data = await response.json();
-					const loadData = data["data"];
-					
-					// Assuming the response is an array of track objects with properties like 'title' and 'artist'
-					allTrack.push(...loadData);
-					
-					// You can access track details anytime by using the 'trackDetails' array
-					} catch (error) {
-					console.error('Error fetching track details:', error);
-					}
-					}
-					
-					async function getBroughtTracks() {
-					  try {
-					    const response = await fetch(rootUri+'/orders'); // Replace with the correct URL of your servlet
-					    if (!response.ok) {
-					      throw new Error('Failed to fetch data');
-					    }
-					
-					    const data = await response.json();
-					    const broughtTracks = data.data;
-					
-					    userOrderedTrack.push(...broughtTracks);
-					    
-					  } catch (error) {
-					    console.error('Error:', error);
-					    // Handle the error as needed (e.g., show an error message to the user)
-					  }
-					}
-					
-					const trackTable = document.getElementById('trackTable');
-					
-					// Call the function to fetch and display brought tracks
-					Promise.all([fetchAndStoreTrackDetails(), getBroughtTracks()]).then(() => {
-					  const filteredAllTrack = allTrack.filter(track => userOrderedTrack.some(userTrack => userTrack.trackId === track.id));
-					  const tableHTML = generateTableHTML(filteredAllTrack);
-					  trackTable.innerHTML = tableHTML;
-						}	 
-					);	
-					
-				}
-			 buyerFeat();
-    
+				// Get the canvas element and initialize the chart
+				const ctx = document.getElementById('salesChart').getContext('2d');
+				const salesChart = new Chart(ctx, {
+				    type: 'line', 
+				    data: salesData,
+				    options: {
+				        responsive: true,
+				        scales: {
+				            y: {
+				                beginAtZero: true 
+				            }
+				        }
+				    }
+				});
+
+				       
     </script>
 </body>
 </html>

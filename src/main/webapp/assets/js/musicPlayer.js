@@ -14,6 +14,7 @@ const musicContainer = document.querySelector('.music-player');
     const songImage = document.querySelector('#cover');
     const likeBtn = document.querySelector('#likeMusic'); 
     const sound = document.querySelector('#voume');
+    	const isTrack = new URLSearchParams(window.location.search).get("tracks");
     console.log(sound)
     
     // song names
@@ -45,7 +46,7 @@ async function fetchAndStoreTrackDetails() {
 
     // Now that data is loaded, find the track
     const buyingTracks = new URLSearchParams(window.location.search).get("tracks");
-    const streamingTracks = new URLSearchParams(window.location.search).get("streams");
+    const streamingTracks = new URLSearchParams(window.location.search).get("stream");
     let songIndex;
 
     if (buyingTracks) {
@@ -61,23 +62,27 @@ async function fetchAndStoreTrackDetails() {
     console.log("songId");
     console.log(songIndex);
 
+ 
     // Find the track by calling findTrackById
-    
-    let realTrack = findTrackIndexById(songIndex);
-
-    console.log(realTrack);
-    
-    
-    
+    let realTrack;
     function loadsong(realtrack) {
       title.innerText = realtrack.TrackName;
       artistName.innerHTML=realtrack.artistName;
       audio.src = `https://docs.google.com/uc?export=open&id=${realtrack.audioUrl}`;
       songImage.src = realtrack.imageUrl;
     }
+    if(buyingTracks){
+    realTrack = findTrackIndexById(songIndex);
+    loadsong(trackDetails[realTrack]);
+    }
+    else{
+		realTrack = findTrackIndexById(songIndex);
+		loadsong(trackDetails[0]);
+	}
+   
     // now we need to load the song 
 
-    loadsong(trackDetails[realTrack]);
+    
     
     
      // pevSong event  
@@ -198,7 +203,8 @@ async function fetchAndStoreTrackDetails() {
         }
       }
       
-      if(localStorage.getItem("Liked")){
+      if(localStorage.getItem("Liked") && isTrack){
+		  
       findMusicPlayerLike();
     }
     

@@ -1,213 +1,6 @@
 	const trackId = new URLSearchParams(window.location.search).get("tracks");
     const rootUrl = window.location.origin + "/dobooweb";
     const realId = trackId/25678;
-/*
-const musicContainer = document.querySelector('.music-player');
-    const artistName= document.querySelector('.artist');
-    const playBtn = document.querySelector('.play-pause.fas'); 
-    const nextBtn = document.querySelector('.next.fas');
-    const pevBtn = document.querySelector('.pev.fas');
-    const audio = document.querySelector('#audio');audio.pause()
-    const progress = document.querySelector('.progress');
-    const progressContainer = document.querySelector('.progress-container');
-    const progressbar = document.querySelector('.progress-bar');
-    const title = document.querySelector('.title1');
-    const songImage = document.querySelector('#cover');
-    const likeBtn = document.querySelector('#like'); 
-    const sound = document.querySelector('#voume');
-    console.log(sound)
-
- 
-  
-    // song names
-
-    const songNames = ['remix kingdom', 'pop', 'pop2']
-
-    //numbers the song 
-
-    let songIndex = 2
-
-
-    // now we need to define the function 
-
-    function loadsong(song) {
-      title.innerText = song
-      audio.src = `../../assets/audio/${song}.mp3`
-      songImage.src = `../../assets/img/${song}.jpg`
-
-    }
-
-    // now we need to load the song 
-
-    loadsong(songNames[songIndex])
-
-    // need to add progress event
-    
-    function updateProgress(e) {
-      const { duration, currentTime} = e.srcElement
-      const progressPercent = (currentTime / duration) * 100
-      progress.style.width = `${progressPercent}%`
-      
-      }
-      
-    
-    // load on the progress bar 
-
-    function setProgress(e) {
-        const width = this.clientWidth;
-        const clickX = e.offsetX;
-        const duration = audio.duration;
-        audio.currentTime = (clickX / width) * duration;
-    }
-
-    
-
-    // starting time function 
-
-    function starttime(){
-      // const audio= document.querySelector("audio")
-      const duration=audio.duration
-      const currentTime= audio.currentTime
-      const progress= currentTime/duration * 100
-
-      const totalTime = `${Math.floor( duration/ 60)}:${(`${Math.floor(duration)}`).slice(1)}`
-      const current_play_time= `${Math.floor(currentTime / 60)}:${(`0${Math.floor(currentTime%60)}`).slice(-2)}`;
-
-      document.querySelector('.start').innerHTML = current_play_time
-      document.querySelector('.end').innerHTML =  totalTime
-     
-    }
-
-    setInterval(starttime,500)
-    
-    // pevSong event  
-
-    function prevSong(){
-      
-      songIndex--
-      if (songIndex < 0){
-        songIndex = songNames.length-1
-      }     
-      loadsong(songNames[songIndex])
-      
-      
-    }
-    // next song function when we click it. it will move to the next song
-     
-    function nextSong(){
-      songIndex++
-      if (songIndex > songNames.length-1){
-        songIndex = 0
-      }     
-      loadsong(songNames[songIndex])
-
-
-    }
-
-    // function togglePlayPauseButton(event) and all events  {
-
-
-      playBtn.addEventListener("click", (event) => {
-      
-      const el = event.target;
-      // checking if the song is playing or not 
-
-      
-      el.classList.toggle("playing")
-
-      if (!el.classList.contains("playing")) {
-        el.classList.add("fa-play")
-        el.classList.remove("fa-pause")
-        audio.pause()
-      } else {
-        el.classList.add("fa-pause")
-        el.classList.remove("fa-play")
-        audio.play()
-      }
-
-    })
-
-    // we need the like to be created 
-    
-    function likesong(){
-      
-      likeBtn.classList.toggle("fa-solid")
-    
-    }
-    // volume control function on music player.
-    
-    
-    // sound.setAttribute("data-test","mute");
-    
-    
-
-
-
-
-     
-    
-
-    
-     audio.addEventListener('timeupdate', updateProgress);
-     progressbar.addEventListener('click', setProgress);
-     pevBtn.addEventListener("click", prevSong);
-     nextBtn.addEventListener("click",nextSong);
-     likeBtn.addEventListener('click',likesong);
-     
-
-     const volumeBar = document.querySelector('.volume-bar-1');
-const volumeBarFill = document.querySelector('.volumeProgress');
-const mute=document.querySelector("#voume")
-
-let isDragging = false;
-
-
-function setVolumeFromMousePosition(event) {
-  const volumeBarWidth = volumeBar.offsetWidth;
-  const mouseX = event.clientX - volumeBar.getBoundingClientRect().left;
-  const volumePercentage = (mouseX / volumeBarWidth); 
-  audio.volume = volumePercentage;
-  // console.log(volumePercentage)
-  volumeBarFill.style.width = `${100 * mouseX / volumeBarWidth}%`;
-
-  const volumeTurn = volumePercentage * 10
-  // console.log(volumeTurn)
-
- return volumeTurn
-}
-
-
-
-volumeBar.addEventListener('mousedown', (event) => {
-  isDragging = true;
-  setVolumeFromMousePosition(event);
-});
-
-volumeBar.addEventListener('mousemove', (event) => {
-  if (isDragging) {
-    setVolumeFromMousePosition(event);
-  }
-});
-
-document.addEventListener('mouseup', () => {
-  isDragging = false;
-});
-
-
-mute.addEventListener("click", () => {
-  mute.classList.toggle("mute")
-
-  if(mute.classList.contains("mute")){
-    mute.classList.add("fas", "fa-volume-mute");
-    audio.volume = 0;
-  }
-  else{
-    mute.classList.remove("fas", "fa-volume-mute");
-    mute.classList.add("fas", "fa-volume-down")
-    audio.volume = 1;
-  }
-})
-*/
      
 let track;
 let trackContainer;
@@ -257,10 +50,12 @@ fetch(uri, {
 
       track_name = document.createElement("p");
       track_name.innerText = loadData[i]["TrackName"];
+      track_name.setAttribute("style","display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 1;overflow: hidden;")
       trackContainer.append(track_name);
 
       artistname = document.createElement("p");
-      artistname.innerText = "kishore";
+      artistname.innerText = loadData[i]["artistName"];
+      artistname.setAttribute("style","display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 1;overflow: hidden;")
       track.append(artistname);
 
       document.querySelector("div.productlist").append(track);
@@ -271,27 +66,170 @@ fetch(uri, {
     console.error('Fetch error:', error);
   });
 
-      
+async function fetchData() {
+  const trackIds = '32qnBgfzURbwNayQIEB5W5%2C5gBa7yfdEUKrpJbhAygKRs%2C567e29TDzLwZwfDuEpGTwo%2C42VsgItocQwOQC3XWZ8JNA%2C0ClPIeT6MSgfSgQ9ZrJbAq%2C1cPDOeVdALLjj4erFPiuqW%2C0aFAGKktg3GEbdg0f0Ix7d%2C2TZ9kaTiLewawHZK7yylSC%2C3FAJ6O0NOHQV8Mc5Ri6ENp%2C2LBqCSwhJGcFQeTHMVGwy3';
+  const accessToken = localStorage.getItem("userToken");
 
-/*
-    const lyricsSection = document.querySelector('.secondright');
+  try {
+    const response = await fetch(`https://api.spotify.com/v1/tracks?ids=${trackIds}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      }
+    });
 
-document.getElementById("showLyrics").addEventListener("click", ()=>{ 
-   lyricsSection.classList.toggle('hidden');   
-});
-    */
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
 
-// if (JSON.parse(localStorage.getItem("userRoleC")) === "seller") {
-//   alert("Welcome Artist "+ `${JSON.parse(localStorage.getItem("userEmail"))}`)
-// }
+    const data = await response.json();
+    console.log(data);
+    
+     const parentContainer = document.getElementById("stream");
+     
+    const trendingContainer = document.getElementById("trending");
+    
+    const latestContainer = document.getElementById("latest");
+
+    // Loop through the first 5 tracks in the response
+    for (let i = 0; i < 5 && i < data.tracks.length; i++) {
+      const track = data.tracks[i];
+      const trackCard = createTrackCard(track);
+      parentContainer.appendChild(trackCard);
+    }
+    
+
+    // Loop through the first two tracks in the response for Trending Tracks
+    for (let i = 5; i < 7; i++) {
+      const track = data.tracks[i];
+      const card = createSideTrackCard(track);
+      trendingContainer.appendChild(card);
+    }
+  //const trendingMore = createMoreIcon("trending");
+    //trendingContainer.append(trendingMore)
+	    
+
+    // Loop through the next two tracks in the response for Latest Tracks
+    for (let i = 7; i < 9; i++) {
+      const track = data.tracks[i];
+      const card = createSideTrackCard(track);
+      latestContainer.appendChild(card);
+    }
+
+    // Loop through the tracks and create a card for each one
+    //const latestMore = createMoreIcon("latest tracks page");
+    //latestContainer.append(latestMore);
+    
+    
+  } catch (error) {
+    // Handle any errors here
+    console.error(error);
+  }
+}
+
+function createTrackCard(track) {
+  const trackCard = document.createElement("div");
+  trackCard.classList.add("tracks");
+
+  const trackLink = document.createElement("a");
+  trackLink.href = `../../pages/track listening page/track listening page.html?stream=${track.id}`;
+  trackLink.style.textDecoration = "none";
+
+  const trackImage = document.createElement("img");
+  trackImage.src = track.album.images[1].url; // Use the appropriate image URL from the Spotify API
+
+  const trackTitle = document.createElement("p");
+  trackTitle.textContent = track.name;
+
+  const artistName = document.createElement("p");
+  artistName.textContent = track.artists[0].name;
+
+  trackLink.appendChild(trackImage);
+  trackLink.appendChild(trackTitle);
+  trackCard.appendChild(trackLink);
+  trackCard.appendChild(artistName);
+
+  return trackCard;
+}
+
+function createSideTrackCard(track) {
+  // Create the main card container div
+		const cardContainer = document.createElement("div");
+		cardContainer.classList.add("card1");
+		
+		// Create the inner div for the image
+		const imageDiv = document.createElement("div");
+		
+		// Create the image element
+		const imageElement = document.createElement("img");
+		imageElement.src = track.album.images[2].url;
+		imageElement.alt = "track poster";
+		
+		// Create the anchor element for the image link
+		const imageLink = document.createElement("a");
+		imageLink.href = `../../pages/track listening page/track listening page.html?stream=${track.id}`;
+		imageLink.appendChild(imageElement);
+		
+		// Append the anchor element to the image div
+		imageDiv.appendChild(imageLink);
+		
+		// Create the inner div for text
+		const textDiv = document.createElement("div");
+		textDiv.classList.add("text");
+		
+		// Create the anchor element for the track name
+		const trackNameLink = document.createElement("a");
+		trackNameLink.href = `../../pages/track listening page/track listening page.html?stream=${track.id}`;
+		trackNameLink.style.textDecoration = "none";
+		trackNameLink.style.color = "white";
+		
+		// Create the heading element for the track name
+		const trackNameHeading = document.createElement("h3");
+		trackNameHeading.textContent = track.name;
+		trackNameHeading.style.color = "#F4E2DE";
+		
+		// Create the paragraph element for BPM
+		const bpmParagraph = document.createElement("p");
+		bpmParagraph.textContent = "90 Bpm F#";
+		
+		// Append the heading and paragraph to the anchor element for track name
+		trackNameLink.appendChild(trackNameHeading);
+		trackNameLink.appendChild(bpmParagraph);
+		
+		// Append the anchor element for track name to the text div
+		textDiv.appendChild(trackNameLink);
+		
+		// Append the image div and text div to the main card container
+		cardContainer.appendChild(imageDiv);
+		cardContainer.appendChild(textDiv);
+		
+		// Append the card container to a parent container (replace "parentContainer" with the appropriate parent element)
+		// parentContainer.appendChild(cardContainer);
 
 
-       
+  return cardContainer;
+}
+
+function createMoreIcon(link){
+	  
+    const anchorElement = document.createElement("a");
+	anchorElement.href = `../trending page/${link}.html`;
+
+	const iElement = document.createElement("i");
+	iElement.classList.add("fa-sharp", "fa-solid", "fa-ellipsis");
+	iElement.style.color = "white";
+	iElement.style.fontSize = "30px";
+	iElement.style.position = "relative";
+	iElement.style.left = "144px";
+	
+	// Append the <i> element to the anchor element
+	anchorElement.appendChild(iElement);
+}
 
 
 
-// import { add } from "../js/tracklistening.js";
-// console.log(add(4))
+fetchData();
+
 
 
 

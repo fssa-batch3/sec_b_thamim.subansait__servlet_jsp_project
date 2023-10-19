@@ -1,12 +1,11 @@
 package in.fssa.doboo.servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,15 +32,19 @@ public class CreateTrackServlet extends HttpServlet {
 		rd.forward(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, NumberFormatException {
 		TrackEntity track = new TrackEntity();
 		track.setTrackName(request.getParameter("trackName"));
 		System.out.println(track.getTrackName());
 		track.setTrackDetail(request.getParameter("trackDetail"));
 		track.setScale(request.getParameter("trackScale"));
-		track.setBpm(Integer.parseInt(request.getParameter("trackBpm")));
+		if(!request.getParameter("trackBpm").isEmpty()) { 
+			track.setBpm(Integer.parseInt(request.getParameter("trackBpm")));
+		}	
 		track.setGenre(request.getParameter("trackGenre"));
+		if(!request.getParameter("trackPrice").isEmpty()) {
 		track.setPrice(Integer.parseInt(request.getParameter("trackPrice")));
+		}
 		track.setDaw(request.getParameter("trackDaw"));
 		track.setImageUrl(request.getParameter("imageUrl"));
 		track.setAudioUrl(request.getParameter("audioUrl"));

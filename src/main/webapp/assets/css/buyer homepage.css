@@ -206,6 +206,7 @@ body {
 .card1 p {
   color: #ffffff;
   position: relative;
+  
 }
 
 .card1 {
@@ -261,7 +262,11 @@ p {
   color: #ffffff;
   position: relative;
   text-align: center;
-  align-content: center
+  align-content: center;
+  display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
 }
 
 @import url(//db.onlinewebfonts.com/c/860c3ec7bbc5da3e97233ccecafe512e?family=Circular+Std+Book);

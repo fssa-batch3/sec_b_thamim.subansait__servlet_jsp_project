@@ -1,8 +1,13 @@
 	const trackId = new URLSearchParams(window.location.search).get("tracks");
+	const stream =  new URLSearchParams(window.location.search).get("stream");
     const rootUrl = window.location.origin + "/dobooweb";
     const realId = trackId/25678;
     const trackDetailsGlobal = [];
-    
+     
+      const audioStream = document.querySelector('#audio');audio.pause();
+      const titleTrackName = document.querySelector('.title1');
+      const songImageUrl = document.querySelector('#cover');
+      const artistTitle= document.querySelector('.artist');
     /*
     // this is for the loader in the page 
       document.addEventListener("DOMContentLoaded", function () {
@@ -73,7 +78,7 @@ async function fetchTrackDetails() {
 		     artistPlaceholder.setAttribute("style","color:white;font-size: 17px;");
 		     
 		      const artistname = document.createElement('small');
-		     localStorage.setItem("artistName",JSON.stringify(data.artistName));
+		     
 		     artistname.innerText = data.artistName
 		    artistname.setAttribute("style","color:white;font-size: 17px;");
 		      // add the HTML image element to the document body
@@ -203,8 +208,194 @@ async function fetchTrackDetails() {
     }
   }
 }
+
+
+
+// for streaming 
+
+
+async function fetchStreamTrack() {
+  const accessToken = localStorage.getItem("userToken"); // Replace with your actual access token
+  
+  try{
+	  const response = await fetch(`https://api.spotify.com/v1/tracks/${stream}`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${accessToken}`
+      }
+    });
+    
+    const audioFeat = await fetch(`https://api.spotify.com/v1/audio-features/${stream}`,{
+		 method: 'GET',
+      	headers: {
+        'Authorization': `Bearer ${accessToken}`
+      }
+	})
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+    
+    if(!audioFeat.ok){
+		throw new Error(`HTTP error! Status: ${response.status}`);
+	}
+
+    const trackData = await response.json();
+    const audioData = await audioFeat.json();
+    
+    console.log(trackData);
+    
+    window.onSpotifyWebPlaybackSDKReady = () => {
+            const token = accessToken; // Replace with your actual access token
+
+            const player = new Spotify.Player({
+                name: 'My Spotify Player',
+                getOAuthToken: cb => {
+                    cb(token);
+                },
+            });
+
+            // Connect to the Spotify player
+            player.connect().then(success => {
+                if (success) {
+                    console.log('Connected to Spotify player');
+                }
+            });
+
+            // Add event listeners for player state changes
+            player.addListener('player_state_changed', state => {
+                console.log('Player state changed:', state);
+            });
+
+            // Add event listeners for player errors
+            player.addListener('player_error', error => {
+                console.error('Player error:', error);
+            });
+
+            // Play a track when the device is ready
+            player.addListener('ready', ({ device_id }) => {
+                console.log('Ready with device ID', device_id);
+                // Replace 'SPOTIFY_TRACK_URI' with the URI of the track you want to play
+                player
+                    .play({
+                        uris: [`spotify:track:${trackData.id}`],
+                    })
+                    .then(() => {
+                        console.log('Track is playing');
+                    })
+            });
+        };
+        
+    trackDetailsGlobal.push({
+						 trackid: trackData.id,
+						TrackName:trackData.name,
+						imageUrl:trackData.album.images[0].url,
+            			artistName: trackData.artists[0].name,
+            			playable:true,
+            			audioUrl : trackData.preview_url,
+            			userEmail: userEmail,
+						
+                    });
+                    
+			      // create the HTML image element
+		      const imagCon=document.createElement("a");
+		      imagCon.className="imageContainer"
+		
+		      const img = document.createElement('img');
+		      img.src = trackData.album.images[0].url;
+		      img.id ="logo1"
+		      img.classList.add("play-pause.fas")
+		      
+		      const artistNameDiv = document.createElement('div');
+		      artistNameDiv.classList.add("artistNameContainer");
+		      artistNameDiv.setAttribute("style","display: flex;flex-direction: row;justify-content: center;gap: 15px;")
+ 
+		      const artistPlaceholder = document.createElement('small');
+		      const boldartistPlaceholder =  document.createElement('strong');
+		     boldartistPlaceholder.innerText = "Artist Name : "
+		     artistPlaceholder.append(boldartistPlaceholder);
+		     artistPlaceholder.setAttribute("style","color:white;font-size: 17px;");
+		     
+		      const artistname = document.createElement('small');
+		     
+		     artistname.innerText = trackData.artists[0].name;
+		    artistname.setAttribute("style","color:white;font-size: 17px;");
+		      // add the HTML image element to the document body
+		      imagCon.append(img);
+		      artistNameDiv.append(artistPlaceholder);
+		      artistNameDiv.append(artistname);
+
+		      // document.querySelector(".card").prepend(icon)
+		      document.querySelector(".card").append(imagCon);
+		    
+		      
+		      document.querySelector(".leftside").append(artistNameDiv);
+		      
+		      function createAndAppendElement(label, value) {
+				  const paragraph = document.createElement("p");
+				  const strong = document.createElement("strong");
+				  strong.textContent = `${label} :`;
+				  paragraph.appendChild(strong);
+				  paragraph.appendChild(document.createTextNode(` ${value}`));
+				  document.querySelector(".properdetail").append(paragraph);
+				}
+				
+				createAndAppendElement("Song Name", trackData.name);
+				createAndAppendElement("Popularity", trackData.popularity);
+				createAndAppendElement("Album Name", trackData.album.name);
+				createAndAppendElement("Released Date", trackData.album.release_date);
+				
+				createAndAppendElement("Danceability Mark Out Of 1", audioData.danceability);
+				createAndAppendElement("BPM", audioData.tempo);
+				createAndAppendElement("Loudness", audioData.loudness);
+				
+				document.querySelector(".cart").setAttribute("style","display:none");
+				document.querySelector("#like").setAttribute("style","display:none");
+				document.querySelector("#save").setAttribute("style","display:none");
+				
+				 function loadsongInPlayer(realtrack) {
+      			  titleTrackName.innerText = realtrack.name;
+			      artistTitle.innerHTML = realtrack.artists[0].name;
+			      // audioStream.src = `https://open.spotify.com/track/${realtrack.id}`;
+			      audioStream.src = realtrack.preview_url;
+			      songImageUrl.src = realtrack.album.images[2].url;
+    }
+    
+    	loadsongInPlayer(trackData);
+    	
+    	 document.querySelector('.imageContainer').addEventListener('click', function() {
+        
+        this.classList.toggle('paused');
+         /* toggle the 'paused' class on click */
+        
+			playBtn.classList.toggle("playing")
+
+		      if (!playBtn.classList.contains("playing")) {
+		        playBtn.classList.add("fa-play")
+		        playBtn.classList.remove("fa-pause")
+		        audioStream.pause()
+		      } else {
+		        playBtn.classList.add("fa-pause")
+		        playBtn.classList.remove("fa-play")
+		        audioStream.play()
+		      }
+
+		});
+				  
+  
+  } catch (error) {
+    // Handle any errors here
+    console.error(error);
+  }
+}
+
+// Call the fetchTrack function
+
+
 if(trackId){
 window.addEventListener("load", fetchTrackDetails);
+}
+else if(stream){
+	 window.addEventListener("load",fetchStreamTrack);
 }
 
 	            

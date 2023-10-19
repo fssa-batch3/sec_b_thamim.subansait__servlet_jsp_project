@@ -13,14 +13,7 @@
       rel="stylesheet"
     />
   </head>
-   <script type="text/javascript"
-   src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js">
-   </script>
-   <script type="text/javascript">
-   (function(){
-       emailjs.init("MJkH21yxw1kq8USCP");
-   })();
-   </script>
+   <script src="../../assets/js/authScript.js" type="module"></script>
   <style>
 
 #container {
@@ -128,35 +121,7 @@
     	document.querySelector("#container").style.display="block";
     	document.querySelector(".btn").setAttribute("style","display:none")
     });
-    /*
-    function SendMail() {
-        
-        var params = {
-            to_name : UserId,
-            OTP: num
-        }
-
-        const EmailVerify=JSON.parse(localStorage.getItem("EmailVerify"))||[]
-            const varifyUser ={
-                "email":UserId,
-                "OTP": num,
-                "date":new Date(),
-                "time":new Date().toLocaleTimeString(),
-            }
-           
-            EmailVerify.push(varifyUser)
-        
-        
-            localStorage.setItem("EmailVerify", JSON.stringify(EmailVerify))
-
-        emailjs.send("service_myq1w7c", "template_zew00y8", params).then(function (res) {
-        alert("Successfull The otp has been sent to your email ! " + res.status);
-        })
-        }
-
-        SendMail()
-        */
-    
+   
     
       localStorage.removeItem("userRole");
 

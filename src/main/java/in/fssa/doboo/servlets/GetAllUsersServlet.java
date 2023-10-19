@@ -31,6 +31,7 @@ public class GetAllUsersServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		UserService userService = new UserService();
 		Set<UserEntity> users = null;
