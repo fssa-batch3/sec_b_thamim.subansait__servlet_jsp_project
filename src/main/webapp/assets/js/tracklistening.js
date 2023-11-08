@@ -24,8 +24,15 @@
     }, 2000); // Simulate a 2-second data loading time (adjust as needed)
 });
 */
-
-      
+		
+		     function createAndAppendElement(label, value) {
+				  const paragraph = document.createElement("p");
+				  const strong = document.createElement("strong");
+				  strong.textContent = `${label} :`;
+				  paragraph.appendChild(strong);
+				  paragraph.appendChild(document.createTextNode(` ${value}`));
+				  document.querySelector(".properdetail").append(paragraph);
+				}
     // this is for the static feature using localstorage so It basically works around with user Email 
     //so I setItem when the user logged in so now I'm getting it to use it in recently played songs and liked tracks 
     
@@ -37,11 +44,12 @@ async function fetchTrackDetails() {
     try {
       // Send a GET request to the servlet endpoint
       const response = await fetch(rootUrl+`/track/detail?trackid=${realId}`);
+      
 
       if (response.ok) {
         // Parse the JSON response
         const data = await response.json();
-
+	
         // Check if the response contains valid data
         if (data && data.status === 200 && data.track) {
 			console.log(data);
@@ -59,6 +67,8 @@ async function fetchTrackDetails() {
                     });
                     
 			      // create the HTML image element
+			      
+			   
 		      const imagCon=document.createElement("a");
 		      imagCon.className="imageContainer"
 		
@@ -86,21 +96,23 @@ async function fetchTrackDetails() {
 		      artistNameDiv.append(artistPlaceholder);
 		      artistNameDiv.append(artistname);
 
+
+			// artist profile fiiling area code 
+			 document.querySelector(".artistName").innerHTML=data.artistName	
+			
 		      // document.querySelector(".card").prepend(icon)
+		      
+		       if(document.querySelector(".card").classList.contains("shimmer")){
+					document.querySelector(".card").classList.remove("shimmer");
+				}
 		      document.querySelector(".card").append(imagCon);
 		    
 		      
 		      document.querySelector(".leftside").append(artistNameDiv);
-		      
-		      function createAndAppendElement(label, value) {
-				  const paragraph = document.createElement("p");
-				  const strong = document.createElement("strong");
-				  strong.textContent = `${label} :`;
-				  paragraph.appendChild(strong);
-				  paragraph.appendChild(document.createTextNode(` ${value}`));
-				  document.querySelector(".properdetail").append(paragraph);
+		     
+				for(let i=1;i<6;i++){
+					 document.querySelector(`#trackPropert${i}`).remove();
 				}
-				
 				createAndAppendElement("Track Name", NewTrack.TrackName);
 				createAndAppendElement("BPM", NewTrack.bpm);
 				createAndAppendElement("Used DAW", NewTrack.daw);
@@ -108,13 +120,10 @@ async function fetchTrackDetails() {
 				createAndAppendElement("Scale", NewTrack.scale);
 				createAndAppendElement("Track Details", NewTrack.TrackDetail);
 				createAndAppendElement("Price", `$${NewTrack.price}`);
+				
 						      
       detail = document.querySelector("div.detail");
-
-      const lyric = document.createElement("p");
-      lyric.innerHTML = "Young blood thinks there's always tomorrow ♪ I miss your touch on nights when I'm hollow ♪ I know you crossed a bridge that I can't follow ♪";
-      document.querySelector(".lyric").append(lyric);
-        
+  
 	      
 	   // this is for the play pause in the image of the track
 	    const audioPlay = document.querySelector('#audio');audio.pause()
@@ -225,66 +234,49 @@ async function fetchStreamTrack() {
       }
     });
     
-    const audioFeat = await fetch(`https://api.spotify.com/v1/audio-features/${stream}`,{
+      const audioFeat = await fetch(`https://api.spotify.com/v1/audio-features/${stream}`,{
 		 method: 'GET',
       	headers: {
         'Authorization': `Bearer ${accessToken}`
       }
 	})
+	
+	
+    
+
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-    
-    if(!audioFeat.ok){
+     if(!audioFeat.ok){
 		throw new Error(`HTTP error! Status: ${response.status}`);
 	}
-
+    
+    
+  
     const trackData = await response.json();
-    const audioData = await audioFeat.json();
-    
+     const audioData = await audioFeat.json();
     console.log(trackData);
+    console.log(trackData.artists[0].id);
     
-    window.onSpotifyWebPlaybackSDKReady = () => {
-            const token = accessToken; // Replace with your actual access token
-
-            const player = new Spotify.Player({
-                name: 'My Spotify Player',
-                getOAuthToken: cb => {
-                    cb(token);
-                },
-            });
-
-            // Connect to the Spotify player
-            player.connect().then(success => {
-                if (success) {
-                    console.log('Connected to Spotify player');
-                }
-            });
-
-            // Add event listeners for player state changes
-            player.addListener('player_state_changed', state => {
-                console.log('Player state changed:', state);
-            });
-
-            // Add event listeners for player errors
-            player.addListener('player_error', error => {
-                console.error('Player error:', error);
-            });
-
-            // Play a track when the device is ready
-            player.addListener('ready', ({ device_id }) => {
-                console.log('Ready with device ID', device_id);
-                // Replace 'SPOTIFY_TRACK_URI' with the URI of the track you want to play
-                player
-                    .play({
-                        uris: [`spotify:track:${trackData.id}`],
-                    })
-                    .then(() => {
-                        console.log('Track is playing');
-                    })
-            });
-        };
+    
+    const artistDetail = await fetch(`https://api.spotify.com/v1/artists/${trackData.artists[0].id}`,{
+		 method: 'GET',
+      	headers: {
+        'Authorization': `Bearer ${accessToken}`
+      }
+	})
+   
+    if(!artistDetail.ok){
+		throw new Error(`HTTP error! Status: ${response.status}`);
+	}
         
+    const artistData = await artistDetail.json();
+    console.log(artistData);
+    document.querySelector(".img-fluid").setAttribute("src",artistData.images[0].url);
+    document.querySelector("#artistImage").setAttribute("src",artistData.images[0].url);
+    document.querySelector(".artistName").innerHTML=artistData.name
+    document.querySelector("#followCount").innerHTML=artistData.followers.total;
+    document.querySelector(".artistSpotify").setAttribute("href",artistData.external_urls.spotify);
     trackDetailsGlobal.push({
 						 trackid: trackData.id,
 						TrackName:trackData.name,
@@ -325,18 +317,18 @@ async function fetchStreamTrack() {
 		      artistNameDiv.append(artistname);
 
 		      // document.querySelector(".card").prepend(icon)
+		      if(document.querySelector(".card").classList.contains("shimmer")){
+					document.querySelector(".card").classList.remove("shimmer");
+				}
 		      document.querySelector(".card").append(imagCon);
 		    
 		      
 		      document.querySelector(".leftside").append(artistNameDiv);
 		      
-		      function createAndAppendElement(label, value) {
-				  const paragraph = document.createElement("p");
-				  const strong = document.createElement("strong");
-				  strong.textContent = `${label} :`;
-				  paragraph.appendChild(strong);
-				  paragraph.appendChild(document.createTextNode(` ${value}`));
-				  document.querySelector(".properdetail").append(paragraph);
+		 
+				
+				for(let i=1;i<6;i++){
+					 document.querySelector(`#trackPropert${i}`).remove();
 				}
 				
 				createAndAppendElement("Song Name", trackData.name);
@@ -361,6 +353,8 @@ async function fetchStreamTrack() {
     }
     
     	loadsongInPlayer(trackData);
+    	
+    	
     	
     	 document.querySelector('.imageContainer').addEventListener('click', function() {
         

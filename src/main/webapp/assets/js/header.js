@@ -21,7 +21,7 @@ const buyerHeader = `<div class="header">
 <div class="headerSubFeat">
 
 <div class="dropdown">
-  <span style="color: white; font-size: large">Explore </span>
+  <span style="color: white; font-size: 14px">Explore </span>
   <div class="dropdown-content">
     <a href="${root}/pages/explore artist.html" id="linkToNext">Connect with artist</a>
   </div>
@@ -34,8 +34,9 @@ const buyerHeader = `<div class="header">
       background-color: #222222;
       border-radius: 10px;
       padding: 13px;
-      font-size: large;
+      font-size: 14px;
       width: 140px;
+      text-align: center
     "
   >
   Subscription
@@ -50,7 +51,7 @@ const buyerHeader = `<div class="header">
       background-color: #222222;
       border-radius: 10px;
       padding: 13px;
-      font-size: large;
+      font-size: 14px;
       width: 140px;
       text-align: center;
     "
@@ -94,7 +95,7 @@ const sellerHeader = `<div class="header">
         ><h2>DOBOO</h2></a
       >
       <div class="dropdown">
-        <span style="color: white; font-size: large">Upload</span>
+        <span style="color: white; font-size: 14px">Upload</span>
         <div class="dropdown-content">
           <a href="${root}/pages/seller profile and upload a track/upload a track .html" id="uploadtrack">Upload track for sale</a><br/>
         </div>
@@ -119,7 +120,7 @@ const sellerHeader = `<div class="header">
 
 
       <div class="dropdown">
-        <span style="color: white; font-size: large">Explore</span>
+        <span style="color: white; font-size: 14px">Explore</span>
         <div class="dropdown-content">
           <a href="${root}/pages/explore artist.html" id="linkToNext">Artists</a>
         </div>
@@ -137,7 +138,7 @@ const sellerHeader = `<div class="header">
             border-radius: 10px;
             width: auto;
             padding: 13px;
-            font-size: large;
+            font-size: 14px;
            
           "
         >
@@ -188,6 +189,7 @@ const sellerHeader = `<div class="header">
       </div>`;
       
     let userRole ;
+    let flagvalue=[];
 		async function role() {
   try{
     		const response = await fetch("http://localhost:8080/dobooweb/user/role", {
@@ -213,14 +215,18 @@ const sellerHeader = `<div class="header">
 		    localStorage.removeItem("songId");
 		  }
 		})};
-	const userEmailCart = JSON.parse(localStorage.getItem("userEmail"));
-	const cart = JSON.parse(localStorage.getItem("cart"));
-	
-	const filteredCart = cart.filter(item => item.userEmail === userEmailCart);
-	const count =  filteredCart.length;
-	const cartBadge = document.querySelector("span.cartBadge");
-	console.log(cartBadge);
-	cartBadge.innerText = count > 0 ? count : '0';
+		const userEmailCart = JSON.parse(localStorage.getItem("userEmail"));
+		const cart = JSON.parse(localStorage.getItem("cart"));
+
+		 function cartItemCount(){
+			const filteredCart = cart.filter(item => item.userEmail === userEmailCart);
+			const count =  filteredCart.length;
+			const cartBadge = document.querySelector("span.cartBadge");
+			console.log(cartBadge);
+		cartBadge.innerText = count > 0 ? count : '0';
+		}
+		
+		setInterval(1,cartItemCount());	
     
   } catch (error) {
     console.error("Error:", error);
@@ -236,7 +242,6 @@ function toggleDropdown() {
     dropdown.style.display = "none";
   }
 }
-
 
 
 

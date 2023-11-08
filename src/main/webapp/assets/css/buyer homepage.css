@@ -170,11 +170,13 @@ body {
 }
 
 .productlist {
-  display: flex;
-  flex-direction: row;
-  padding-top: 20px;
-  border-radius: 30px;
-  flex-wrap: wrap;
+     display: flex;
+    flex-direction: row;
+    border-radius: 10px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    height: 220px;
+    width: 1000px;
 }
 
 .productlist p {
@@ -284,7 +286,7 @@ body {
   --secondary-color: white;
   --green-color: #2d5;
   --padding: 1em;
-  background-color: rgb(36, 36, 36);
+  background-color: rgb(6 6 6);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -548,5 +550,30 @@ i:hover {
 
   #hide {
     display: none;
+  }
+}
+
+    /* Shimmer animation for loader*/
+    
+    .shimmer {
+  position: relative;
+  background: #3a3a3a;
+  background-image: linear-gradient(to right, #3a3a3a 0%, #3f3f3f 10%, #4a4a4a 20%, #3f3f3f 30%, #3a3a3a 50%, #3a3a3a 100%);
+  background-repeat: no-repeat;
+  background-size:100% 100%;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-fill-mode: forwards;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-name: shimmer;
+  -webkit-animation-timing-function: ease-in-out;
+}
+
+@-webkit-keyframes shimmer {
+  0% {
+    background-position: -400px 0;
+  }
+
+  100% {
+    background-position: 400px 0;
   }
 }

@@ -33,7 +33,7 @@ fetch(uri, {
     } else {
       length = loadData.length;
     }
-
+	document.querySelector("div.productlist").classList.remove("shimmer");
     for (let i = 0; i < length; i++) {
       track = document.createElement("div");
       track.setAttribute("class", "tracks");
@@ -91,6 +91,7 @@ async function fetchData() {
     
     const latestContainer = document.getElementById("latest");
 
+     parentContainer.classList.remove("shimmer");
     // Loop through the first 5 tracks in the response
     for (let i = 0; i < 5 && i < data.tracks.length; i++) {
       const track = data.tracks[i];

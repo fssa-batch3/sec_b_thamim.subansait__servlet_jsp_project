@@ -203,7 +203,7 @@
     padding: 70px;
   }
   .features:hover{
-    transform: scale(1.05);
+    transform: scale(1.02);
     transition: 0.5s;
   }
   .features ul{

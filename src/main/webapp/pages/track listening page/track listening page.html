@@ -27,27 +27,29 @@
             rel="stylesheet"
         >
         <link rel="stylesheet" href="../../assets/css/header.css">
+        <script src="../../assets/js/header.js"></script>
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-          <link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/gh/suryaumapathy2812/notify__js/notify.css">
-	<script
-	src="https://cdn.jsdelivr.net/gh/suryaumapathy2812/notify__js/notify.js"> </script>
-	<script src="https://sdk.scdn.co/spotify-player.js"></script>
+        <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css">-->
      
     </head>
     <body>
     
         <div class="content">
             <div class="leftside">
-                <div class="card">
-
+                <div class="card shimmer">
+                
                 </div>
             </div>
 
             <div class="rightside">
                 <div class="detail">
                     <div class="properdetail">
+                   	<p id="trackPropert1" class="trackPropert shimmer"></p>
+                	<p id="trackPropert2" class="trackPropert shimmer"></p>
+                	<p id="trackPropert3" class="trackPropert shimmer"></p>
+                	<p id="trackPropert4" class="trackPropert shimmer"></p>
+                	<p id="trackPropert5" class="trackPropert shimmer"></p>
      
                     </div>
 
@@ -79,17 +81,58 @@
                 </div>
             </div>
             <div class="second-right">
-                <h1 style="color: white">LYRICS</h1>
-                <div class="lyric">
+            
+                <div class="ArtistContainer">            
+            <div class="ArtistCard">
+
+              <div class="ArtistBanner">
+
+                <img src="https://images.unsplash.com/photo-1682918616433-4707c1c875a6?auto=format&fit=crop&q=80&w=2187&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="img-fluid">
+                
+              </div>
+
+              <div class="user">
+
+                <div class="ArtistProfile">
+
+                  <img src="https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg?w=1060&t=st=1697883697~exp=1697884297~hmac=fbaa0ad4b420961c1bafdb0b860cbb96da712dc7769299203a4138811e36eba3" id="artistImage" class="rounded-circle" width="80">
+                  
+                </div>
+
+              </div>
+
+
+              <div class="artistDetail">
+
+                <h4 class="artistName">Benjamin Tims</h4>
+                <span class="textInAritst"><strong>Followers: </strong><span id="followCount">10000</span></span>
+                
+              </div>
+              
+               <div class="socialLinks">
+               
+					<a href="" class="artistInsta" style="text-decoration: none"><i class="fa-brands fa-instagram" style="color: #ac1f9a;font-size: xx-large;"></i></a>
+					<a href="" class="artistFacebook" style="text-decoration: none"><i class="fa-brands fa-facebook-f" style="color: #2208c2;font-size: xx-large;"></i></a>
+					<a href="" class="artistLinkedin" style="text-decoration: none"><i class="fa-brands fa-linkedin-in" style="color: #025dad;font-size: xx-large;"></i></a>
+					<a href="" class="artistSpotify" style="text-decoration: none"><i class="fa-brands fa-spotify" style="color: #1fac26;font-size: xx-large;"></i></a>
+                
+              </div>
+              
+              
+               
+             </div>
+             
+
+          
                     
                 </div>
             </div>
         </div>
         <div class="below">
-            <h2 style="color: white; margin-left: 120px; margin-bottom:30px">
+            <h2 style="color: white; margin-left: 70px; margin-bottom:30px">
                 Similar tracks
             </h2>
-            <div class="similar">
+            <div class="similar shimmer" style="height: 135px;position: relative;left: 120px;border-radius: 15px;">
                 
             </div>
 
@@ -168,7 +211,7 @@
             </div>
         </div>
 
-        <script src="../../assets/js/header.js"></script>
+        
         <script src="../../assets/js/tracklistening.js"></script>
         <script src="../../assets/js/musicPlayer.js"></script>
         <!-- <script src="../../assets/js/buyer home.js"></script> -->

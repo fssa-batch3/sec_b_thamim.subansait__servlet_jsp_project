@@ -145,11 +145,11 @@ background-color: #222222;
 .dropdown2:not(:checked) + label{
   position: relative;
   font-family:'Poppins', sans-serif;
-  font-size: 18px;
+  font-size: 14px;
   line-height: 2;
-  height: 55px;
+  height: 50px;
   transition: all 200ms linear;
-  border-radius: 8px;
+  border-radius: 10px;
   width: 80px;
   letter-spacing: 1px;
   display: -webkit-inline-flex;

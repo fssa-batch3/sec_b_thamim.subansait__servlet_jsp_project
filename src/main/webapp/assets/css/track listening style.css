@@ -4,6 +4,10 @@
   body{
       background-color: #000000;
   }
+  .card{
+      width: 370px;
+      height: 360px;
+  }
 .card h2{
         color: white;
         font-size: 20px; 
@@ -37,6 +41,12 @@
 }
 .rightside{
   max-width: 40%;
+}
+.trackPropert{
+	height: 20px;
+	width:300px;
+	margin-top: 30px;	
+	
 }
 
 .rightside p{
@@ -77,10 +87,14 @@
 
 .dislike{
     display: none;
+    position: relative;
+    bottom: 40px;
     animation:likepop 0.9s both
 }
 .like{
     display: none;
+    position: relative;
+    bottom: 40px;
     animation:likepop 0.9s both
 }
 
@@ -180,39 +194,28 @@
     font-size: 30px;
          
 }
-.lyric p{
-    color: white;
-    line-height: 30px;
-    font-size: 18px;
-    width: 100%;
-    font-weight: 800;
-}
-.lyric p:hover{
-    color: black;
-}
-.lyric{
-    width:100%;
-    height: 55%;
-    overflow-y: scroll;
-    padding: 30px;
-    background-color:rgb(115, 0, 54);
+
+.ArtistContainer{
+    height:  85%;
+    background-color:rgb(15 15 15 / 32%);
     border-radius: 20px;
 }
 .second-right{
-    width: 20%;
+        width: 28%;
 }
 .similar{
   display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
-    margin-left: 20px;
-    margin-right: 20px;
+    justify-content: space-around;
+
+    width: 90%;
+    height: 100%;
 }
 .similar img{
       width: 150px;
       height: 145px;  
       padding:3px;
-      margin-left: 150px;
+     
       border-radius: 20px;        
 }
 .similar img:hover{
@@ -274,13 +277,17 @@ body {
     font-size: 14px;
   
 }
+/*
 
+music this code is music player design and it contains all components for the player module
+author -- @Thamim S
+*/ 
 .music-player {
   --primary-color: #ddd;
   --secondary-color: white;
   --green-color: #2d5;
   --padding: 1em;
-  background-color: rgb(36, 36, 36);
+  background-color: rgb(6 6 6);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -639,10 +646,111 @@ i:hover {
  }
 }
 
+/*
+This css is for artist profile details.
 
+*/
 
+ .ArtistCard{
 
+        border: none;
+        border-radius: 15px;
+        padding: 8px;
+        position: relative;
+        height: 370px;
+       }
 
+		.ArtistBanner{
+
+            height: 140px;
+
+       }
+
+       .ArtistBanner img{
+
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+
+       }
+       
+       .user{
+        position: relative;
+        text-align: center;
+       }
+
+       .ArtistProfile img{
+
+        object-fit: cover;
+        height: 80px;
+        width: 80px;
+        margin-top:2px;
+        border-radius: 50%;
+
+       
+       }
+
+       .ArtistProfile{
+
+        position: absolute;
+        top:-50px;
+        left: 38%;
+        height: 90px;
+        width: 90px;
+        border-radius: 50%;
+       }
+       
+       .artistDetail{
+       
+       text-align: center;
+           margin-top: 3rem;
+           
+       }
+
+		.artistName{
+		    font-size: 20px;
+		    color: white;
+		}
+		.textInAritst{
+		color: #6c757d;
+		}
+	
+	.socialLinks{
+
+		display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 15px;
+    }
+    
+    
+    /* Shimmer animation for loader*/
+    
+    .shimmer {
+  position: relative;
+  background: #3a3a3a;
+  background-image: linear-gradient(to right, #3a3a3a 0%, #3f3f3f 10%, #4a4a4a 20%, #3f3f3f 30%, #3a3a3a 50%, #3a3a3a 100%);
+  background-repeat: no-repeat;
+  background-size:100% 100%;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-fill-mode: forwards;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-name: shimmer;
+  -webkit-animation-timing-function: ease-in-out;
+}
+
+@-webkit-keyframes shimmer {
+  0% {
+    background-position: -400px 0;
+  }
+
+  100% {
+    background-position: 400px 0;
+  }
+}
 
     
     

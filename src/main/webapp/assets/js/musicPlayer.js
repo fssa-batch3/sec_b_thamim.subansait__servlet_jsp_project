@@ -116,6 +116,7 @@ async function fetchAndStoreTrackDetails() {
 		function createAndAppendImages() {
 		    // Get the div element with the class "similar"
 		    var divElement = document.querySelector('.similar');
+		    
 		
 		    if (divElement) {
 		        // Create an array of image URLs
@@ -127,6 +128,9 @@ async function fetchAndStoreTrackDetails() {
 		           	trackDetails[4].imageUrl
 		        ];
 		
+				if(document.querySelector(".similar").classList.contains("shimmer")){
+					document.querySelector(".similar").classList.remove("shimmer");
+				}
 		        // Loop through the image URLs and create img elements
 		        imageUrls.forEach(function(url) {
 		            var imgElement = document.createElement('img');
@@ -137,6 +141,7 @@ async function fetchAndStoreTrackDetails() {
 		            // Append the img element to the "similar" div
 		            divElement.appendChild(imgElement);
 		        });
+		        
 		    } else {
 		        console.log('Div element with class "similar" not found.');
 		    }
@@ -226,7 +231,10 @@ function findTrackIndexById(songId) {
           
     function updateProgress(e) {
       const { duration, currentTime} = e.srcElement
+      console.log(duration);
+      console.log(currentTime);
       const progressPercent = (currentTime / duration) * 100
+      console.log(progressPercent);
       progress.style.width = `${progressPercent}%`
       
       }
@@ -236,7 +244,9 @@ function findTrackIndexById(songId) {
 
     function setProgress(e) {
         const width = this.clientWidth;
+        console.log(width);
         const clickX = e.offsetX;
+        console.log(clickX);
         const duration = audio.duration;
         audio.currentTime = (clickX / width) * duration;
     }

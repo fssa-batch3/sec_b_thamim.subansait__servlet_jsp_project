@@ -161,7 +161,7 @@
   .then(data => {
 	  console.log(data);
 	  if(typeof data === 'string') { 
-      alert("Login failed: " + data);
+      alert("Login failed: " + "Invalid credentials");
     } else {
       console.log(data);
       const userId = data.data.id;
